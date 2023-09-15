@@ -6,7 +6,7 @@
 #    By: isalama <isalama@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 18:09:46 by isalama           #+#    #+#              #
-#    Updated: 2023/09/14 18:16:23 by isalama          ###   ########.fr        #
+#    Updated: 2023/09/14 22:20:56 by isalama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = cub3d
 SRC = cub3d.c helpers/helper_class.c helpers/get_next_line.c \
 	  helpers/parsing_class.c
 
-LIBFT = libft/strings_1.c libft/strings_2.c
+LIBFT = libft/strings_1.c libft/strings_2.c libft/strings_3.c \
+		libft/strings_4.c
 OBJ = $(SRC:.c=.o) $(LIBFT:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 COMPILER = cc

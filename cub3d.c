@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/14 18:16:46 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/15 20:34:16 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,18 @@ void    init_window(void)
 
 int main(int argc, char **argv)
 {
+    t_config    *config;
+
+    config = malloc(sizeof(t_config));
+    if (!config)
+        show_error("Error\nMalloc failed\n");
     if (argc != 2)
     {
         show_error("Error\nEnter a valid map file\n");
         return (1);
     }
     
-    parse_configs(argv[1]);
+    validate_map(argv[1], config);
     
     ft_putstr_fd("The game is running...\n", 1);
     
