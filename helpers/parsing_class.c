@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/15 20:43:12 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/15 21:00:18 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool parse_configs_helper(char *line, int mode){
 bool parse_colors(char *input, t_config *config, bool mode) {
     int i = 0;
     int count = 0;
+    char **rgb = NULL;
     char *colors = ft_strchr(input, ' ');
     if(colors){
         colors++;
@@ -36,9 +37,15 @@ bool parse_colors(char *input, t_config *config, bool mode) {
             if(colors[i] == ',') count++;
             if (count > 2) return (false);
             i++;
-        }  
-        char **rgb = ft_split(colors, ',');
+        }
+        rgb = ft_split(colors, ',');
         if(rgb){
+            i = 0;
+            while(rgb[i]){
+                if (!ft_isdigit(rgb[i][0]) || ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
+                    return (false);
+                i++;
+            }
             i = 0;
             while(rgb[i]){
                 if (mode)
@@ -47,7 +54,7 @@ bool parse_colors(char *input, t_config *config, bool mode) {
                     config->c[i] = ft_atoi(rgb[i]);
                 i++;
             }
-        }
+        } else return (false);
     }
     return (true);
 }
@@ -73,8 +80,7 @@ void parse_configs(int fd, t_config *config){
                 exit(1);
             }
             total_attrs++;
-        }
-        else {
+        } else {
             i = 0;
             found_map = false;
             while(line[i]){
