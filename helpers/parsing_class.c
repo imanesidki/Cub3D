@@ -6,20 +6,29 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/15 21:00:18 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/15 22:03:50 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-bool parse_configs_helper(char *line, int mode){
+bool parse_configs_helper(char *line, int mode, t_config *config){
     if(mode == 0){
-        printf("- ⏳ Checking textures directions    ---->  %s", line);
-        return (ft_strncmp(line, "NO", 2) || ft_strncmp(line, "SO", 2)|| 
-            ft_strncmp(line, "WE", 2) || ft_strncmp(line, "EA", 2));
+        if(ft_strncmp(line, "NO", 2)){
+            config->no_texture = ft_strdup(line);
+            return (true);
+        } else if(ft_strncmp(line, "SO", 2)){
+            config->so_texture = ft_strdup(line);
+            return (true);
+        } else if(ft_strncmp(line, "WE", 2)){
+            config->we_texture = ft_strdup(line);
+            return (true);
+        } else if(ft_strncmp(line, "EA", 2)){
+            config->ea_texture = ft_strdup(line);
+            return (true);
+        }
     }
     if(mode == 1){
-        printf("- ⏳ Checking textures extension     ---->  %s", line);
         return (!has_extension(line, ".xpm"));
     }
     return (false);
@@ -68,8 +77,8 @@ void parse_configs(int fd, t_config *config){
     total_attrs = 0;
     line = get_next_line(fd);
     while (line){
-        if (parse_configs_helper(line, 0)){
-            if (parse_configs_helper(line, 1)){
+        if (parse_configs_helper(line, 0, config)){
+            if (parse_configs_helper(line, 1, config)){
                 show_error("Error\nMap textures are not valid, invalid extension.\n");
                 exit(1);
             }
@@ -101,7 +110,6 @@ void parse_configs(int fd, t_config *config){
 }
 
 void parse_map(int fd){
-    // TODO: imane, you can parse the map here!
     close(fd);
 }
 
