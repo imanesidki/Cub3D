@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/16 20:50:01 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/16 22:14:38 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ char			**ft_split(char *s, char c);
 int				ft_atoi(char *str);
 bool			ft_isdigit(char c);
 char			*ft_strrchr(char *s, int c);
+bool			is_space(char str);
 
 //		---> get_next_line
 char			*get_next_line(int fd);
