@@ -6,17 +6,23 @@
 #    By: isalama <isalama@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 18:09:46 by isalama           #+#    #+#              #
-#    Updated: 2023/09/14 22:20:56 by isalama          ###   ########.fr        #
+#    Updated: 2023/09/16 20:43:14 by isalama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
-SRC = cub3d.c helpers/helper_class.c helpers/get_next_line.c \
-	  helpers/parsing_class.c
 
+# source code
+HELPERS = helpers/class_helper.c helpers/class_getline.c \
+	  	  helpers/class_parsing.c helpers/class_utils.c
+DRAWERS = drawers/mlx_window.c drawers/mlx_map.c drawers/mlx_player.c
 LIBFT = libft/strings_1.c libft/strings_2.c libft/strings_3.c \
 		libft/strings_4.c
-OBJ = $(SRC:.c=.o) $(LIBFT:.c=.o)
+		
+SRC = $(HELPERS) $(DRAWERS) $(LIBFT) cub3d.c
+		
+
+OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 COMPILER = cc
 

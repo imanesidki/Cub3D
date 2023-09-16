@@ -6,13 +6,13 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:19:39 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/15 19:28:05 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/16 20:54:47 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-bool   ft_isdigit(char c)
+bool	ft_isdigit(char c)
 {
     return (c >= '0' && c <= '9');
 }
@@ -59,14 +59,14 @@ int	ft_atoi(char *str)
 	return (process_result((char *)str, sign, i));
 }
 
-bool has_extension(char *filename, char *extension)
+bool	has_extension(char *filename, char *extension)
 {
-    int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = ft_strlen(filename) - 1;
 	j = ft_strlen(extension) - 1;
-	if(filename[i] == '\n')
+	if (filename[i] == '\n')
 		i--;
 	while (j >= 0)
 	{
