@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:19:39 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/16 22:14:28 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 22:49:28 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ bool	has_extension(char *filename, char *extension)
 	while (j >= 0)
 	{
 		if (filename[i] != extension[j]){
-			printf("- ❌ Parsing failed, affected line   ---->  %s\n", filename);
+			printf("- ❌ Parsing failed, affected line   ---->  [%s]\n", filename);
 			return (false);
 		}
 		i--;

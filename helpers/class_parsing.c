@@ -6,34 +6,33 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 16:03:58 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 23:01:33 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 bool parse_configs_helper(char *line, int mode, t_config *config){
+    char *trimmed;
+    
+    trimmed = ft_strdup(ft_strtrim(line + 2, " \t"));
     if(mode == 0){
         if(ft_strncmp(line, "NO", 2) && is_space(line[2])){
-            line += 2;
-            config->no_texture = ft_strdup(ft_strtrim(line, " "));
+            config->no_texture = trimmed;
             return (true);
         } else if(ft_strncmp(line, "SO", 2) && is_space(line[2])){
-            line += 2;
-            config->so_texture = ft_strdup(ft_strtrim(line, " "));
+            config->so_texture = trimmed;
             return (true);
         } else if(ft_strncmp(line, "WE", 2) && is_space(line[2])){
-            line += 2;
-            config->we_texture = ft_strdup(ft_strtrim(line, " "));
+            config->we_texture = trimmed;
             return (true);
         } else if(ft_strncmp(line, "EA", 2) && is_space(line[2])){
-            line += 2;
-            config->ea_texture = ft_strdup(ft_strtrim(line, " "));
+            config->ea_texture = trimmed;
             return (true);
         }
     }
     if(mode == 1){
-        return (!has_extension(line, ".xpm"));
+        return (!has_extension(trimmed, ".xpm"));
     }
     return (false);
 }
@@ -100,8 +99,9 @@ void parse_configs(int fd, t_config *config){
                 if (line[i] == '1' || line[i] == '0'){
                     found_map = true;
                 } else if (line[i] != ' '){
-                    found_map = true;
-                    total_attrs = 0;
+                    show_error("Error\nMap is not valid.\n--> Affected line: ");
+                    ft_putstr_fd(line, 1);
+                    exit(1);
                 }
                 i++;
             }
@@ -125,13 +125,13 @@ void parse_map(int fd){
 void validate_map(char *path, t_config *config){
     int fd;
 
-    if (!has_extension(path, ".cub")){
-        show_error("Error\nMap file is not valid, check the extension\n");
-        exit(1);
-    }
     fd = open(path, O_RDONLY);
     if (fd == -1){
         show_error("Error\nSpecified map doesn't exist, or doesn't have enough permissions.\n");
+        exit(1);
+    }
+    if (!has_extension(path, ".cub")){
+        show_error("Error\nMap file is not valid, check the extension [cub]\n");
         exit(1);
     }
     parse_configs(fd, config);
