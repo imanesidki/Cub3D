@@ -6,11 +6,43 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:22:06 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/17 21:57:02 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 23:33:16 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void    draw_direction_line(t_config *config){
+    double player_x = config->player.x;
+    double player_y = config->player.y;
+    double endX = player_x + 32 * cos(config->player.angle);
+    double endY = player_y + 32 * sin(config->player.angle);
+    
+    double deltaX = endX - player_x;
+    double deltaY = endY - player_y;
+    
+    double steps;
+    if (fabs(deltaX) >= fabs(deltaY))
+        steps = fabs(deltaX);
+    else
+        steps = fabs(deltaY);
+    
+    double Xinc = deltaX / steps;
+    double Yinc = deltaY / steps;
+    
+    double X = player_x;
+    double Y = player_y;
+
+    int i = 0;
+    while (i <= steps)
+    {
+        pixel_put(config, X, Y, to_hex(255, 255, 255));
+        X += Xinc;
+        Y += Yinc;
+        i++;
+    }
+
+}
 
 void	pixel_put(t_config *config, int x, int y, int color)
 {
@@ -43,14 +75,14 @@ void    draw_player(t_config *config, int x, int y, int color)
     int j;
     int size;
     
-    size = 32 / 2 + 10;
-    i = size - 10;
-    while (i < size)
+    size = 16 + 10;
+    i = x - 10;
+    while (i < x + 10)
     {
-        j = size - 10;
-        while (j < size)
+        j = y - 10;
+        while (j < y + 10)
         {
-            pixel_put(config, x + i, y + j, color);
+            pixel_put(config, i, j, color);
             j++;
         }
         i++;

@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 15:52:35 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 18:09:07 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,23 @@
 int main(int argc, char **argv)
 {
     t_config    *config;
-
+    
     config = malloc(sizeof(t_config));
-    config->map = malloc(sizeof(char *) * 5); // allocate memory for the map (5 lines)
+    config->map = malloc(sizeof(char *) * 11); // allocate memory for the map (5 lines)
         
     // this is an experimental map, will change when the map parsing is done
-    config->map[0] = "111111111";
-    config->map[1] = "1W0000001";
-    config->map[2] = "100010001";
-    config->map[3] = "100001001";
-    config->map[4] = "111111111";
-    config->map[5] = NULL;
+    config->map[0] = "1111111111111111111111";
+    config->map[1] = "1000000000000000000001";
+    config->map[2] = "1000000000W00000000001";
+    config->map[3] = "1000000000000000000001";
+    config->map[4] = "1000000100000000000001";
+    config->map[5] = "1000000000000000000001";
+    config->map[6] = "1000000000000000000001";
+    config->map[7] = "1000000001000000000001";
+    config->map[8] = "1000000000000000000001";
+    config->map[9] = "1000000000000000000001";
+    config->map[10] = "1111111111111111111111";
+    config->map[11] = NULL;
     
     config->player.up = false;
     config->player.down = false;
@@ -33,6 +39,7 @@ int main(int argc, char **argv)
     config->player.right = false;
     config->player.dir_left = false;
     config->player.dir_right = false;
+    config->player.angle = 90 * (M_PI / 180);
     
     if (argc != 2) {
         show_error("Error\nEnter a valid map file\n");

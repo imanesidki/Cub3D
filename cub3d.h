@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 15:48:04 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 17:56:58 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void			init_window(t_config *config);
 void			pixel_put(t_config *config, int x, int y, int color);
 void			draw_tiles(t_config *config, int x, int y, int color);
 void			draw_player(t_config *config, int x, int y, int color);
+void			draw_direction_line(t_config *config);
 
 //      ---> mlx_player
 int				handle_press(int keycode, t_config *config);
