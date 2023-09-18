@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/17 18:04:44 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 15:52:35 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int main(int argc, char **argv)
     
     { // this is just for testing purposes
         ft_putstr_fd("Captured configs:\n\n", 1);
-        printf("NO Texture: %s\n", config->no_texture);
-        printf("SO Texture: %s\n", config->so_texture);
-        printf("WE Texture: %s\n", config->we_texture);
-        printf("EA Texture: %s\n", config->ea_texture);
+        printf("NO Texture: [%s]\n", config->no_texture);
+        printf("SO Texture: [%s]\n", config->so_texture);
+        printf("WE Texture: [%s]\n", config->we_texture);
+        printf("EA Texture: [%s]\n", config->ea_texture);
         printf("Floor color: %d, %d, %d\n", config->f[0], config->f[1], config->f[2]);
         printf("Ceiling color: %d, %d, %d\n", config->c[0], config->c[1], config->c[2]);
     }

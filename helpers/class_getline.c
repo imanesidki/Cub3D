@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   class_getline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:21:41 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/14 18:11:53 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 15:46:07 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*get_single_line(char *working_string)
 	index = get_linebreak_position(working_string);
 	if (index == 0)
 		return (NULL);
-	return (ft_substr(working_string, 0, index));
+	return (ft_substr(working_string, 0, index - 1));
 }
 
 char	*get_the_rest(char *working_string)

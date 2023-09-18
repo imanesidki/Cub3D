@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/16 22:15:05 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 15:52:04 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,20 @@
 bool parse_configs_helper(char *line, int mode, t_config *config){
     if(mode == 0){
         if(ft_strncmp(line, "NO", 2) && is_space(line[2])){
-            config->no_texture = ft_strdup(line);
+            line += 2;
+            config->no_texture = ft_strdup(ft_strtrim(line, " "));
             return (true);
         } else if(ft_strncmp(line, "SO", 2) && is_space(line[2])){
-            config->so_texture = ft_strdup(line);
+            line += 2;
+            config->so_texture = ft_strdup(ft_strtrim(line, " "));
             return (true);
         } else if(ft_strncmp(line, "WE", 2) && is_space(line[2])){
-            config->we_texture = ft_strdup(line);
+            line += 2;
+            config->we_texture = ft_strdup(ft_strtrim(line, " "));
             return (true);
         } else if(ft_strncmp(line, "EA", 2) && is_space(line[2])){
-            config->ea_texture = ft_strdup(line);
+            line += 2;
+            config->ea_texture = ft_strdup(ft_strtrim(line, " "));
             return (true);
         }
     }
