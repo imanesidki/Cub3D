@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 15:52:04 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/18 16:03:58 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,12 @@ void parse_configs(int fd, t_config *config){
             i = 0;
             found_map = false;
             while(line[i]){
-                if (line[i] == '1' || line[i] == '0')
+                if (line[i] == '1' || line[i] == '0'){
                     found_map = true;
+                } else if (line[i] != ' '){
+                    found_map = true;
+                    total_attrs = 0;
+                }
                 i++;
             }
             if (found_map)
@@ -108,7 +112,8 @@ void parse_configs(int fd, t_config *config){
         line = get_next_line(fd);
     }
     if (total_attrs != 6){
-        show_error("Error\nMap attributes are not valid\n");
+        show_error("Error\nMap attributes are not valid.\n--> Affected line: ");
+        ft_putstr_fd(line, 1);
         exit(1);
     }
 }
