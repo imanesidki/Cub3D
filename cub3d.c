@@ -6,31 +6,11 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/16 20:59:42 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/17 18:04:44 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void    init_window(t_config *config)
-{
-    config->mlx = mlx_init();
-    config->win = mlx_new_window(config->mlx, 800, 400, "cub3d");
-    config->map_data.img = mlx_new_image(config->mlx, 800, 400);
-    config->map_data.addr = mlx_get_data_addr(config->map_data.img,
-    &config->map_data.bits_per_pixel, &config->map_data.line_length, &config->map_data.endian);
-    
-    update_map(config);
-    locate_player(config);
-    
-    draw_player(config, config->player.x, config->player.y, to_hex(205, 117, 255));
-    
-    mlx_hook(config->win, 2, 0, handle_press, config);
-    mlx_hook(config->win, 3, 0, key_release, config);
-    mlx_loop_hook(config->mlx, draw_minimap, config);
-    mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
-    mlx_loop(config->mlx);
-}
 
 int main(int argc, char **argv)
 {
@@ -51,6 +31,8 @@ int main(int argc, char **argv)
     config->player.down = false;
     config->player.left = false;
     config->player.right = false;
+    config->player.dir_left = false;
+    config->player.dir_right = false;
     
     if (argc != 2) {
         show_error("Error\nEnter a valid map file\n");

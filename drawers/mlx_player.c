@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/16 20:36:38 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/17 18:00:01 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,35 @@
 int handle_press(int keycode, t_config *config)
 {
     if (keycode == 0)
-    {
-        ft_putstr_fd("Moving left\n", 1);
         config->player.left = true;
-    }
     if (keycode == 2)
-    {
-        ft_putstr_fd("Moving right\n", 1);
         config->player.right = true;
-    }
     if (keycode == 13)
-    {
-        ft_putstr_fd("Moving up\n", 1);
         config->player.up = true;
-    }
     if (keycode == 1)
-    {
-        ft_putstr_fd("Moving down\n", 1);
         config->player.down = true;
-    }
+    if (keycode == 123)
+        config->player.dir_left = true;
+    if (keycode == 124)
+        config->player.dir_right = true;
     return 0;
 }
 
 int key_release(int keycode, t_config *config)
 {
     if (keycode == 0)
-    {
-        ft_putstr_fd("Stop moving left\n", 1);
         config->player.left = false;
-    }
     if (keycode == 2)
-    {
-        ft_putstr_fd("Stop moving right\n", 1);
         config->player.right = false;
-    }
     if (keycode == 13)
-    {
-        ft_putstr_fd("Stop moving up\n", 1);
         config->player.up = false;
-    }
     if (keycode == 1)
-    {
-        ft_putstr_fd("Stop moving down\n", 1);
         config->player.down = false;
-    }
+    if (keycode == 123)
+        config->player.dir_left = false;
+    if (keycode == 124)
+        config->player.dir_right = false;
+        
     return 0;
 }
 
@@ -74,7 +59,13 @@ void move_player(t_config *config)
         config->player.y -= 2;
 
     if (config->player.down)
-        config->player.y += 2;   
+        config->player.y += 2;
+        
+    if (config->player.dir_left)
+        config->player.angle -= 8;
+        
+    if (config->player.dir_right)
+        config->player.angle += 8;
 }
 
 void locate_player(t_config *config){

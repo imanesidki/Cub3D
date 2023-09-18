@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/16 20:37:38 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/17 18:06:46 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int draw_minimap(t_config *config){
     &config->map_data.bits_per_pixel, &config->map_data.line_length, &config->map_data.endian);
     move_player(config);
     update_map(config);
-    draw_player(config, config->player.x, config->player.y, to_hex(205, 117, 255));
+    draw_player(config, config->player.x, config->player.y, to_hex(255, 92, 92));
     mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
     return 0;
 }

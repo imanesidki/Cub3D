@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:22:06 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/16 19:29:11 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/17 21:57:02 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void    draw_player(t_config *config, int x, int y, int color)
     int j;
     int size;
     
-    size = 32 / 2 + 5;
-    i = 32 / 2 - 5;
+    size = 32 / 2 + 10;
+    i = size - 10;
     while (i < size)
     {
-        j = 32 / 2 - 5;
+        j = size - 10;
         while (j < size)
         {
             pixel_put(config, x + i, y + j, color);
@@ -55,4 +55,24 @@ void    draw_player(t_config *config, int x, int y, int color)
         }
         i++;
     }
+}
+
+void    init_window(t_config *config)
+{
+    config->mlx = mlx_init();
+    config->win = mlx_new_window(config->mlx, 800, 400, "cub3d");
+    config->map_data.img = mlx_new_image(config->mlx, 800, 400);
+    config->map_data.addr = mlx_get_data_addr(config->map_data.img,
+    &config->map_data.bits_per_pixel, &config->map_data.line_length, &config->map_data.endian);
+    
+    update_map(config);
+    locate_player(config);
+    
+    draw_player(config, config->player.x, config->player.y, to_hex(255, 92, 92));
+    
+    mlx_hook(config->win, 2, 0, handle_press, config);
+    mlx_hook(config->win, 3, 0, key_release, config);
+    mlx_loop_hook(config->mlx, draw_minimap, config);
+    mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
+    mlx_loop(config->mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/16 22:14:38 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/17 18:05:06 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ typedef struct s_player
 	bool		down;
 	bool		left;
 	bool		right;
+	bool		dir_left;
+	bool		dir_right;
+	double		angle;
 
 	int			x;
 	int			y;
@@ -99,6 +102,7 @@ unsigned int	to_hex(int r, int g, int b);
 
 // ---> drawers
 //      ---> mlx_window
+void			init_window(t_config *config);
 void			pixel_put(t_config *config, int x, int y, int color);
 void			draw_tiles(t_config *config, int x, int y, int color);
 void			draw_player(t_config *config, int x, int y, int color);
