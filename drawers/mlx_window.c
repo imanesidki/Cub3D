@@ -6,48 +6,15 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:22:06 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 23:33:16 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/19 22:22:25 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    draw_direction_line(t_config *config){
-    double player_x = config->player.x;
-    double player_y = config->player.y;
-    double endX = player_x + 32 * cos(config->player.angle);
-    double endY = player_y + 32 * sin(config->player.angle);
-    
-    double deltaX = endX - player_x;
-    double deltaY = endY - player_y;
-    
-    double steps;
-    if (fabs(deltaX) >= fabs(deltaY))
-        steps = fabs(deltaX);
-    else
-        steps = fabs(deltaY);
-    
-    double Xinc = deltaX / steps;
-    double Yinc = deltaY / steps;
-    
-    double X = player_x;
-    double Y = player_y;
-
-    int i = 0;
-    while (i <= steps)
-    {
-        pixel_put(config, X, Y, to_hex(255, 255, 255));
-        X += Xinc;
-        Y += Yinc;
-        i++;
-    }
-
-}
-
 void	pixel_put(t_config *config, int x, int y, int color)
 {
 	char	*dst;
-
 	dst = config->map_data.addr + (y * config->map_data.line_length + x * (config->map_data.bits_per_pixel / 8));
 	*(unsigned int*)dst = color;
 }
@@ -69,38 +36,36 @@ void    draw_tiles(t_config *config, int x, int y, int color)
         i++;
     }
 }
-void    draw_player(t_config *config, int x, int y, int color)
+void    draw_player(t_config *config, int size, int color)
 {
-    int i;
-    int j;
-    int size;
-    
-    size = 16 + 10;
-    i = x - 10;
-    while (i < x + 10)
+    int start_x;
+    int start_y;
+    start_y = config->player.y - size;
+    while (start_y < config->player.y + size)
     {
-        j = y - 10;
-        while (j < y + 10)
+        start_x = config->player.x - size;
+        while (start_x < config->player.x + size)
         {
-            pixel_put(config, i, j, color);
-            j++;
+            if (sqrt(pow(start_x - config->player.x, 2) + pow(start_y - config->player.y, 2)) <= size)
+                pixel_put(config, start_x, start_y, color);
+            start_x++;
         }
-        i++;
+        start_y++;
     }
 }
 
 void    init_window(t_config *config)
 {
     config->mlx = mlx_init();
-    config->win = mlx_new_window(config->mlx, 800, 400, "cub3d");
-    config->map_data.img = mlx_new_image(config->mlx, 800, 400);
+    config->win = mlx_new_window(config->mlx, WIDTH, HEIGHT, "cub3d");
+    config->map_data.img = mlx_new_image(config->mlx, WIDTH, HEIGHT);
     config->map_data.addr = mlx_get_data_addr(config->map_data.img,
     &config->map_data.bits_per_pixel, &config->map_data.line_length, &config->map_data.endian);
     
-    update_map(config);
-    locate_player(config);
+    draw_map(config);
     
-    draw_player(config, config->player.x, config->player.y, to_hex(255, 92, 92));
+    locate_player(config);
+    draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
     
     mlx_hook(config->win, 2, 0, handle_press, config);
     mlx_hook(config->win, 3, 0, key_release, config);

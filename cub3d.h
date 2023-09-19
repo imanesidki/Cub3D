@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/19 05:33:36 by isidki           ###   ########.fr       */
+/*   Updated: 2023/09/19 22:24:12 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,24 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
+
+
+#define A_KEY 0
+#define D_KEY 2
+#define W_KEY 13
+#define S_KEY 1
+#define LEFT_ARROW 123
+#define RIGHT_ARROW 124
+#define ESC 53
+
+
+#define VIEW_RANGE 60
+#define HEIGHT 720
+#define WIDTH 1080
+#define ROTATION_SPEED 10
+#define PLAYER_SPEED 3
+#define PLAYER_SIZE 10
+
 
 // ---> START STRUCTURE
 typedef struct s_map_data
@@ -45,8 +63,8 @@ typedef struct s_player
 	bool		dir_right;
 	double		angle;
 
-	int			x;
-	int			y;
+	double			x;
+	double			y;
 }	t_player;
 
 typedef struct s_config
@@ -111,8 +129,8 @@ void			print_map(t_config config);
 void			init_window(t_config *config);
 void			pixel_put(t_config *config, int x, int y, int color);
 void			draw_tiles(t_config *config, int x, int y, int color);
-void			draw_player(t_config *config, int x, int y, int color);
-void			draw_direction_line(t_config *config);
+void			draw_player(t_config *config, int size, int color);
+void			draw_direction_line(t_config *config, double angle);
 
 //      ---> mlx_player
 int				handle_press(int keycode, t_config *config);
@@ -121,7 +139,7 @@ void			move_player(t_config *config);
 void			locate_player(t_config *config);
 
 //      ---> mlx_map
-void			update_map(t_config *config);
+void			draw_map(t_config *config);
 int				draw_minimap(t_config *config);
 
 #endif
