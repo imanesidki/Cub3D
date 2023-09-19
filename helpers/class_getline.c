@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   class_getline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:21:41 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/19 03:25:10 by isidki           ###   ########.fr       */
+/*   Updated: 2023/09/19 18:34:31 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-# include <stdlib.h>
-# include <unistd.h>
 
 int	gnl_strlen(const char *str)
 {

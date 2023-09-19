@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   class_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/19 05:34:57 by isidki           ###   ########.fr       */
+/*   Updated: 2023/09/19 18:35:31 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ char *parse_configs(int fd, t_config *config){
             }
             total_attrs++;
         }
-		else {
+		else
+		{
             i = 0;
             found_map = false;
             while(line[i]){
@@ -147,7 +148,6 @@ void	check_chars_map(char *line)
 			&& line[i] != 'W' && line[i] != ' ' && line[i] != '\t')
 		{  
 			//free map
-			
 			show_error("Error!\ninvalid character in map\n");
 			exit(1);
 		}
