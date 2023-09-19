@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 17:56:58 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/19 05:33:36 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ typedef struct s_config
 	int			f[3];
 	int			c[3];
 	char		**map;
-
+	int			map_width;
+	int			map_height;
 	void		*mlx;
 	void		*win;
 }	t_config;
@@ -96,10 +97,14 @@ void			show_error(char *str);
 bool			has_extension(char *filename, char *extension);
 
 //      ---> parsers
+void			check_chars_map(char *line);
+int				find_longuest_line(int fd);
+char			*find_start_map(int fd);
 void			validate_map(char *str, t_config *config);
 
 //      ---> utils
 unsigned int	to_hex(int r, int g, int b);
+void			print_map(t_config config);
 
 // ---> drawers
 //      ---> mlx_window

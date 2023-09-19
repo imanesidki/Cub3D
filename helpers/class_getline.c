@@ -3,84 +3,125 @@
 /*                                                        :::      ::::::::   */
 /*   class_getline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:21:41 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 15:46:07 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/19 03:25:10 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+# include <stdlib.h>
+# include <unistd.h>
 
-int	get_linebreak_position(char *working_string)
+int	gnl_strlen(const char *str)
 {
-	int	index;
+	int	l;
 
-	index = 0;
-	if (!working_string)
-		return (0);
-	while (working_string[index] != '\0' && working_string[index] != '\n')
-		index++;
-	if (working_string[index] == '\n')
-		index++;
-	return (index);
+	l = 0;
+	while (str[l])
+		l++;
+	return (l);
 }
 
-char	*read_file_into(char *working_string, int fd)
+int	ft_new_line(const char *str)
 {
-	char	*buffer;
-	int		read_size;
-
-	read_size = 1;
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
-		return (NULL);
-	while (read_size != 0)
-	{
-		if (ft_strchr(working_string, '\n'))
-			break ;
-		read_size = read(fd, buffer, BUFFER_SIZE);
-		if (read_size == -1)
-			return (free(working_string), free(buffer), NULL);
-		buffer[read_size] = '\0';
-		working_string = ft_strjoin(working_string, buffer);
-	}
-	free (buffer);
-	return (working_string);
+	while (str && *str && str++)
+		if (*str == '\n')
+			return (0);
+	return (1);
 }
 
-char	*get_single_line(char *working_string)
+char	*gnl_strjoin(char *s1, char *s2)
 {
-	int	index;
-
-	index = get_linebreak_position(working_string);
-	if (index == 0)
-		return (NULL);
-	return (ft_substr(working_string, 0, index - 1));
-}
-
-char	*get_the_rest(char *working_string)
-{
-	int		index;
+	int		i;
+	int		j;
+	int		l;
 	char	*str;
 
-	index = get_linebreak_position(working_string);
-	if (index == 0)
+	if (!s1)
+	{
+		s1 = (char *)malloc(1);
+		*s1 = 0;
+	}
+	l = gnl_strlen(s1) + gnl_strlen(s2);
+	str = (char *)malloc(l + 1);
+	if (!str)
 		return (NULL);
-	str = ft_substr(working_string, index, ft_strlen(working_string));
-	free(working_string);
-	return (str);
+	i = -1;
+	while (s1[++i])
+		str[i] = s1[i];
+	j = -1;
+	while (s2[++j])
+		str[i + j] = s2[j];
+	str[l] = 0;
+	return (free(s1), str);
+}
+static char	*rtn_l(char	*ln)
+{
+	int		i;
+	char	*l;
+
+	if (!*ln)
+		return (NULL);
+	i = 0;
+	while (ln[i] && ln[i] != '\n')
+		i++;
+	if (ln[i] == '\0')
+		l = (char *)malloc(i + 1);
+	else
+		l = (char *)malloc(i + 2);
+	i = -1;
+	while (ln[++i] && ln[i] != '\n')
+		l[i] = ln[i];
+	// if (ln[i] == '\n')
+	// 	l[i++] = '\n';
+	l[i] = 0;
+	return (l);
+}
+
+static char	*rtn_p(char	*pos)
+{
+	int		i;
+	int		j;
+	char	*p;
+
+	i = 0;
+	while (pos[i] && pos[i] != '\n')
+		i++;
+	if (!pos[i])
+		return (free(pos), NULL);
+	p = (char *)malloc(gnl_strlen(pos) - i + 1);
+	if (!p)
+		return (NULL);
+	j = 0;
+	while (pos[++i])
+		p[j++] = pos[i];
+	p[j] = 0;
+	return (free(pos), p);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*working_string;
-	char		*single_line;
+	int			rd;
+	char		*line;
+	char		*buffer;
+	static char	*position;
 
-	if (fd < 0 	|| BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	working_string = read_file_into(working_string, fd);
-	single_line = get_single_line(working_string);
-	working_string = get_the_rest(working_string);
-	return (single_line);
+	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	rd = 1;
+	while (ft_new_line(position) && rd)
+	{
+		rd = read(fd, buffer, BUFFER_SIZE);
+		if (rd == -1)
+			return (free(buffer), NULL);
+		buffer[rd] = 0;
+		position = gnl_strjoin(position, buffer);
+	}
+	line = rtn_l(position);
+	return (position = rtn_p(position), free(buffer), line);
 }
