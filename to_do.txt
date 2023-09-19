@@ -1,0 +1,8 @@
+TODO:
+- release a ray out of the player to check for walls distance
+- rotate the player depending on the directions keys
+
+
+TOFIX:
+- skip spaces and tabs after directions keywords
+- handle invalid characters expect the config keywords (e.g.: NO ... jj WE ...)
