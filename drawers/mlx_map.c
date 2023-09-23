@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/19 22:32:34 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/23 17:55:20 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void draw_map(t_config *config)
         while(config->map[i][j]){
             if(config->map[i][j] == '1')
                 draw_tiles(config, j * 32, i * 32, to_hex(config->c[0], config->c[1], config->c[2]));
-            else
+            else if(config->map[i][j] == '0')
                 draw_tiles(config, j * 32, i * 32, to_hex(config->f[0], config->f[1], config->f[2]));
             j++;
         }
@@ -73,6 +73,7 @@ int draw_minimap(t_config *config){
     double increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
     double angle = config->player.angle - (VIEW_RANGE * M_PI / 180) / 2;
     while(angle < config->player.angle + (VIEW_RANGE * M_PI / 180) / 2) {
+        
         draw_direction_line(config, angle);
         angle += increment;
     }
