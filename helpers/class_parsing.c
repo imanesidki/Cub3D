@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/19 18:35:31 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/23 17:54:08 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,39 @@ void calculate_longest_line(int fd, char *line, t_config *config)
 	config->map_height = j;
 }
 
+void	check_map_surroundings(t_config *config){
+	int i;
+	int j;
+
+	i = 0;
+	while (i < config->map_height)
+	{
+		j = 0;
+		while (j < config->map_width)
+		{
+			if(config->map[i][j] != '1' && config->map[i][j] != 'x'){
+				if((i - 1 < 0 || i + 1 >= config->map_height) || j - 1 < 0 || j + 1 >= config->map_width){
+					printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
+					exit(1);
+				}
+				if (config->map[i + 1][j] == 'x' || config->map[i - 1][j] == 'x' || config->map[i][j + 1] == 'x' || config->map[i][j - 1] == 'x')
+				{
+					printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
+					exit(1);
+				}
+			}
+
+			j++;
+		}
+		i++;
+	}
+	if (config->player.x == -1 || config->player.y == -1)
+	{
+		show_error("Error\nMap is not valid, it doesn't have a player.\n");
+		exit(1);
+	}
+}
+
 void	validate_map(char *path, t_config *config)
 {
 	int	fd;
@@ -249,7 +282,8 @@ void	validate_map(char *path, t_config *config)
 	lin = ft_strdup(line);
 	calculate_longest_line(fd, lin, config);
 	parse_map(line, path, config);
-	// print_map(*config);
+	check_map_surroundings(config);
+	print_map(*config);
 }
 
 void	print_map(t_config config)
