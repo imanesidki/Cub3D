@@ -1,8 +1,13 @@
 TODO:
 - release a ray out of the player to check for walls distance
 - rotate the player depending on the directions keys
-
+- if there is no player -> error and exit
+- protect empty map file (segfault)
 
 TOFIX:
 - skip spaces and tabs after directions keywords
 - handle invalid characters expect the config keywords (e.g.: NO ... jj WE ...)
+- IMP: setting a short line in the first line of the map, runs the map generator once.
+        > check: #0 0x103ca98da in ft_strdup_line class_parsing.c:185
+                 #1 0x103ca9c9f in parse_map class_parsing.c:220
+                 #2 0x103caa955 in validate_map class_parsing.c:299
