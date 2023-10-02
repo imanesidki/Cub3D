@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/19 22:24:12 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/01 23:09:25 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 #  define BUFFER_SIZE 5
 # endif
 
-
 #define A_KEY 0
 #define D_KEY 2
 #define W_KEY 13
@@ -34,14 +33,12 @@
 #define RIGHT_ARROW 124
 #define ESC 53
 
-
 #define VIEW_RANGE 60
 #define HEIGHT 720
 #define WIDTH 1080
 #define ROTATION_SPEED 10
 #define PLAYER_SPEED 3
 #define PLAYER_SIZE 10
-
 
 // ---> START STRUCTURE
 typedef struct s_map_data
@@ -102,12 +99,11 @@ char			**ft_split(char *s, char c);
 int				ft_atoi(char *str);
 bool			ft_isdigit(char c);
 char			*ft_strrchr(char *s, int c);
-bool			is_space(char str);
+bool			is_space(char c);
 char			*ft_strtrim(char *s1, char *set);
 
 //		---> get_next_line
 char			*get_next_line(int fd);
-char			*get_next_line_utils(int fd);
 
 // ---> helpers
 //		---> strings
@@ -116,8 +112,6 @@ bool			has_extension(char *filename, char *extension);
 
 //      ---> parsers
 void			check_chars_map(char *line);
-int				find_longuest_line(int fd);
-char			*find_start_map(int fd);
 void			validate_map(char *str, t_config *config);
 
 //      ---> utils

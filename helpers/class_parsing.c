@@ -3,48 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   class_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/23 17:54:08 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/01 22:52:53 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-bool parse_configs_helper(char *line, int mode, t_config *config){
+bool parse_configs_helper(char *line, int mode, t_config *config)
+{
     char *trimmed;
-    
-    trimmed = ft_strdup(ft_strtrim(line + 2, " \t"));
-    if(mode == 0){
-        if(ft_strncmp(line, "NO", 2) && is_space(line[2]))
-		{
-            config->no_texture = trimmed;
-            return (true);
-        }
-		if(ft_strncmp(line, "SO", 2) && is_space(line[2]))
-		{
-            config->so_texture = trimmed;
-            return (true);
-        }
-		if(ft_strncmp(line, "WE", 2) && is_space(line[2]))
-		{
-            config->we_texture = trimmed;
-            return (true);
-        }
-		if(ft_strncmp(line, "EA", 2) && is_space(line[2]))
-		{
-            config->ea_texture = trimmed;
-            return (true);
-        }
-    }
-    if(mode == 1){
-        return (!has_extension(trimmed, ".xpm"));
-    }
+
+    if (line && line[0])
+	{
+	    trimmed = ft_strdup(ft_strtrim(line + 2, " \t"));
+	    if(mode == 0){
+	        if(ft_strncmp(line, "NO", 2) && is_space(line[2]))
+			{
+	            config->no_texture = trimmed;
+	            return (true);
+	        }
+			if(ft_strncmp(line, "SO", 2) && is_space(line[2]))
+			{
+	            config->so_texture = trimmed;
+	            return (true);
+	        }
+			if(ft_strncmp(line, "WE", 2) && is_space(line[2]))
+			{
+	            config->we_texture = trimmed;
+	            return (true);
+	        }
+			if(ft_strncmp(line, "EA", 2) && is_space(line[2]))
+			{
+	            config->ea_texture = trimmed;
+	            return (true);
+	        }
+	    }
+	    if(mode == 1){
+	        return (!has_extension(trimmed, ".xpm"));
+	    }		
+	}
     return (false);
 }
 
-bool parse_colors(char *input, t_config *config, bool mode) {
+bool parse_colors(char *input, t_config *config, bool mode)
+{
 	int i = 0;
 	int count = 0;
 	char **rgb = NULL;
@@ -110,7 +115,7 @@ char *parse_configs(int fd, t_config *config){
 		{
             i = 0;
             found_map = false;
-            while(line[i]){
+            while(line && line[i]){
                 if (line[i] == '1' || line[i] == '0'){
                     found_map = true;
                 } else if (line[i] != ' '){
@@ -126,7 +131,8 @@ char *parse_configs(int fd, t_config *config){
         free(line);
         line = get_next_line(fd);
     }
-    if (total_attrs != 6){
+    if (total_attrs != 6)
+	{
         show_error("Error\nMap attributes are not valid.\n--> Affected line: ");
         ft_putstr_fd(line, 1);
         exit(1);
@@ -164,6 +170,16 @@ char *ft_strdup_line(char *line, int len)
 	allocation = malloc(len + 1);
 	if (!allocation)
 		return (NULL);
+	
+	int w = 0;
+	while(line[w]){
+		// printf("%c", line[w]);
+		w++;
+	}
+	// printf("%s", "\n");
+	static int po;
+	printf("po=%d\nlen of len: %d\nlen of line: %d\n", po, len, ft_strlen(line));
+	po++;
 	while (i < len)
 	{
 		if (is_space(line[i]) || i >= ft_strlen(line))
@@ -193,7 +209,8 @@ void	parse_map(char *line1, char*path, t_config *co)
 		if (ft_strcmp(line, line1))
 			break ;
 		free(line);
-		line = get_next_line(fd);			
+		line = get_next_line(fd);
+		// printf("%s\n", line);
 	}
 	co->map = (char **)malloc(sizeof(char *) * (co->map_height + 1));
 	i = 0;
@@ -201,6 +218,7 @@ void	parse_map(char *line1, char*path, t_config *co)
 	{
 		check_chars_map(line);
 		co->map[i++] = ft_strdup_line(line, co->map_width);
+		// printf("%s\n", line);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -240,24 +258,21 @@ void	check_map_surroundings(t_config *config){
 		j = 0;
 		while (j < config->map_width)
 		{
-			if(config->map[i][j] != '1' && config->map[i][j] != 'x'){
+			if(config->map[i][j] != '1' && config->map[i][j] != 'x') {
 				if((i - 1 < 0 || i + 1 >= config->map_height) || j - 1 < 0 || j + 1 >= config->map_width){
 					printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
 					exit(1);
 				}
-				if (config->map[i + 1][j] == 'x' || config->map[i - 1][j] == 'x' || config->map[i][j + 1] == 'x' || config->map[i][j - 1] == 'x')
-				{
+				if (config->map[i + 1][j] == 'x' || config->map[i - 1][j] == 'x' || config->map[i][j + 1] == 'x' || config->map[i][j - 1] == 'x') {
 					printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
 					exit(1);
 				}
 			}
-
 			j++;
 		}
 		i++;
 	}
-	if (config->player.x == -1 || config->player.y == -1)
-	{
+	if (config->player.x == -1 || config->player.y == -1){
 		show_error("Error\nMap is not valid, it doesn't have a player.\n");
 		exit(1);
 	}
@@ -283,7 +298,7 @@ void	validate_map(char *path, t_config *config)
 	calculate_longest_line(fd, lin, config);
 	parse_map(line, path, config);
 	check_map_surroundings(config);
-	print_map(*config);
+	//print_map(*config);
 }
 
 void	print_map(t_config config)

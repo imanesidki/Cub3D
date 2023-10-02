@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:23:16 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/15 19:18:31 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:13:26 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void ft_putstr_fd(char *str, int fd)
     int i;
 
     i = 0;
+    if(!str)
+        return;
     while (str[i])
         write(fd, &str[i++], 1);
 }
@@ -26,13 +28,13 @@ bool ft_strcmp(char *s1, char *s2)
     int i;
 
     i = 0;
-    while (s1[i] && s2[i])
+    while (s1 && s2 && s1[i] && s2[i])
     {
         if (s1[i] != s2[i])
             return (false);
         i++;
     }
-    if (s1[i] != s2[i])
+    if (s1 && s2 && s1[i] != s2[i])
         return (false);
     return (true);
 }

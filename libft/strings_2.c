@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:23:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/14 18:15:09 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:11:24 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strdup(char *s1)
 	allocation = malloc(ft_strlen(s1) + 1);
 	if (!allocation)
 		return (NULL);
-	while (s1[i] != '\0')
+	while (s1 && s1[i] != '\0')
 	{
 		allocation[i] = s1[i];
 		i++;

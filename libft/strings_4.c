@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:19:39 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 22:49:28 by isalama          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:24:52 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static int	process_result(char *str, int sign, int position)
 	unsigned long	result;
 
 	result = 0;
+	if (!str)
+		return (0);
 	while (ft_isdigit(str[position]))
 	{
 		result *= 10;
@@ -31,16 +33,18 @@ static int	process_result(char *str, int sign, int position)
 	return (result * sign);
 }
 
-bool	is_space(char str)
+bool	is_space(char c)
 {
-	if (str)
-		return (str == 32 || (str >= 9 && str <= 13));
+	if (c)
+		return (c == 32 || (c >= 9 && c <= 13));
 	return (false);
 }
 
 static int	has_sign(char str)
 {
-	return (str == '-' || str == '+');
+	if (str)
+		return (str == '-' || str == '+');
+	return (false);
 }
 
 int	ft_atoi(char *str)
