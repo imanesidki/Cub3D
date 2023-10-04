@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/04 13:59:12 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/04 17:13:26 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
     if (argc != 2)
         ft_exit(config, 0);
     if(!config)
-        exit(1);
+        ft_exit(config, 5);
     init_variables(config);
     init_variables_rest(config);
     validate_map(argv[1], config);

@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/04 13:59:20 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:58:49 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,20 @@ void read_file(char *path, t_config *config)
 	int map_size;
 	int fd;
 	int i;
+	char *line;
 	
 	i = 0;
 	map_size = 0;
 	fd = open(path, O_RDONLY);
 	if(fd == -1)
 		exit(1);
-	while(get_next_line(fd))
+	line = get_next_line(fd);
+	while(line)
+	{
+		free(line);
 		map_size++;
+		line = get_next_line(fd);
+	}
 	close(fd);
 	config->map_clone = malloc((map_size + 1) * sizeof(char *));
 	if(!config->map_clone)
@@ -33,7 +39,7 @@ void read_file(char *path, t_config *config)
 	
 	fd = open(path, O_RDONLY);
 	if(fd == -1)
-		exit(5);
+		ft_exit(config, 0);
 	while(map_size){
 		config->map_clone[i] = get_next_line(fd);
 		map_size--;
@@ -44,7 +50,7 @@ void read_file(char *path, t_config *config)
 
 bool is_rgb_valid(char *str, int *color, t_config *config){
 	if(!str || ft_strlen(str) < 5)
-		return (false);
+		return (free(str), false);
 	
 	int i = 0;
 	int j = 0;
@@ -54,22 +60,25 @@ bool is_rgb_valid(char *str, int *color, t_config *config){
 		i++;
 	}
 	if(j != 2)
-		return (false);
+		return (free(str),false);
 	config->colors = ft_split(str, ',');
 	if(!config->colors)
-		return false;
+		return (free(str), false);
 	i = 0;
+	bool is_valid = true;
 	while(config->colors[i] && i < 3){
 		if(ft_atoi_rgb(config->colors[i]) < 0 || ft_atoi_rgb(config->colors[i]) > 255){
-			return false;
+			is_valid = false;
 		}
 		color[i] = ft_atoi_rgb(config->colors[i]);
 		i++;
 	}
-	if(config->colors[i] || i != 3)
-		return false;
-		
-	return true;
+	if(is_valid && (config->colors[i] || i != 3))
+		is_valid = false;
+	
+	free_tab(config->colors);
+	free(str);
+	return is_valid;
 }
 
 bool validate_attrs(char *line){
@@ -112,23 +121,23 @@ void parse_map_attrs(t_config *config){
 			}
 			else if(ft_strncmp(config->map_clone[i], "F ", 2)){
 				if(!is_rgb_valid(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2), config->f, config))
-					ft_exit(config, 11);
+					ft_exit(config, 1);
 			}
 			else if(ft_strncmp(config->map_clone[i], "C ", 2)){
 				if(!is_rgb_valid(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2), config->c, config))
-					ft_exit(config, 11);
+					ft_exit(config, 1);
 			}
 		}
 		i++;
 	}
 	config->map_start = i;
 	if(!config->no_texture || !config->so_texture || !config->ea_texture || !config->we_texture)
-		ft_exit(config, 66);
+		ft_exit(config, 1);
 	i = 0;
     while (i < 3)
     {
         if(config->f[i] == -1 || config->c[i] == -1)
-			ft_exit(config, 99);
+			ft_exit(config, 1);
 		i++;
     }
 }
@@ -203,6 +212,7 @@ void fill_map(t_config *config)
 		i2++;
 		i++;
 	}
+	free_tab(config->map_clone);
 }
 
 void check_surroundings(t_config *config)

@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/04 14:24:30 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/04 16:36:52 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,8 @@ typedef struct s_config
 }	t_config;
 
 /// 
-typedef struct s_ray{
+typedef struct s_ray
+{
 
 	double		horizontal_distance;
 	double		vertical_distance;
@@ -99,7 +100,7 @@ typedef struct s_ray{
 	double		h_point_hit_x;
 	double		ray_angle;
 
-}t_ray;
+}	t_ray;
 
 // ---> START FUNCTIONS
 //		---> libft
@@ -134,6 +135,8 @@ void			validate_map(char *str, t_config *config);
 
 //      ---> utils
 unsigned int	to_hex(int r, int g, int b);
+void			free_tab(char **tab);
+void			free_config_struct(t_config *config);
 void			print_map(t_config config);
 
 // ---> drawers
