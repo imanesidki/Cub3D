@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/04 12:01:23 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/04 14:24:30 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,18 @@ typedef struct s_config
 	int			map_end;
 }	t_config;
 
+/// 
+typedef struct s_ray{
+
+	double		horizontal_distance;
+	double		vertical_distance;
+	double		v_point_hit_x;
+	double		v_point_hit_y;
+	double		h_point_hit_y;
+	double		h_point_hit_x;
+	double		ray_angle;
+
+}t_ray;
 
 // ---> START FUNCTIONS
 //		---> libft
@@ -130,7 +142,7 @@ void			init_window(t_config *config);
 void			pixel_put(t_config *config, int x, int y, int color);
 void			draw_tiles(t_config *config, int x, int y, int color);
 void			draw_player(t_config *config, int size, int color);
-void			draw_direction_line(t_config *config, double angle);
+void			draw_direction_line(t_config *config, double angle, double distance);
 
 //      ---> mlx_player
 int				handle_press(int keycode, t_config *config);
