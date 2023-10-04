@@ -7,7 +7,8 @@ TODO:
 TOFIX:
 - skip spaces and tabs after directions keywords
 - handle invalid characters expect the config keywords (e.g.: NO ... jj WE ...)
-- IMP: setting a short line in the first line of the map, runs the map generator once.
-        > check: #0 0x103ca98da in ft_strdup_line class_parsing.c:185
-                 #1 0x103ca9c9f in parse_map class_parsing.c:220
-                 #2 0x103caa955 in validate_map class_parsing.c:299
+
+
+LEAKS:
+- Map needs to be freed (optional)
+- Textures variables need to be freed
