@@ -3,313 +3,252 @@
 /*                                                        :::      ::::::::   */
 /*   class_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/01 22:52:53 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/04 13:59:20 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-bool parse_configs_helper(char *line, int mode, t_config *config)
+void read_file(char *path, t_config *config)
 {
-    char *trimmed;
-
-    if (line && line[0])
-	{
-	    trimmed = ft_strdup(ft_strtrim(line + 2, " \t"));
-	    if(mode == 0){
-	        if(ft_strncmp(line, "NO", 2) && is_space(line[2]))
-			{
-	            config->no_texture = trimmed;
-	            return (true);
-	        }
-			if(ft_strncmp(line, "SO", 2) && is_space(line[2]))
-			{
-	            config->so_texture = trimmed;
-	            return (true);
-	        }
-			if(ft_strncmp(line, "WE", 2) && is_space(line[2]))
-			{
-	            config->we_texture = trimmed;
-	            return (true);
-	        }
-			if(ft_strncmp(line, "EA", 2) && is_space(line[2]))
-			{
-	            config->ea_texture = trimmed;
-	            return (true);
-	        }
-	    }
-	    if(mode == 1){
-	        return (!has_extension(trimmed, ".xpm"));
-	    }		
+	int map_size;
+	int fd;
+	int i;
+	
+	i = 0;
+	map_size = 0;
+	fd = open(path, O_RDONLY);
+	if(fd == -1)
+		exit(1);
+	while(get_next_line(fd))
+		map_size++;
+	close(fd);
+	config->map_clone = malloc((map_size + 1) * sizeof(char *));
+	if(!config->map_clone)
+		exit(1);
+	config->map_clone[map_size] = NULL;
+	
+	fd = open(path, O_RDONLY);
+	if(fd == -1)
+		exit(5);
+	while(map_size){
+		config->map_clone[i] = get_next_line(fd);
+		map_size--;
+		i++;
 	}
-    return (false);
+	close(fd);
 }
 
-bool parse_colors(char *input, t_config *config, bool mode)
+bool is_rgb_valid(char *str, int *color, t_config *config){
+	if(!str || ft_strlen(str) < 5)
+		return (false);
+	
+	int i = 0;
+	int j = 0;
+	while(str[i]){
+		if(str[i] == ',')
+			j++;	
+		i++;
+	}
+	if(j != 2)
+		return (false);
+	config->colors = ft_split(str, ',');
+	if(!config->colors)
+		return false;
+	i = 0;
+	while(config->colors[i] && i < 3){
+		if(ft_atoi_rgb(config->colors[i]) < 0 || ft_atoi_rgb(config->colors[i]) > 255){
+			return false;
+		}
+		color[i] = ft_atoi_rgb(config->colors[i]);
+		i++;
+	}
+	if(config->colors[i] || i != 3)
+		return false;
+		
+	return true;
+}
+
+bool validate_attrs(char *line){
+	return !(ft_strlen(line) > 0 && line[0] != 'N' && line[0] != 'W' &&
+			line[0] != 'S' && line[0] != 'E' && line[0] != 'C' && line[0] != 'F');
+}
+
+void parse_map_attrs(t_config *config){
+	int i = 0;
+
+	while(config->map_clone[i] && validate_attrs(config->map_clone[i])){
+		if (ft_strlen(config->map_clone[i]) > 3){
+			if(ft_strncmp(config->map_clone[i], "NO ", 3)){
+				if(config->no_texture)
+					ft_exit(config, 1);
+				config->no_texture = ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3);
+				if(!config->no_texture)
+					ft_exit(config, 1);
+			}
+			else if(ft_strncmp(config->map_clone[i], "SO ", 3)){
+				if(config->so_texture)
+					ft_exit(config, 1);
+				config->so_texture = ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3);
+				if(!config->so_texture)
+					ft_exit(config, 1);
+			}
+			else if(ft_strncmp(config->map_clone[i], "EA ", 3)){
+				if(config->ea_texture)
+					ft_exit(config, 1);
+				config->ea_texture = ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3);
+				if(!config->ea_texture)
+					ft_exit(config, 1);
+			}
+			else if(ft_strncmp(config->map_clone[i], "WE ", 3)){
+				if(config->we_texture)
+					ft_exit(config, 1);
+				config->we_texture = ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3);
+				if(!config->we_texture)
+					ft_exit(config, 1);
+			}
+			else if(ft_strncmp(config->map_clone[i], "F ", 2)){
+				if(!is_rgb_valid(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2), config->f, config))
+					ft_exit(config, 11);
+			}
+			else if(ft_strncmp(config->map_clone[i], "C ", 2)){
+				if(!is_rgb_valid(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2), config->c, config))
+					ft_exit(config, 11);
+			}
+		}
+		i++;
+	}
+	config->map_start = i;
+	if(!config->no_texture || !config->so_texture || !config->ea_texture || !config->we_texture)
+		ft_exit(config, 66);
+	i = 0;
+    while (i < 3)
+    {
+        if(config->f[i] == -1 || config->c[i] == -1)
+			ft_exit(config, 99);
+		i++;
+    }
+}
+
+void parse_map(t_config *config){
+	int i = config->map_start;
+	int players_size = 0;
+	int j;
+	
+	while(config->map_clone[i])
+	{
+		if(config->map_clone[i][0] == '\0')
+			ft_exit(config, 0);
+		j = 0;
+		while(config->map_clone[i][j])
+		{
+			if(config->map_clone[i][j] != 'N' && config->map_clone[i][j] != 'W' && config->map_clone[i][j] != 'E' &&
+				config->map_clone[i][j] != 'S' && config->map_clone[i][j] != ' ' && config->map_clone[i][j] != '1' && config->map_clone[i][j] != '0')
+					ft_exit(config, 0);
+			if(config->map_clone[i][j] == 'N' || config->map_clone[i][j] == 'W' || config->map_clone[i][j] == 'E' || config->map_clone[i][j] == 'S')
+				players_size++;
+			j++;
+		}
+		if(j > config->longest_map_line)
+			config->longest_map_line = j;
+		i++;
+	}
+	if (players_size != 1)
+		ft_exit(config, 0);
+	config->map_end = i;
+}
+
+void fill_map(t_config *config)
+{
+	int j;
+	int i = 0;
+	
+	config->map_height = config->map_end - config->map_start;
+	config->map_width = config->longest_map_line;
+	
+	config->map = malloc((config->map_height + 1) * sizeof(char *));
+
+	if(!config->map)
+		ft_exit(config, 5);
+		
+	config->map[config->map_height] = NULL;
+
+	while(i < config->map_height)
+	{
+		config->map[i] = malloc((config->longest_map_line + 1) * sizeof(char));
+		if(!config->map[i])
+			ft_exit(config, 5);
+		j = 0;
+		while(j < config->longest_map_line)
+		{
+			config->map[i][j] = 'x';
+			j++;
+		}
+		config->map[i][j] = '\0';
+		i++;
+	}	
+
+	i = config->map_start;
+	int i2 = 0;
+	while(config->map_clone[i]){
+		j = 0;
+		while(config->map_clone[i][j]){
+			if(!is_space(config->map_clone[i][j]))
+				config->map[i2][j] = config->map_clone[i][j];
+			j++;
+		}
+		i2++;
+		i++;
+	}
+}
+
+void check_surroundings(t_config *config)
 {
 	int i = 0;
-	int count = 0;
-	char **rgb = NULL;
-	char *colors = ft_strchr(input, ' ');
-	if(colors){
-		colors++;
-		i = 0;
-		while (colors[i]){
-			if(colors[i] == ',') count++;
-			if (count > 2) return (false);
-			i++;
-		}
-		rgb = ft_split(colors, ',');
-		if(rgb){
-			i = 0;
-			while(rgb[i]){
-				if (!ft_isdigit(rgb[i][0]) || ft_atoi(rgb[i]) > 255 || ft_atoi(rgb[i]) < 0)
-					return (false);
-				i++;
-			}
-			i = 0;
-			while(rgb[i]){
-				if (mode)
-					config->f[i] = ft_atoi(rgb[i]);
-				else
-					config->c[i] = ft_atoi(rgb[i]);
-				i++;
-			}
-		}
-		else
-			return (false);
-	}
-	return (true);
-}
-
-char *parse_configs(int fd, t_config *config){
-	int total_attrs;
-	char *line;
-	int i;
-	bool found_map;
-
-    total_attrs = 0;
-    line = get_next_line(fd);
-    while (line){
-        if (parse_configs_helper(line, 0, config))
-		{
-            if (parse_configs_helper(line, 1, config))
-			{
-                show_error("Error\nMap textures are not valid, invalid extension.\n");
-                exit(1);
-            }
-            total_attrs++;
-        }
-		else if((line[0] == 'F' || line[0] == 'C') && line[1] == ' ')
-		{
-            if (!parse_colors(line, config, line[0] == 'F')){
-                show_error("Error\nMap colors are not valid\n");
-                exit(1);
-            }
-            total_attrs++;
-        }
-		else
-		{
-            i = 0;
-            found_map = false;
-            while(line && line[i]){
-                if (line[i] == '1' || line[i] == '0'){
-                    found_map = true;
-                } else if (line[i] != ' '){
-                    show_error("Error\nMap is not valid.\n--> Affected line: ");
-                    ft_putstr_fd(line, 1);
-                    exit(1);
-                }
-                i++;
-            }
-            if (found_map)
-                break;
-        }
-        free(line);
-        line = get_next_line(fd);
-    }
-    if (total_attrs != 6)
-	{
-        show_error("Error\nMap attributes are not valid.\n--> Affected line: ");
-        ft_putstr_fd(line, 1);
-        exit(1);
-    }
-	return (line);
-}
-
-
-
-void	check_chars_map(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != 'N'
-			&& line[i] != 'S' && line[i] != 'E'
-			&& line[i] != 'W' && line[i] != ' ' && line[i] != '\t')
-		{  
-			//free map
-			show_error("Error!\ninvalid character in map\n");
-			exit(1);
-		}
-		i++;
-	}
-}
-
-char *ft_strdup_line(char *line, int len)
-{
-	int		i;
-	char	*allocation;
-
-	i = 0;
-	allocation = malloc(len + 1);
-	if (!allocation)
-		return (NULL);
 	
-	int w = 0;
-	while(line[w]){
-		// printf("%c", line[w]);
-		w++;
-	}
-	// printf("%s", "\n");
-	static int po;
-	printf("po=%d\nlen of len: %d\nlen of line: %d\n", po, len, ft_strlen(line));
-	po++;
-	while (i < len)
-	{
-		if (is_space(line[i]) || i >= ft_strlen(line))
-			allocation[i] = 'x';
-		else
-			allocation[i] = line[i];
-		i++;
-	}
-	allocation[i] = '\0';
-	return (allocation);
-}
-
-void	parse_map(char *line1, char*path, t_config *co)
-{
-	char    *line;
-	int		fd;
-	int		i;
-
-	fd = open(path, O_RDONLY);
-	if (fd == -1){
-		show_error("Error\nSpecified map doesn't exist, or doesn't have enough permissions.\n");
-		exit(1);
-	}
-	line = get_next_line(fd);
-	while (line)
-	{
-		if (ft_strcmp(line, line1))
-			break ;
-		free(line);
-		line = get_next_line(fd);
-		// printf("%s\n", line);
-	}
-	co->map = (char **)malloc(sizeof(char *) * (co->map_height + 1));
-	i = 0;
-	while (line)
-	{
-		check_chars_map(line);
-		co->map[i++] = ft_strdup_line(line, co->map_width);
-		// printf("%s\n", line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	co->map[i] = NULL;
-	free(line);
-	close(fd);
-}
-
-void calculate_longest_line(int fd, char *line, t_config *config)
-{
-	int len;
-	int j;
-
-	len = 0;
-	j = 0;
-	while(line)
-	{
-		j++;
-		if (ft_strlen(line) > len)
-			len = ft_strlen(line);
-		free(line);
-		line = get_next_line(fd);
-	}
-	free(line);
-	close(fd);
-	config->map_width = len;
-	config->map_height = j;
-}
-
-void	check_map_surroundings(t_config *config){
-	int i;
-	int j;
-
-	i = 0;
-	while (i < config->map_height)
-	{
-		j = 0;
-		while (j < config->map_width)
-		{
-			if(config->map[i][j] != '1' && config->map[i][j] != 'x') {
-				if((i - 1 < 0 || i + 1 >= config->map_height) || j - 1 < 0 || j + 1 >= config->map_width){
-					printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
-					exit(1);
-				}
-				if (config->map[i + 1][j] == 'x' || config->map[i - 1][j] == 'x' || config->map[i][j + 1] == 'x' || config->map[i][j - 1] == 'x') {
-					printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
-					exit(1);
-				}
+	while(config->map[i]){
+		int j = 0;
+		while(config->map[i][j]){
+			if(config->map[i][j] == '0' || config->map[i][j] == 'N' || config->map[i][j] == 'S'
+				|| config->map[i][j] == 'E' || config->map[i][j] == 'W'){
+	
+					if((i - 1 < 0 || i + 1 >= config->map_height) || j - 1 < 0 || j + 1 >= config->map_width){
+						printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
+						ft_exit(config, 99);
+					}
+					if (config->map[i + 1][j] == 'x' || config->map[i - 1][j] == 'x' || config->map[i][j + 1] == 'x' || config->map[i][j - 1] == 'x') {
+						printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
+						ft_exit(config, 99);
+					}
 			}
 			j++;
 		}
 		i++;
 	}
-	if (config->player.x == -1 || config->player.y == -1){
-		show_error("Error\nMap is not valid, it doesn't have a player.\n");
-		exit(1);
-	}
 }
 
 void	validate_map(char *path, t_config *config)
 {
-	int	fd;
-	char *line;
-
-	if (!has_extension(path, ".cub")){
-		show_error("Error\nMap file is not valid, check the extension\n");
-		exit(1);
-	}
-	fd = open(path, O_RDONLY);
-	if (fd == -1){
-		show_error("Error\nSpecified map doesn't exist, or doesn't have enough permissions.\n");
-		exit(1);
-	}
-	line = parse_configs(fd, config);
-	char *lin;
-	lin = ft_strdup(line);
-	calculate_longest_line(fd, lin, config);
-	parse_map(line, path, config);
-	check_map_surroundings(config);
-	//print_map(*config);
+	if (!has_extension(path, ".cub"))
+		ft_exit(config, 4);
+		
+	read_file(path, config);
+	parse_map_attrs(config);
+	parse_map(config);
+	fill_map(config);
+	check_surroundings(config);
 }
 
 void	print_map(t_config config)
 {
 	int	i;
 
-	printf("---------- IT'S WORKING !! -----------\n");
 	i = 0;
 	while(config.map[i]){
 		printf("%s\n",config.map[i]);
 		i++;
 	}
-	printf("--------------------------------------\n");
 }

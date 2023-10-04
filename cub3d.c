@@ -6,29 +6,56 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/19 20:28:06 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/04 13:59:12 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+void init_variables_rest(t_config *config)
 {
-    t_config    *config;
-    
-    config = malloc(sizeof(t_config));
-        
+    int i = 0;
+    while (i < 3)
+    {
+        config->f[i] = -1;
+        config->c[i] = -1;
+        i++;
+    }
+}
+
+void init_variables(t_config *config)
+{
     config->player.up = false;
     config->player.down = false;
     config->player.left = false;
     config->player.right = false;
     config->player.dir_left = false;
     config->player.dir_right = false;
+    config->ea_texture = NULL;
+    config->so_texture = NULL;
+    config->we_texture = NULL;
+    config->no_texture = NULL;
+    config->colors = NULL;
+    config->map_start = 0;
     config->player.angle = 0;
-    if (argc != 2) {
-        show_error("Error\nEnter a valid map file\n");
-        return (1);
-    }
+    config->longest_map_line = 0;
+}
+
+void leaker(void){
+    system("leaks cub3d");
+}
+
+int main(int argc, char **argv)
+{
+    t_config    *config;
+    atexit(leaker);
+    config = malloc(sizeof(t_config));
+    if (argc != 2)
+        ft_exit(config, 0);
+    if(!config)
+        exit(1);
+    init_variables(config);
+    init_variables_rest(config);
     validate_map(argv[1], config);
     init_window(config);
 }

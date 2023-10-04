@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/01 23:09:25 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/04 12:01:23 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,16 @@ typedef struct s_config
 
 	int			f[3];
 	int			c[3];
+	char		**colors;
 	char		**map;
+	char		**map_clone;
 	int			map_width;
 	int			map_height;
 	void		*mlx;
 	void		*win;
+	int			longest_map_line;
+	int			map_start;
+	int			map_end;
 }	t_config;
 
 
@@ -101,14 +106,15 @@ bool			ft_isdigit(char c);
 char			*ft_strrchr(char *s, int c);
 bool			is_space(char c);
 char			*ft_strtrim(char *s1, char *set);
+int				ft_atoi_rgb(char *str);
 
 //		---> get_next_line
 char			*get_next_line(int fd);
 
 // ---> helpers
 //		---> strings
-void			show_error(char *str);
 bool			has_extension(char *filename, char *extension);
+void			ft_exit(t_config *config, int err);
 
 //      ---> parsers
 void			check_chars_map(char *line);

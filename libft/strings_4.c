@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:19:39 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/30 22:24:52 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/02 17:54:17 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,26 @@ int	ft_atoi(char *str)
 	return (process_result((char *)str, sign, i));
 }
 
+int	ft_atoi_rgb(char *str)
+{
+	int	i;
+	int	result;
+
+	i = 0;
+	result = 0;
+	while (is_space(str[i]))
+		i++;
+	while (ft_isdigit(str[i]))
+	{
+		result *= 10;
+		result += (str[i] - '0');
+		i++;
+	}
+	if((str[i] && !ft_isdigit(str[i])))
+		return -1;
+	return result;
+}
+
 bool	has_extension(char *filename, char *extension)
 {
 	int	i;
@@ -72,12 +92,9 @@ bool	has_extension(char *filename, char *extension)
 
 	i = ft_strlen(filename) - 1;
 	j = ft_strlen(extension) - 1;
-	if (filename[i] == '\n')
-		i--;
-	while (j >= 0)
+	while (j >= 0 && i >= 0)
 	{
 		if (filename[i] != extension[j]){
-			printf("- ❌ Parsing failed, affected line   ---->  [%s]\n", filename);
 			return (false);
 		}
 		i--;
