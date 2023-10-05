@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/04 16:58:49 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/05 01:03:15 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,37 +94,37 @@ void parse_map_attrs(t_config *config){
 			if(ft_strncmp(config->map_clone[i], "NO ", 3)){
 				if(config->no_texture)
 					ft_exit(config, 1);
-				config->no_texture = ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3);
+				config->no_texture = trim_sp(ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3));
 				if(!config->no_texture)
 					ft_exit(config, 1);
 			}
 			else if(ft_strncmp(config->map_clone[i], "SO ", 3)){
 				if(config->so_texture)
 					ft_exit(config, 1);
-				config->so_texture = ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3);
+				config->so_texture = trim_sp(ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3));
 				if(!config->so_texture)
 					ft_exit(config, 1);
 			}
 			else if(ft_strncmp(config->map_clone[i], "EA ", 3)){
 				if(config->ea_texture)
 					ft_exit(config, 1);
-				config->ea_texture = ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3);
+				config->ea_texture = trim_sp(ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3));
 				if(!config->ea_texture)
 					ft_exit(config, 1);
 			}
 			else if(ft_strncmp(config->map_clone[i], "WE ", 3)){
 				if(config->we_texture)
 					ft_exit(config, 1);
-				config->we_texture = ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3);
+				config->we_texture = trim_sp(ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3));
 				if(!config->we_texture)
 					ft_exit(config, 1);
 			}
 			else if(ft_strncmp(config->map_clone[i], "F ", 2)){
-				if(!is_rgb_valid(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2), config->f, config))
+				if(!is_rgb_valid(trim_sp(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2)), config->f, config))
 					ft_exit(config, 1);
 			}
 			else if(ft_strncmp(config->map_clone[i], "C ", 2)){
-				if(!is_rgb_valid(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2), config->c, config))
+				if(!is_rgb_valid(trim_sp(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2)), config->c, config))
 					ft_exit(config, 1);
 			}
 		}

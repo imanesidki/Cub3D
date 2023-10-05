@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/04 16:36:52 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/05 00:59:43 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ char			*ft_strrchr(char *s, int c);
 bool			is_space(char c);
 char			*ft_strtrim(char *s1, char *set);
 int				ft_atoi_rgb(char *str);
+char			*trim_sp(char *str);
 
 //		---> get_next_line
 char			*get_next_line(int fd);
