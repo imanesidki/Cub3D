@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/04 14:24:14 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/06 17:36:42 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    draw_direction_line(t_config *config, double angle, double distance){
+void    draw_direction_line(t_config *config, double angle, double distance)
+{
     double player_x = config->player.x;
     double player_y = config->player.y;
     double endX = player_x + distance * cos(angle);
@@ -61,70 +62,58 @@ void draw_map(t_config *config)
 
 void set_to_zero(t_ray *ray)
 {
-    ray->h_point_hit_x = 0;
-    ray->h_point_hit_y = 0;
-    ray->v_point_hit_x = 0;
-    ray->v_point_hit_y = 0;
-    ray->horizontal_distance = 0;
-    ray->vertical_distance = 0;
-    ray->ray_angle = 0;
+    ray->h_point_hit_x = -1;
+    ray->h_point_hit_y = -1;
+    ray->v_point_hit_x = -1;
+    ray->v_point_hit_y = -1;
+    ray->horizontal_distance = INFINITY;
+    ray->vertical_distance = INFINITY;
+    ray->ray_angle = -1;
+    ray->hit_h = false;
+    ray->hit_v = false;
 }
 
-// void verticalDistance(t_ray *ray)
-// {
-    // bool hit_wall = false;
-    // double first_intersection_x =  ?
-    // double first_intersection_y =  ?
-    
-    
-    // double xstep =  ?
-    // double ystep =  ?
-    /*
-        while (it didn't hit a wall)
-        {
-            if (is_wall(first_intersection_x, first_intersection_y))
-                break;
-            first_intersection_x += xstep;
-            first_intersection_y += ystep;
-        }
-    */
-   
-   // if we hit a wall then (hit_wall = true) and (ray->v_point_hit_x = first_intersection_x) and (ray->v_point_hit_y = first_intersection_y)
-   // and (ray->vertical_distance = distance_between_player_and_wall)
-   // else if we didn't hit a wall then (ray->vertical_distance = INT_MAX)
-// }
+void normalize_angle(double *angle){
+    if ((*angle * 180 / M_PI) < 0)
+        *angle += (360 * M_PI / 180);
+    else if ((*angle * 180 / M_PI) > 360)
+        *angle -= (360 * M_PI / 180);
+}
 
-// void horizontalDistance(t_ray *ray)
-// {
-    // bool hit_wall = false;
-    // double first_intersection_x =  ?
-    // double first_intersection_y =  ?
-    
-    
-    // double xstep =  ?
-    // double ystep =  ?
-    /*
-        while (it didn't hit a wall)
-        {
-            if (is_wall(first_intersection_x, first_intersection_y))
-                break;
-            first_intersection_x += xstep;
-            first_intersection_y += ystep;
-        }
-    */
-   
-   // if we hit a wall then (hit_wall = true) and (ray->h_point_hit_x = first_intersection_x) and (ray->h_point_hit_y = first_intersection_y)
-   // and (ray->horizontal_distance = distance_between_player_and_wall)
-   // else if we didn't hit a wall then (ray->horizontal_distance = INT_MAX)
-// }
+void DDA(t_config *config, double X0, double Y0, double X1, double Y1) 
+{ 
+    // calculate dx & dy 
+    double dx = X1 - X0; 
+    double dy = Y1 - Y0; 
+  
+    // calculate steps required for generating pixels 
+    double steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy); 
+  
+    // calculate increment in x & y for each steps 
+    double Xinc = dx / (double)steps; 
+    double Yinc = dy / (double)steps; 
+  
+    // Put pixel for each step 
+    double X = X0; 
+    double Y = Y0; 
+    for (int i = 0; i <= steps; i++) { 
+       pixel_put(config, X, Y, to_hex(0,0,0));
+        X += Xinc; // increment in x at each step 
+        Y += Yinc; // increment in y at each step 
+    } 
+} 
 
+bool facing_down(double angle)
+{
+    return (angle > 0 && angle < M_PI);
+}
+bool facing_left(double angle)
+{
+    return (angle > 0.5 * M_PI && angle < 1.5 * M_PI);
+}
 
-
-
-
-int draw_minimap(t_config *config){
-    
-
+int draw_minimap(t_config *config)
+{
     mlx_clear_window(config->mlx, config->win);
     mlx_destroy_image(config->mlx, config->map_data.img);
     config->map_data.img = mlx_new_image(config->mlx, WIDTH, HEIGHT);
@@ -133,29 +122,59 @@ int draw_minimap(t_config *config){
     move_player(config);
     draw_map(config);
     draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
+    
+    
     double increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
-    double angle = config->player.angle - (VIEW_RANGE * M_PI / 180) / 2;
+    normalize_angle(&config->player.angle);
+    double angle = (config->player.angle - (VIEW_RANGE * M_PI / 180) / 2);    
+    t_ray ray;
+    double finalDistance;
+    normalize_angle(&angle);
+    printf("%f\n", (config->player.angle  * 180 / M_PI));
+    // exit(1);
+    double y;
+    double x;
+    int i = 0;
+    while (i < WIDTH)
+    {
         
-    // t_ray ray; TODO
-    
-    // double finalDistance;  TODO
-    while(angle < config->player.angle + (VIEW_RANGE * M_PI / 180) / 2) {
-        
-        
-        // set_to_zero(&ray); TODO
-        // ray.ray_angle = angle; TODO
-        // verticalDistance(&ray); TODO
-        // horizontalDistance(&ray); TODO
-        
-        // if (ray.horizontal_distance <= ray.vertical_distance) TODO
-        //     finalDistance = ray.horizontal_distance; TODO
-        // else TODO
-        //     finalDistance = ray.vertical_distance; TODO
+        set_to_zero(&ray);
+        ray.ray_angle = (angle);
+        normalize_angle(&(ray.ray_angle));
+        horizontalDistance(&ray, config);
+        verticalDistance(&ray, config);
+        // if (facing_down(ray.ray_angle))
+        //     printf("facing down\n");
+        // else 
+        //     printf("facing up\n");
+            
+        // if (facing_left(ray.ray_angle))
+        //     printf("facing left\n");
+        // else 
+        //     printf("facing right\n");
+            
+        if (ray.horizontal_distance <= ray.vertical_distance && ray.hit_h)
+        {
+            finalDistance = ray.horizontal_distance;
+            y = ray.h_point_hit_y;
+            x = ray.h_point_hit_x;
 
-        draw_direction_line(config, angle, 50.0 /*finalDistance*/);
+                DDA(config,config->player.x, config->player.y,  x, y);
+        }
+        else if (ray.horizontal_distance > ray.vertical_distance && ray.hit_v)
+        {
+            finalDistance = ray.vertical_distance;
+            y = ray.v_point_hit_y;
+
+            x = ray.v_point_hit_x;
+                DDA(config,config->player.x, config->player.y,  x, y);
+        }
+            // if(finalDistance != INFINITY)
+        // printf("%f\n" , finalDistance);
         angle += increment;
-    }
-    
+        i++;
+      
+    } 
     mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
     return 0;
 }

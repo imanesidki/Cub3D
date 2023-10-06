@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/04 17:13:26 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/06 16:56:51 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void init_variables(t_config *config)
     config->no_texture = NULL;
     config->colors = NULL;
     config->map_start = 0;
-    config->player.angle = 0;
+    config->player.angle = M_PI_2;
     config->longest_map_line = 0;
 }
 
@@ -48,7 +48,7 @@ void leaker(void){
 int main(int argc, char **argv)
 {
     t_config    *config;
-    atexit(leaker);
+    // atexit(leaker);
     config = malloc(sizeof(t_config));
     if (argc != 2)
         ft_exit(config, 0);

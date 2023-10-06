@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   class_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/05 01:03:15 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/05 21:04:10 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,15 +250,14 @@ void	validate_map(char *path, t_config *config)
 	parse_map(config);
 	fill_map(config);
 	check_surroundings(config);
-}
+	
+	    
+    // int	i;
 
-void	print_map(t_config config)
-{
-	int	i;
-
-	i = 0;
-	while(config.map[i]){
-		printf("%s\n",config.map[i]);
-		i++;
-	}
+	// i = 0;
+	// while(config->map[i]){
+	// 	printf("%s\n", config->map[i]);
+	// 	i++;
+	// }
+   
 }

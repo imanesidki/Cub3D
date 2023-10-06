@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isalama <isalama@student.42.fr>            +#+  +:+       +#+         #
+#    By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 18:09:46 by isalama           #+#    #+#              #
-#    Updated: 2023/10/05 01:03:31 by isalama          ###   ########.fr        #
+#    Updated: 2023/10/06 13:59:49 by isidki           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,10 @@ HELPERS = helpers/class_helper.c helpers/class_getline.c \
 DRAWERS = drawers/mlx_window.c drawers/mlx_map.c drawers/mlx_player.c
 LIBFT = libft/strings_1.c libft/strings_2.c libft/strings_3.c \
 		libft/strings_4.c libft/strings_5.c libft/strings_6.c
+RAYCAST = raycasting/raycasting_horizontal.c raycasting/raycasting_vertical.c
+
 		
-SRC = $(HELPERS) $(DRAWERS) $(LIBFT) cub3d.c
+SRC = $(HELPERS) $(DRAWERS) $(LIBFT) $(RAYCAST) cub3d.c
 		
 
 OBJ = $(SRC:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/05 00:59:43 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/06 17:19:04 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+# include <limits.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
@@ -36,7 +37,7 @@
 #define VIEW_RANGE 60
 #define HEIGHT 720
 #define WIDTH 1080
-#define ROTATION_SPEED 10
+#define ROTATION_SPEED 1
 #define PLAYER_SPEED 3
 #define PLAYER_SIZE 10
 
@@ -99,7 +100,8 @@ typedef struct s_ray
 	double		h_point_hit_y;
 	double		h_point_hit_x;
 	double		ray_angle;
-
+	bool		hit_v;
+	bool		hit_h;
 }	t_ray;
 
 // ---> START FUNCTIONS
@@ -140,6 +142,12 @@ void			free_tab(char **tab);
 void			free_config_struct(t_config *config);
 void			print_map(t_config config);
 
+// ---> raycasting
+void	set_to_zero(t_ray *ray);
+void	verticalDistance(t_ray *ray, t_config *config);
+void    horizontalDistance(t_ray *ray, t_config *config);
+bool	is_wall(double x, double y, t_config *config);
+
 // ---> drawers
 //      ---> mlx_window
 void			init_window(t_config *config);
@@ -157,5 +165,10 @@ void			locate_player(t_config *config);
 //      ---> mlx_map
 void			draw_map(t_config *config);
 int				draw_minimap(t_config *config);
+
+
+bool facing_down(double angle);
+bool facing_left(double angle);
+
 
 #endif
