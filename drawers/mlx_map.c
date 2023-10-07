@@ -6,43 +6,43 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/06 17:36:42 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/07 22:26:26 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void    draw_direction_line(t_config *config, double angle, double distance)
-{
-    double player_x = config->player.x;
-    double player_y = config->player.y;
-    double endX = player_x + distance * cos(angle);
-    double endY = player_y + distance * sin(angle);
+// void    draw_direction_line(t_config *config, double angle, double distance)
+// {
+//     double player_x = config->player.x;
+//     double player_y = config->player.y;
+//     double endX = player_x + distance * cos(angle);
+//     double endY = player_y + distance * sin(angle);
     
-    double deltaX = endX - player_x;
-    double deltaY = endY - player_y;
+//     double deltaX = endX - player_x;
+//     double deltaY = endY - player_y;
     
-    double steps;
-    if (fabs(deltaX) >= fabs(deltaY))
-        steps = fabs(deltaX);
-    else
-        steps = fabs(deltaY);
+//     double steps;
+//     if (fabs(deltaX) >= fabs(deltaY))
+//         steps = fabs(deltaX);
+//     else
+//         steps = fabs(deltaY);
 
-    double Xinc = deltaX / steps;
-    double Yinc = deltaY / steps;
+//     double Xinc = deltaX / steps;
+//     double Yinc = deltaY / steps;
 
-    double X = player_x;
-    double Y = player_y;
+//     double X = player_x;
+//     double Y = player_y;
 
-    int i = 0;
-    while (i <= steps)
-    {
-        pixel_put(config, X, Y, to_hex(0, 0, 0));
-        X += Xinc;
-        Y += Yinc;
-        i++;
-    }
-}
+//     int i = 0;
+//     while (i <= steps)
+//     {
+//         pixel_put(config, X, Y, to_hex(0, 0, 0));
+//         X += Xinc;
+//         Y += Yinc;
+//         i++;
+//     }
+// }
 
 void draw_map(t_config *config)
 {
@@ -68,16 +68,23 @@ void set_to_zero(t_ray *ray)
     ray->v_point_hit_y = -1;
     ray->horizontal_distance = INFINITY;
     ray->vertical_distance = INFINITY;
-    ray->ray_angle = -1;
+    ray->ray_angle = 0;
     ray->hit_h = false;
     ray->hit_v = false;
 }
 
-void normalize_angle(double *angle){
-    if ((*angle * 180 / M_PI) < 0)
-        *angle += (360 * M_PI / 180);
-    else if ((*angle * 180 / M_PI) > 360)
-        *angle -= (360 * M_PI / 180);
+void normalize_angle(double *angle)
+{
+    // if ((*angle * 180 / M_PI) >= 360)
+    //     *angle -= 2 * M_PI;
+    // else if ((*angle * 180 / M_PI) < 0)
+    //     *angle += 2 * M_PI;
+    
+    *angle = *angle * 180 / M_PI; // to degree
+    *angle = fmod(*angle, 360);
+    if (*angle < 0)
+        *angle += 360;
+    *angle = *angle * M_PI / 180; // to radian
 }
 
 void DDA(t_config *config, double X0, double Y0, double X1, double Y1) 
@@ -87,19 +94,30 @@ void DDA(t_config *config, double X0, double Y0, double X1, double Y1)
     double dy = Y1 - Y0; 
   
     // calculate steps required for generating pixels 
-    double steps = fabs(dx) > fabs(dy) ? fabs(dx) : fabs(dy); 
+    double steps;
+     if (fabs(dx) >= fabs(dy))
+        steps = fabs(dx);
+    else
+        steps = fabs(dy);
   
+    double Xinc; 
+    double Yinc; 
     // calculate increment in x & y for each steps 
-    double Xinc = dx / (double)steps; 
-    double Yinc = dy / (double)steps; 
-  
+    if (steps != 0)
+    {
+        Xinc = dx / (double)steps; 
+        Yinc = dy / (double)steps; 
+    }
     // Put pixel for each step 
     double X = X0; 
     double Y = Y0; 
-    for (int i = 0; i <= steps; i++) { 
+    int i = 0;
+    while (i <= steps)
+    { 
        pixel_put(config, X, Y, to_hex(0,0,0));
         X += Xinc; // increment in x at each step 
         Y += Yinc; // increment in y at each step 
+        i++;
     } 
 } 
 
@@ -122,22 +140,19 @@ int draw_minimap(t_config *config)
     move_player(config);
     draw_map(config);
     draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
-    
-    
-    double increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
+
+    // double increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
     normalize_angle(&config->player.angle);
-    double angle = (config->player.angle - (VIEW_RANGE * M_PI / 180) / 2);    
-    t_ray ray;
-    double finalDistance;
+    double angle = config->player.angle - ((VIEW_RANGE * M_PI / 180) / 2);
     normalize_angle(&angle);
-    printf("%f\n", (config->player.angle  * 180 / M_PI));
-    // exit(1);
+    t_ray   ray;
+    double  finalDistance = 0;
+    // printf("%f\n", (config->player.angle  * 180 / M_PI));
     double y;
     double x;
-    int i = 0;
-    while (i < WIDTH)
-    {
-        
+    // int i = 0;
+    // while (i < WIDTH)
+    // {     
         set_to_zero(&ray);
         ray.ray_angle = (angle);
         normalize_angle(&(ray.ray_angle));
@@ -152,29 +167,29 @@ int draw_minimap(t_config *config)
         //     printf("facing left\n");
         // else 
         //     printf("facing right\n");
+        x = 0;
+        y = 0;
             
         if (ray.horizontal_distance <= ray.vertical_distance && ray.hit_h)
         {
             finalDistance = ray.horizontal_distance;
             y = ray.h_point_hit_y;
             x = ray.h_point_hit_x;
-
-                DDA(config,config->player.x, config->player.y,  x, y);
+            // DDA(config,config->player.x, config->player.y,  x, y);
         }
-        else if (ray.horizontal_distance > ray.vertical_distance && ray.hit_v)
+        else if (ray.hit_v)
         {
             finalDistance = ray.vertical_distance;
             y = ray.v_point_hit_y;
-
             x = ray.v_point_hit_x;
-                DDA(config,config->player.x, config->player.y,  x, y);
+            // DDA(config,config->player.x, config->player.y,  x, y);
         }
+        DDA(config,config->player.x, config->player.y,  x, y);
             // if(finalDistance != INFINITY)
         // printf("%f\n" , finalDistance);
-        angle += increment;
-        i++;
-      
-    } 
+        // angle += increment;
+        // i++;
     mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
+    // } 
     return 0;
 }

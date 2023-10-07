@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/05 21:04:10 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/06 17:42:13 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,14 +250,5 @@ void	validate_map(char *path, t_config *config)
 	parse_map(config);
 	fill_map(config);
 	check_surroundings(config);
-	
-	    
-    // int	i;
-
-	// i = 0;
-	// while(config->map[i]){
-	// 	printf("%s\n", config->map[i]);
-	// 	i++;
-	// }
    
 }

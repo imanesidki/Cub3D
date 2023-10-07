@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/06 17:19:04 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/07 22:07:27 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 #define WIDTH 1080
 #define ROTATION_SPEED 1
 #define PLAYER_SPEED 3
-#define PLAYER_SIZE 10
+#define PLAYER_SIZE 8
 
 // ---> START STRUCTURE
 typedef struct s_map_data
@@ -89,7 +89,6 @@ typedef struct s_config
 	int			map_end;
 }	t_config;
 
-/// 
 typedef struct s_ray
 {
 
@@ -147,6 +146,9 @@ void	set_to_zero(t_ray *ray);
 void	verticalDistance(t_ray *ray, t_config *config);
 void    horizontalDistance(t_ray *ray, t_config *config);
 bool	is_wall(double x, double y, t_config *config);
+bool	facing_down(double angle);
+bool	facing_left(double angle);
+void	DDA(t_config *config, double X0, double Y0, double X1, double Y1);
 
 // ---> drawers
 //      ---> mlx_window
@@ -154,7 +156,7 @@ void			init_window(t_config *config);
 void			pixel_put(t_config *config, int x, int y, int color);
 void			draw_tiles(t_config *config, int x, int y, int color);
 void			draw_player(t_config *config, int size, int color);
-void			draw_direction_line(t_config *config, double angle, double distance);
+// void			draw_direction_line(t_config *config, double angle, double distance);
 
 //      ---> mlx_player
 int				handle_press(int keycode, t_config *config);
@@ -167,8 +169,6 @@ void			draw_map(t_config *config);
 int				draw_minimap(t_config *config);
 
 
-bool facing_down(double angle);
-bool facing_left(double angle);
 
 
 #endif

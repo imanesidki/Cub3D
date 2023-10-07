@@ -7,7 +7,8 @@ TODO:
 TOFIX:
 - skip spaces and tabs after directions keywords
 - handle invalid characters expect the config keywords (e.g.: NO ... jj WE ...)
-
+- protect WIDTH and HEIGHT != 0
+- add macro TILE_SIZE = 32 and replace it in the code
 
 LEAKS:
 - Map needs to be freed (optional)
