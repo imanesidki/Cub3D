@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:13:29 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:22:15 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ char			*trim_sp(char *str);
 
 //		---> get_next_line
 char			*get_next_line(int fd);
+int				gnl_strlen(const char *str);
 
 // ---> helpers
 //		---> strings

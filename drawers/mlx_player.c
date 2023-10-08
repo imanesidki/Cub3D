@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 19:57:07 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:19:29 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ int	key_release(int keycode, t_config *config)
 
 void move_player(t_config *config)
 {
-	double new_x;
-	double new_y;
-	if (config->player.left){
+	double	new_x;
+	double	new_y;
+
+	if (config->player.left)
+	{
 		new_x = config->player.x - cos(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
 		new_y = config->player.y - sin(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
 		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1')

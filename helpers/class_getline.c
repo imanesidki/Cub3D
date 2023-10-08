@@ -6,21 +6,11 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:21:41 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:05:43 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:22:30 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	gnl_strlen(const char *str)
-{
-	int	l;
-
-	l = 0;
-	while (str[l])
-		l++;
-	return (l);
-}
 
 int	ft_new_line(const char *str)
 {

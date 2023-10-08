@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:16:55 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:40:32 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,31 @@ void	normalize_angle(double *angle)
 	*angle = *angle * M_PI / 180;
 }
 
-void dda(t_config *config, double X0, double Y0, double X1, double Y1)
+void	dda(t_config *config, double X0, double Y0, double X1, double Y1)
 {
-	double dx = X1 - X0;
-	double dy = Y1 - Y0;
+	double	Xinc;
+	double	Yinc;
+	int		i;
+	double	dx;
+	double	dy;
+	double	steps;
+	double	X;
+	double	Y;
 
-	double steps;
+	dx = X1 - X0;
+	dy = Y1 - Y0;
 	if (fabs(dx) >= fabs(dy))
 		steps = fabs(dx);
 	else
 		steps = fabs(dy);
-	double Xinc;
-	double Yinc;
 	if (steps != 0)
 	{
 		Xinc = dx / (double)steps;
 		Yinc = dy / (double)steps;
 	}
-	double X = X0;
-	double Y = Y0;
-	int i = 0;
+	X = X0;
+	Y = Y0;
+	i = 0;
 	while (i <= steps)
 	{
 		pixel_put(config, X, Y, to_hex(0,0,0));
@@ -98,27 +103,31 @@ bool	facing_left(double angle)
 
 int	draw_minimap(t_config *config)
 {
+	int		i;
+	double	y;
+	double	x;
+	double	increment;
+	double	angle;
+	t_ray	ray;
+	double  finalDistance;
+
 	mlx_clear_window(config->mlx, config->win);
 	mlx_destroy_image(config->mlx, config->map_data.img);
 	config->map_data.img = mlx_new_image(config->mlx, WIDTH, HEIGHT);
 	config->map_data.addr = mlx_get_data_addr(config->map_data.img,
-		&config->map_data.bits_per_pixel, &config->map_data.line_length, &config->map_data.endian);
+			&config->map_data.bits_per_pixel, &config->map_data.line_length, &config->map_data.endian);
 	move_player(config);
 	draw_map(config);
 	draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
-
-	double increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
+	increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
 	normalize_angle(&config->player.angle);
-	double angle = config->player.angle - ((VIEW_RANGE * M_PI / 180) / 2);
+	angle = config->player.angle - ((VIEW_RANGE * M_PI / 180) / 2);
 	normalize_angle(&angle);
-	t_ray   ray;
-	double  finalDistance = 0;
-	// printf("%f\n", (config->player.angle  * 180 / M_PI));
-	double y;
-	double x;
-	int i = 0;
-	while (i < WIDTH) // i < NUM_RAYS
-	{     
+//split function
+	finalDistance = 0;
+	i = 0;
+	while (i < WIDTH)
+	{
 		set_to_zero(&ray);
 		ray.ray_angle = (angle);
 		normalize_angle(&(ray.ray_angle));

@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   strings_5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 19:17:47 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/18 15:50:32 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/08 20:21:58 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	gnl_strlen(const char *str)
+{
+	int	l;
+
+	l = 0;
+	while (str[l])
+		l++;
+	return (l);
+}
 
 static int	calculate_start(char *s1, char *set)
 {
@@ -58,7 +68,7 @@ char	*ft_strtrim(char *s1, char *set)
 {
 	int	start;
 	int	end;
-	int		true_len;
+	int	true_len;
 	int	size_indexer;
 
 	true_len = 0;
