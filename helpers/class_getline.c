@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   class_getline.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:21:41 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/19 18:34:31 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/08 20:05:43 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	str[l] = 0;
 	return (free(s1), str);
 }
+
 static char	*rtn_l(char	*ln)
 {
 	int		i;
@@ -72,8 +73,6 @@ static char	*rtn_l(char	*ln)
 	i = -1;
 	while (ln[++i] && ln[i] != '\n')
 		l[i] = ln[i];
-	// if (ln[i] == '\n')
-	// 	l[i++] = '\n';
 	l[i] = 0;
 	return (l);
 }

@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 19:28:08 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:13:29 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,21 @@
 #  define BUFFER_SIZE 5
 # endif
 
-#define A_KEY 0
-#define D_KEY 2
-#define W_KEY 13
-#define S_KEY 1
-#define LEFT_ARROW 123
-#define RIGHT_ARROW 124
-#define ESC 53
+# define A_KEY 0
+# define D_KEY 2
+# define W_KEY 13
+# define S_KEY 1
+# define LEFT_ARROW 123
+# define RIGHT_ARROW 124
+# define ESC 53
 
-#define VIEW_RANGE 60
-#define TILE_SIZE 32
-#define HEIGHT 720
-#define WIDTH 1080
-#define ROTATION_SPEED 1
-#define PLAYER_SPEED 3
-#define PLAYER_SIZE 7
+# define VIEW_RANGE 60
+# define TILE_SIZE 32
+# define HEIGHT 720
+# define WIDTH 1080
+# define ROTATION_SPEED 1
+# define PLAYER_SPEED 3
+# define PLAYER_SIZE 7
 
 // ---> START STRUCTURE
 typedef struct s_map_data
@@ -142,13 +142,13 @@ void			free_config_struct(t_config *config);
 void			print_map(t_config config);
 
 // ---> raycasting
-void	set_to_zero(t_ray *ray);
-void	verticalDistance(t_ray *ray, t_config *config);
-void	horizontalDistance(t_ray *ray, t_config *config);
-bool	is_wall(double x, double y, t_config *config);
-bool	facing_down(double angle);
-bool	facing_left(double angle);
-void	DDA(t_config *config, double X0, double Y0, double X1, double Y1);
+void			set_to_zero(t_ray *ray);
+void			verticalDistance(t_ray *ray, t_config *config);
+void			horizontalDistance(t_ray *ray, t_config *config);
+bool			is_wall(double x, double y, t_config *config);
+bool			facing_down(double angle);
+bool			facing_left(double angle);
+void			dda(t_config *config, double X0, double Y0, double X1, double Y1);
 
 // ---> drawers
 //      ---> mlx_window
@@ -156,7 +156,6 @@ void			init_window(t_config *config);
 void			pixel_put(t_config *config, int x, int y, int color);
 void			draw_tiles(t_config *config, int x, int y, int color);
 void			draw_player(t_config *config, int size, int color);
-// void			draw_direction_line(t_config *config, double angle, double distance);
 
 //      ---> mlx_player
 int				handle_press(int keycode, t_config *config);
@@ -167,8 +166,5 @@ void			locate_player(t_config *config);
 //      ---> mlx_map
 void			draw_map(t_config *config);
 int				draw_minimap(t_config *config);
-
-
-
 
 #endif

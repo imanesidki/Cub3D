@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:29:00 by isidki            #+#    #+#             */
-/*   Updated: 2023/10/08 19:28:06 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:11:24 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	horizontalDistance(t_ray *ray, t_config *config)
 	double xstep = ystep / tan(ray->ray_angle);
 	
 	if ((facing_left(ray->ray_angle) && xstep > 0) || (!facing_left(ray->ray_angle) && xstep < 0))
-	    xstep *= -1;
+		xstep *= -1;
 		
 	while (((int)(first_intersection_x / TILE_SIZE)) >= 0 && ((int)(first_intersection_y / TILE_SIZE)) >= 0 && ((int)(first_intersection_x / TILE_SIZE)) < config->map_width && ((int)(first_intersection_y / TILE_SIZE)) < config->map_height)
 	{

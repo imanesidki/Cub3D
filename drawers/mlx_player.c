@@ -6,13 +6,13 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 19:00:04 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 19:57:07 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int handle_press(int keycode, t_config *config)
+int	handle_press(int keycode, t_config *config)
 {
 	if (keycode == 0)
 		config->player.left = true;
@@ -28,10 +28,10 @@ int handle_press(int keycode, t_config *config)
 		config->player.dir_right = true;
 	else if (keycode == 53)
 		exit(0);
-	return 0;
+	return (0);
 }
 
-int key_release(int keycode, t_config *config)
+int	key_release(int keycode, t_config *config)
 {
 	if (keycode == 0)
 		config->player.left = false;
@@ -45,7 +45,7 @@ int key_release(int keycode, t_config *config)
 		config->player.dir_left = false;
 	else if (keycode == RIGHT_ARROW)
 		config->player.dir_right = false;
-	return 0;
+	return (0);
 }
 
 void move_player(t_config *config)
@@ -97,17 +97,24 @@ void move_player(t_config *config)
 		config->player.angle += ROTATION_SPEED * (M_PI / 180);
 }
 
-void locate_player(t_config *config){
-	int i = 0;
-	while(config->map[i]){
-		int j = 0;
-		while(config->map[i][j]){
-			if(config->map[i][j] == 'N' || config->map[ i][j] == 'S'
-				|| config->map[i][j] == 'E' || config->map[i][j] == 'W'){
+void	locate_player(t_config *config)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (config->map[i])
+	{
+		j = 0;
+		while (config->map[i][j])
+		{
+			if (config->map[i][j] == 'N' || config->map[i][j] == 'S'
+				|| config->map[i][j] == 'E' || config->map[i][j] == 'W')
+			{
 				config->player.x = j * TILE_SIZE + (TILE_SIZE / 2);
 				config->player.y = i * TILE_SIZE + (TILE_SIZE / 2);
 				config->map[i][j] = '0';
-				return;
+				return ;
 			}
 			j++;
 		}

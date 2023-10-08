@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:23:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/30 22:11:24 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 20:09:01 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ char	*ft_strdup(char *s1)
 int	ft_strlen(char *s)
 {
 	int	index;
-	
-	if(!s)
+
+	if (!s)
 		return (0);
 	index = 0;
 	while (s[index] != '\0')
