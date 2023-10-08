@@ -6,58 +6,53 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:29:00 by isidki            #+#    #+#             */
-/*   Updated: 2023/10/07 22:13:08 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 19:28:06 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-bool is_wall(double x, double y, t_config *config)
+bool	is_wall(double x, double y, t_config *config)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
-	i = (int)floor(x / 32);
-	j = (int)floor(y / 32);
+	i = (int)floor(x / TILE_SIZE);
+	j = (int)floor(y / TILE_SIZE);
 	if (i < config->map_width && j < config->map_height && j >= 0 && i >= 0)
 	{
 		if (config->map[j][i] == '1')
-			return true;
+			return (true);
 	}
-	return false;
+	return (false);
 }
 
-void    horizontalDistance(t_ray *ray, t_config *config)
+void	horizontalDistance(t_ray *ray, t_config *config)
 {
 
-	double first_intersection_y = floor(config->player.y / 32) * 32;
+	double first_intersection_y = floor(config->player.y / TILE_SIZE) * TILE_SIZE;
 	
 	if (facing_down(ray->ray_angle)) //ray facing down
-		first_intersection_y += 32;
+		first_intersection_y += TILE_SIZE;
 		
 	double first_intersection_x = config->player.x + ((first_intersection_y - config->player.y) / tan(ray->ray_angle));
 	
-	double ystep = 32;
-	
+	double ystep = TILE_SIZE;
+	int d = 0;
 	if (!facing_down(ray->ray_angle)) //ray facing up
 	{
+		d = 1;
 		ystep *= -1;
-		first_intersection_y--;
 	}
-	
+
 	double xstep = ystep / tan(ray->ray_angle);
 	
 	if ((facing_left(ray->ray_angle) && xstep > 0) || (!facing_left(ray->ray_angle) && xstep < 0))
 	    xstep *= -1;
-	// 	double chk_y;
-	// if (!facing_down(ray->ray_angle))
-	// 	chk_y = first_intersection_y--; //substruct for the test to force it to be inside the cell
-	// else
-	// 	chk_y = first_intersection_y;
 		
-	while (((int)(first_intersection_x / 32)) >= 0 && ((int)(first_intersection_y / 32)) >= 0 && ((int)(first_intersection_x / 32)) <= config->map_width && ((int)(first_intersection_y / 32)) <= config->map_height)
+	while (((int)(first_intersection_x / TILE_SIZE)) >= 0 && ((int)(first_intersection_y / TILE_SIZE)) >= 0 && ((int)(first_intersection_x / TILE_SIZE)) < config->map_width && ((int)(first_intersection_y / TILE_SIZE)) < config->map_height)
 	{
-		if (is_wall(first_intersection_x, first_intersection_y, config))
+		if (is_wall(first_intersection_x, first_intersection_y - d, config))
 		{
 			ray->hit_h = true;
 			ray->h_point_hit_x = first_intersection_x;
@@ -72,8 +67,4 @@ void    horizontalDistance(t_ray *ray, t_config *config)
 			ray->horizontal_distance = INFINITY;
 		}
 	}
-	
-   // if we hit a wall then (hit_wall = true) and (ray->h_point_hit_x = first_intersection_x) and (ray->h_point_hit_y = first_intersection_y)
-   // and (ray->horizontal_distance = distance_between_player_and_wall)
-   // else if we didnt hit a wall then (ray->horizontal_distance = INT_MAX)
 }

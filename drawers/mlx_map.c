@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/07 22:26:26 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 19:28:20 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void draw_map(t_config *config)
         int j = 0;
         while(config->map[i][j]){
             if(config->map[i][j] == '1')
-                draw_tiles(config, j * 32, i * 32, to_hex(config->c[0], config->c[1], config->c[2]));
+                draw_tiles(config, j * TILE_SIZE, i * TILE_SIZE, to_hex(config->c[0], config->c[1], config->c[2]));
             else if(config->map[i][j] == '0')
-                draw_tiles(config, j * 32, i * 32, to_hex(config->f[0], config->f[1], config->f[2]));
+                draw_tiles(config, j * TILE_SIZE, i * TILE_SIZE, to_hex(config->f[0], config->f[1], config->f[2]));
             j++;
         }
         i++;
@@ -68,7 +68,7 @@ void set_to_zero(t_ray *ray)
     ray->v_point_hit_y = -1;
     ray->horizontal_distance = INFINITY;
     ray->vertical_distance = INFINITY;
-    ray->ray_angle = 0;
+    ray->ray_angle = M_PI_2;
     ray->hit_h = false;
     ray->hit_v = false;
 }
@@ -141,7 +141,7 @@ int draw_minimap(t_config *config)
     draw_map(config);
     draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
 
-    // double increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
+    double increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
     normalize_angle(&config->player.angle);
     double angle = config->player.angle - ((VIEW_RANGE * M_PI / 180) / 2);
     normalize_angle(&angle);
@@ -150,9 +150,9 @@ int draw_minimap(t_config *config)
     // printf("%f\n", (config->player.angle  * 180 / M_PI));
     double y;
     double x;
-    // int i = 0;
-    // while (i < WIDTH)
-    // {     
+    int i = 0;
+    while (i < WIDTH) // i < NUM_RAYS
+    {     
         set_to_zero(&ray);
         ray.ray_angle = (angle);
         normalize_angle(&(ray.ray_angle));
@@ -187,9 +187,9 @@ int draw_minimap(t_config *config)
         DDA(config,config->player.x, config->player.y,  x, y);
             // if(finalDistance != INFINITY)
         // printf("%f\n" , finalDistance);
-        // angle += increment;
-        // i++;
+        angle += increment;
+        i++;
+    } 
     mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
-    // } 
     return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:22:06 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/06 16:20:35 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 19:12:38 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void    draw_tiles(t_config *config, int x, int y, int color)
     int j;
 
     i = 0;
-    while (i < 32)
+    while (i < TILE_SIZE)
     {
         j = 0;
-        while (j < 32)
+        while (j < TILE_SIZE)
         {
             pixel_put(config, x + i, y + j, color);
             j++;

@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/07 22:07:27 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/08 19:28:08 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,12 @@
 #define ESC 53
 
 #define VIEW_RANGE 60
+#define TILE_SIZE 32
 #define HEIGHT 720
 #define WIDTH 1080
 #define ROTATION_SPEED 1
 #define PLAYER_SPEED 3
-#define PLAYER_SIZE 8
+#define PLAYER_SIZE 7
 
 // ---> START STRUCTURE
 typedef struct s_map_data
@@ -61,8 +62,8 @@ typedef struct s_player
 	bool		dir_right;
 	double		angle;
 
-	double			x;
-	double			y;
+	double		x;
+	double		y;
 }	t_player;
 
 typedef struct s_config
@@ -91,7 +92,6 @@ typedef struct s_config
 
 typedef struct s_ray
 {
-
 	double		horizontal_distance;
 	double		vertical_distance;
 	double		v_point_hit_x;
@@ -144,7 +144,7 @@ void			print_map(t_config config);
 // ---> raycasting
 void	set_to_zero(t_ray *ray);
 void	verticalDistance(t_ray *ray, t_config *config);
-void    horizontalDistance(t_ray *ray, t_config *config);
+void	horizontalDistance(t_ray *ray, t_config *config);
 bool	is_wall(double x, double y, t_config *config);
 bool	facing_down(double angle);
 bool	facing_left(double angle);
