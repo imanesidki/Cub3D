@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:40:32 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/09 20:15:43 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ bool	facing_left(double angle)
 	return (angle > 0.5 * M_PI && angle < 1.5 * M_PI);
 }
 
+
+
 int	draw_minimap(t_config *config)
 {
 	int		i;
@@ -117,8 +119,7 @@ int	draw_minimap(t_config *config)
 	config->map_data.addr = mlx_get_data_addr(config->map_data.img,
 			&config->map_data.bits_per_pixel, &config->map_data.line_length, &config->map_data.endian);
 	move_player(config);
-	draw_map(config);
-	draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
+	
 	increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
 	normalize_angle(&config->player.angle);
 	angle = config->player.angle - ((VIEW_RANGE * M_PI / 180) / 2);
@@ -147,10 +148,23 @@ int	draw_minimap(t_config *config)
 			y = ray.v_point_hit_y;
 			x = ray.v_point_hit_x;
 		}
-		dda(config, config->player.x, config->player.y, x, y);
+		double distance_to_projection_plan = (WIDTH / 2) / tan((VIEW_RANGE * M_PI / 180) / 2);
+		finalDistance = finalDistance * cos(config->player.angle - angle);
+		double wall_strip_height = (TILE_SIZE / finalDistance) * distance_to_projection_plan;
+		double wall_top_pixel = (HEIGHT / 2) - (wall_strip_height / 2);
+		double wall_bottom_pixel = (HEIGHT / 2) + (wall_strip_height / 2);
+		while (wall_top_pixel < wall_bottom_pixel)
+		{
+			pixel_put(config, i, wall_top_pixel, to_hex(54, 75, 75));
+			wall_top_pixel++;
+		}
+		
 		angle += increment;
 		i++;
 	}
+	draw_map(config);
+	draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
+	dda(config, config->player.x, config->player.y, config->player.x + 100 * cos(config->player.angle), config->player.y + 100 * sin(config->player.angle));
 	mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
 	return (0);
 }
