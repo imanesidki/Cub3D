@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_map.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/09 23:47:04 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/10 15:50:24 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,11 +161,24 @@ int	draw_minimap(t_config *config)
 			wall_top_pixel = 0;
 		if (wall_bottom_pixel > HEIGHT)
 			wall_bottom_pixel = HEIGHT;
+		int top = 0;
+		while (top < wall_top_pixel)
+		{
+			pixel_put(config, i, top, to_hex(0, 0, 255));
+			top++;
+		}
 		while (wall_top_pixel < wall_bottom_pixel)
 		{
 			pixel_put(config, i, wall_top_pixel, to_hex(54, 75, 75));
 			wall_top_pixel++;
 		}
+		int bottom = wall_bottom_pixel;
+		while (bottom < HEIGHT)
+		{
+			pixel_put(config, i, bottom, to_hex(0, 255, 0));
+			bottom++;
+		}
+		
 		
 		angle += increment;
 		i++;
