@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:22:15 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/10 22:19:53 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ typedef struct s_config
 
 typedef struct s_ray
 {
-	double		horizontal_distance;
-	double		vertical_distance;
+	double		h_dist;
+	double		v_dist;
 	double		v_point_hit_x;
 	double		v_point_hit_y;
 	double		h_point_hit_y;
@@ -136,6 +136,10 @@ void			ft_exit(t_config *config, int err);
 void			check_chars_map(char *line);
 void			validate_map(char *str, t_config *config);
 
+//      ---> parsers --> utils
+bool			is_rgb_valid(char *str, int *color, t_config *config);
+void			read_file(char *path, t_config *config);
+
 //      ---> utils
 unsigned int	to_hex(int r, int g, int b);
 void			free_tab(char **tab);
@@ -145,11 +149,11 @@ void			print_map(t_config config);
 // ---> raycasting
 void			set_to_zero(t_ray *ray);
 void			verticalDistance(t_ray *ray, t_config *config);
-void			horizontalDistance(t_ray *ray, t_config *config);
+void			horizontal_distance(t_ray *ray, t_config *config);
 bool			is_wall(double x, double y, t_config *config);
 bool			facing_down(double angle);
 bool			facing_left(double angle);
-void			dda(t_config *config, double X0, double Y0, double X1, double Y1);
+void			dda(t_config *config, double X1, double Y1);
 
 // ---> drawers
 //      ---> mlx_window
@@ -163,6 +167,12 @@ int				handle_press(int keycode, t_config *config);
 int				key_release(int keycode, t_config *config);
 void			move_player(t_config *config);
 void			locate_player(t_config *config);
+
+//             ---> player_directions
+void			player_move_left(t_config *config);
+void			player_move_right(t_config *config);
+void			player_move_up(t_config *config);
+void			player_move_down(t_config *config);
 
 //      ---> mlx_map
 void			draw_map(t_config *config);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_vertical.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 14:29:40 by isidki            #+#    #+#             */
-/*   Updated: 2023/10/08 20:11:36 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/10 22:15:16 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	verticalDistance(t_ray *ray, t_config *config)
 		   ray->hit_v = true;
 		   ray->v_point_hit_x = intrsect_x;
 		   ray->v_point_hit_y = intrsect_y;
-		   ray->vertical_distance = sqrt(pow((config->player.x - intrsect_x), 2) + pow((config->player.y - intrsect_y), 2));
+		   ray->v_dist = sqrt(pow((config->player.x - intrsect_x), 2) + pow((config->player.y - intrsect_y), 2));
 			break;
 		}
 		else
 		{
 			intrsect_x += xstep;
 			intrsect_y += ystep;
-			ray->vertical_distance = INFINITY;
+			ray->v_dist = INFINITY;
 		}
 	}
 }

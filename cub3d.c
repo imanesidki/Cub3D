@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:12:19 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/10 21:34:25 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ void	init_variables(t_config *config)
 	config->longest_map_line = 0;
 }
 
+void	clear_resources(t_config *config)
+{
+	free_config_struct(config);
+}
+
 void	leaker(void)
 {
 	system("leaks cub3d");
@@ -51,7 +56,8 @@ void	leaker(void)
 int	main(int argc, char **argv)
 {
 	t_config	*config;
-	// atexit(leaker);
+
+	atexit(leaker);
 	config = malloc(sizeof(t_config));
 	if (argc != 2)
 		ft_exit(config, 0);
@@ -61,4 +67,5 @@ int	main(int argc, char **argv)
 	init_variables_rest(config);
 	validate_map(argv[1], config);
 	init_window(config);
+	clear_resources(config);
 }

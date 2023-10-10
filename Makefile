@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+         #
+#    By: isalama <isalama@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 18:09:46 by isalama           #+#    #+#              #
-#    Updated: 2023/10/06 13:59:49 by isidki           ###   ########.fr        #
+#    Updated: 2023/10/10 21:58:56 by isalama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,15 @@ NAME = cub3d
 
 # source code
 HELPERS = helpers/class_helper.c helpers/class_getline.c \
-	  	  helpers/class_parsing.c helpers/class_utils.c
-DRAWERS = drawers/mlx_window.c drawers/mlx_map.c drawers/mlx_player.c
+	  	  helpers/parsing/class_parsing.c helpers/class_utils.c \
+	  	  helpers/parsing/parsing_utils.c
+		  
+DRAWERS = drawers/mlx_window.c drawers/mlx_map.c drawers/mlx_player.c \
+			drawers/player/player_directions.c
 LIBFT = libft/strings_1.c libft/strings_2.c libft/strings_3.c \
 		libft/strings_4.c libft/strings_5.c libft/strings_6.c
-RAYCAST = raycasting/raycasting_horizontal.c raycasting/raycasting_vertical.c
+RAYCAST = raycasting/raycasting_horizontal.c raycasting/raycasting_vertical.c \
+			raycasting/raycasting_utils.c
 
 		
 SRC = $(HELPERS) $(DRAWERS) $(LIBFT) $(RAYCAST) cub3d.c

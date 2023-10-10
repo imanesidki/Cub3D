@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 15:21:44 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/10 21:46:05 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,51 +48,12 @@ int	key_release(int keycode, t_config *config)
 	return (0);
 }
 
-void move_player(t_config *config)
+void	move_player(t_config *config)
 {
-	double	new_x;
-	double	new_y;
-
-	if (config->player.left)
-	{
-		new_x = config->player.x - cos(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
-		new_y = config->player.y - sin(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
-		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1' && config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != 'x')
-		{
-			config->player.x = new_x;
-			config->player.y = new_y;
-		}
-	}
-	if (config->player.right)
-	{
-		new_x = config->player.x + cos(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
-		new_y = config->player.y + sin(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
-		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1' && config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != 'x')
-		{
-			config->player.x = new_x;
-			config->player.y = new_y;
-		}
-	}
-	if (config->player.up)
-	{
-		new_x = config->player.x + cos(config->player.angle) * PLAYER_SPEED;
-		new_y = config->player.y + sin(config->player.angle) * PLAYER_SPEED;
-		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1' && config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != 'x')
-		{
-			config->player.x = new_x;
-			config->player.y = new_y;
-		}
-	}
-	if (config->player.down)
-	{
-		new_x = config->player.x - cos(config->player.angle) * PLAYER_SPEED;
-		new_y = config->player.y - sin(config->player.angle) * PLAYER_SPEED;
-		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1' && config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != 'x')
-		{
-			config->player.x = new_x;
-			config->player.y = new_y;
-		}
-	}
+	player_move_left(config);
+	player_move_right(config);
+	player_move_up(config);
+	player_move_down(config);
 	if (config->player.dir_left)
 		config->player.angle -= ROTATION_SPEED * (M_PI / 180);
 	if (config->player.dir_right)

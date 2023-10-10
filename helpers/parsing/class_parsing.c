@@ -3,88 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   class_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:34:40 by isidki           ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2023/10/10 21:49:15 by isalama          ###   ########.fr       */
+/*                                            	                                */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
-void	read_file(char *path, t_config *config)
-{
-	int		map_size;
-	int		fd;
-	int		i;
-	char	*line;
 
-	i = 0;
-	map_size = 0;
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		exit(1);
-	line = get_next_line(fd);
-	while (line)
-	{
-		free(line);
-		map_size++;
-		line = get_next_line(fd);
-	}
-	close(fd);
-	config->map_clone = malloc((map_size + 1) * sizeof(char *));
-	if (!config->map_clone)
-		exit(1);
-	config->map_clone[map_size] = NULL;
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		ft_exit(config, 0);
-	while (map_size)
-	{
-		config->map_clone[i] = get_next_line(fd);
-		map_size--;
-		i++;
-	}
-	close(fd);
-}
-
-bool	is_rgb_valid(char *str, int *color, t_config *config)
-{
-	int		i;
-	int		j;
-	bool	is_valid;
-
-	if (!str || ft_strlen(str) < 5)
-		return (free(str), false);
-	i = 0;
-	j = 0;
-	while (str[i])
-	{
-		if (str[i] == ',')
-			j++;
-		i++;
-	}
-	if (j != 2)
-		return (free(str), false);
-	config->colors = ft_split(str, ',');
-	if (!config->colors)
-		return (free(str), false);
-	i = 0;
-	is_valid = true;
-	while (config->colors[i] && i < 3)
-	{
-		if (ft_atoi_rgb(config->colors[i]) < 0
-			|| ft_atoi_rgb(config->colors[i]) > 255)
-			is_valid = false;
-		color[i] = ft_atoi_rgb(config->colors[i]);
-		i++;
-	}
-	if (is_valid && (config->colors[i] || i != 3))
-		is_valid = false;
-	free_tab(config->colors);
-	free(str);
-	return (is_valid);
-}
 
 bool	validate_attrs(char *line)
 {

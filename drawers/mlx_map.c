@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 15:50:24 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/10 22:15:16 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	set_to_zero(t_ray *ray)
 	ray->h_point_hit_y = -1;
 	ray->v_point_hit_x = -1;
 	ray->v_point_hit_y = -1;
-	ray->horizontal_distance = INFINITY;
-	ray->vertical_distance = INFINITY;
+	ray->h_dist = INFINITY;
+	ray->v_dist = INFINITY;
 	ray->ray_angle = M_PI_2;
 	ray->hit_h = false;
 	ray->hit_v = false;
@@ -57,7 +57,7 @@ void	normalize_angle(double *angle)
 	*angle = *angle * M_PI / 180;
 }
 
-void	dda(t_config *config, double X0, double Y0, double X1, double Y1)
+void	dda(t_config *config, double X1, double Y1)
 {
 	double	Xinc;
 	double	Yinc;
@@ -68,8 +68,8 @@ void	dda(t_config *config, double X0, double Y0, double X1, double Y1)
 	double	X;
 	double	Y;
 
-	dx = X1 - X0;
-	dy = Y1 - Y0;
+	dx = X1 - config->player.x;
+	dy = Y1 - config->player.y;
 	if (fabs(dx) >= fabs(dy))
 		steps = fabs(dx);
 	else
@@ -79,12 +79,12 @@ void	dda(t_config *config, double X0, double Y0, double X1, double Y1)
 		Xinc = dx / (double)steps;
 		Yinc = dy / (double)steps;
 	}
-	X = X0;
-	Y = Y0;
+	X = config->player.x;
+	Y = config->player.y;
 	i = 0;
 	while (i <= steps)
 	{
-		pixel_put(config, X, Y, to_hex(0,0,0));
+		pixel_put(config, X, Y, to_hex(0, 0, 0));
 		X += Xinc;
 		Y += Yinc;
 		i++;
@@ -100,8 +100,6 @@ bool	facing_left(double angle)
 {
 	return (angle > 0.5 * M_PI && angle < 1.5 * M_PI);
 }
-
-
 
 int	draw_minimap(t_config *config)
 {
@@ -124,7 +122,7 @@ int	draw_minimap(t_config *config)
 	normalize_angle(&config->player.angle);
 	angle = config->player.angle - ((VIEW_RANGE * M_PI / 180) / 2);
 	normalize_angle(&angle);
-//split function
+
 	finalDistance = 0;
 	i = 0;
 	while (i < WIDTH)
@@ -132,7 +130,7 @@ int	draw_minimap(t_config *config)
 		set_to_zero(&ray);
 		ray.ray_angle = (angle);
 		normalize_angle(&(ray.ray_angle));
-		horizontalDistance(&ray, config);
+		horizontal_distance(&ray, config);
 		verticalDistance(&ray, config);
 		x = 0;
 		y = 0;
@@ -161,21 +159,27 @@ int	draw_minimap(t_config *config)
 			wall_top_pixel = 0;
 		if (wall_bottom_pixel > HEIGHT)
 			wall_bottom_pixel = HEIGHT;
+
+		// draw ceiling
 		int top = 0;
 		while (top < wall_top_pixel)
 		{
-			pixel_put(config, i, top, to_hex(0, 0, 255));
+			pixel_put(config, i, top, to_hex(51, 177, 255));
 			top++;
 		}
+		
+		// draw wall
 		while (wall_top_pixel < wall_bottom_pixel)
 		{
 			pixel_put(config, i, wall_top_pixel, to_hex(54, 75, 75));
 			wall_top_pixel++;
 		}
+		
+		// draw floor
 		int bottom = wall_bottom_pixel;
 		while (bottom < HEIGHT)
 		{
-			pixel_put(config, i, bottom, to_hex(0, 255, 0));
+			pixel_put(config, i, bottom, to_hex(41, 41, 41));
 			bottom++;
 		}
 		
@@ -183,9 +187,6 @@ int	draw_minimap(t_config *config)
 		angle += increment;
 		i++;
 	}
-	// draw_map(config);
-	// draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
-	// dda(config, config->player.x, config->player.y, config->player.x + 100 * cos(config->player.angle), config->player.y + 100 * sin(config->player.angle));
 	mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
 	return (0);
 }
