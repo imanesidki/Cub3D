@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 22:15:16 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/10 22:56:26 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ void	set_to_zero(t_ray *ray)
 	ray->h_point_hit_y = -1;
 	ray->v_point_hit_x = -1;
 	ray->v_point_hit_y = -1;
+	ray->h_intrsct_x = 0;
+	ray->h_intrsct_y = 0;
+	ray->v_intrsct_x = 0;
+	ray->v_intrsct_y = 0;
+	ray->h_xstep = 0;
+	ray->h_ystep = 0;
+	ray->v_xstep = 0;
+	ray->v_ystep = 0;
 	ray->h_dist = INFINITY;
 	ray->v_dist = INFINITY;
 	ray->ray_angle = M_PI_2;
@@ -57,48 +65,38 @@ void	normalize_angle(double *angle)
 	*angle = *angle * M_PI / 180;
 }
 
-void	dda(t_config *config, double X1, double Y1)
+void	dda(t_config *config, double x1, double y1)
 {
-	double	Xinc;
-	double	Yinc;
-	int		i;
 	double	dx;
 	double	dy;
 	double	steps;
-	double	X;
-	double	Y;
+	double	x;
+	double	y;
+	double	xinc;
+	double	yinc;
+	int i;
 
-	dx = X1 - config->player.x;
-	dy = Y1 - config->player.y;
+	dx = x1 - config->player.x;
+	dy = y1 - config->player.y;
 	if (fabs(dx) >= fabs(dy))
 		steps = fabs(dx);
 	else
 		steps = fabs(dy);
+	x = config->player.x;
+	y = config->player.y;
 	if (steps != 0)
 	{
-		Xinc = dx / (double)steps;
-		Yinc = dy / (double)steps;
+		xinc = dx / (double)steps;
+		yinc = dy / (double)steps;
 	}
-	X = config->player.x;
-	Y = config->player.y;
 	i = 0;
 	while (i <= steps)
 	{
-		pixel_put(config, X, Y, to_hex(0, 0, 0));
-		X += Xinc;
-		Y += Yinc;
+		pixel_put(config, x, y, to_hex(0, 0, 0));
+		x += xinc;
+		y += yinc;
 		i++;
 	}
-}
-
-bool	facing_down(double angle)
-{
-	return (angle > 0 && angle < M_PI);
-}
-
-bool	facing_left(double angle)
-{
-	return (angle > 0.5 * M_PI && angle < 1.5 * M_PI);
 }
 
 int	draw_minimap(t_config *config)
@@ -131,18 +129,18 @@ int	draw_minimap(t_config *config)
 		ray.ray_angle = (angle);
 		normalize_angle(&(ray.ray_angle));
 		horizontal_distance(&ray, config);
-		verticalDistance(&ray, config);
+		vertical_distance(&ray, config);
 		x = 0;
 		y = 0;
-		if (ray.horizontal_distance <= ray.vertical_distance && ray.hit_h)
+		if (ray.h_dist <= ray.v_dist && ray.hit_h)
 		{
-			finalDistance = ray.horizontal_distance;
+			finalDistance = ray.h_dist;
 			y = ray.h_point_hit_y;
 			x = ray.h_point_hit_x;
 		}
 		else if (ray.hit_v)
 		{
-			finalDistance = ray.vertical_distance;
+			finalDistance = ray.v_dist;
 			y = ray.v_point_hit_y;
 			x = ray.v_point_hit_x;
 		}

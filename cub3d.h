@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 22:19:53 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/10 22:52:06 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,19 @@ typedef struct s_ray
 {
 	double		h_dist;
 	double		v_dist;
+	double		h_intrsct_x;
+	double		h_intrsct_y;
+	double		v_intrsct_x;
+	double		v_intrsct_y;
 	double		v_point_hit_x;
 	double		v_point_hit_y;
 	double		h_point_hit_y;
 	double		h_point_hit_x;
 	double		ray_angle;
+	double		v_xstep;
+	double		v_ystep;
+	double		h_xstep;
+	double		h_ystep;
 	bool		hit_v;
 	bool		hit_h;
 }	t_ray;
@@ -148,7 +156,7 @@ void			print_map(t_config config);
 
 // ---> raycasting
 void			set_to_zero(t_ray *ray);
-void			verticalDistance(t_ray *ray, t_config *config);
+void			vertical_distance(t_ray *ray, t_config *config);
 void			horizontal_distance(t_ray *ray, t_config *config);
 bool			is_wall(double x, double y, t_config *config);
 bool			facing_down(double angle);

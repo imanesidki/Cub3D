@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:26:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 21:27:27 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/10 22:53:59 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,14 @@ bool	is_wall(double x, double y, t_config *config)
 			return (true);
 	}
 	return (false);
+}
+
+bool	facing_down(double angle)
+{
+	return (angle > 0 && angle < M_PI);
+}
+
+bool	facing_left(double angle)
+{
+	return (angle > 0.5 * M_PI && angle < 1.5 * M_PI);
 }
