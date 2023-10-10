@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_player.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:19:29 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/10 15:21:44 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void move_player(t_config *config)
 	{
 		new_x = config->player.x - cos(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
 		new_y = config->player.y - sin(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
-		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1')
+		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1' && config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != 'x')
 		{
 			config->player.x = new_x;
 			config->player.y = new_y;
@@ -67,7 +67,7 @@ void move_player(t_config *config)
 	{
 		new_x = config->player.x + cos(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
 		new_y = config->player.y + sin(config->player.angle + (M_PI / 2)) * PLAYER_SPEED;
-		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1')
+		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1' && config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != 'x')
 		{
 			config->player.x = new_x;
 			config->player.y = new_y;
@@ -77,7 +77,7 @@ void move_player(t_config *config)
 	{
 		new_x = config->player.x + cos(config->player.angle) * PLAYER_SPEED;
 		new_y = config->player.y + sin(config->player.angle) * PLAYER_SPEED;
-		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1')
+		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1' && config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != 'x')
 		{
 			config->player.x = new_x;
 			config->player.y = new_y;
@@ -87,7 +87,7 @@ void move_player(t_config *config)
 	{
 		new_x = config->player.x - cos(config->player.angle) * PLAYER_SPEED;
 		new_y = config->player.y - sin(config->player.angle) * PLAYER_SPEED;
-		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1')
+		if (config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != '1' && config->map[(int)(new_y / TILE_SIZE)][(int)(new_x / TILE_SIZE)] != 'x')
 		{
 			config->player.x = new_x;
 			config->player.y = new_y;
