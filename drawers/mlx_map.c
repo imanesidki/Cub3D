@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 22:56:26 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/11 11:14:23 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int	draw_minimap(t_config *config)
 		int top = 0;
 		while (top < wall_top_pixel)
 		{
-			pixel_put(config, i, top, to_hex(51, 177, 255));
+			pixel_put(config, i, top, to_hex(config->c[0], config->c[1], config->c[2]));
 			top++;
 		}
 		
@@ -177,7 +177,7 @@ int	draw_minimap(t_config *config)
 		int bottom = wall_bottom_pixel;
 		while (bottom < HEIGHT)
 		{
-			pixel_put(config, i, bottom, to_hex(41, 41, 41));
+			pixel_put(config, i, bottom, to_hex(config->f[0], config->f[1], config->f[1]));
 			bottom++;
 		}
 		
@@ -185,6 +185,9 @@ int	draw_minimap(t_config *config)
 		angle += increment;
 		i++;
 	}
+	draw_map(config);
+	draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
+	dda(config, config->player.x + 100 * cos(config->player.angle), config->player.y + 100 * sin(config->player.angle));
 	mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
 	return (0);
 }
