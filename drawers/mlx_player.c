@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 21:46:05 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/11 11:19:12 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	handle_press(int keycode, t_config *config)
 	else if (keycode == 124)
 		config->player.dir_right = true;
 	else if (keycode == 53)
-		exit(0);
+		ft_exit(config, 8);
 	return (0);
 }
 

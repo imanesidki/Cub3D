@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   class_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:14:51 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:07:59 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/11 11:58:25 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	if (!(tab || *tab))
+	if (!tab || !*tab)
 		return ;
 	while (tab[i])
 	{
@@ -45,5 +45,7 @@ void	free_config_struct(t_config *config)
 		free(config->we_texture);
 	if (config->no_texture)
 		free(config->no_texture);
+	free_tab(config->map);
+	free_tab(config->map_clone);
 	free(config);
 }

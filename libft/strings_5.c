@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   strings_5.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 19:17:47 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:21:58 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/11 11:43:15 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*get_trimmed_str(int start, int size, char *original_str)
 		size--;
 	}
 	allocation[allocation_index] = '\0';
-	return (allocation);
+	return (free(original_str), allocation);
 }
 
 char	*ft_strtrim(char *s1, char *set)

@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:49:08 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 22:01:59 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/11 12:03:44 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ bool	is_rgb_valid(char *str, int *color, t_config *config)
 	i = 0;
 	if (!is_rgb_string_valid(str, config))
 		return (false);
-
 	while (i < 3 && config->colors[i])
 	{
+		config->colors[i] = trim_sp(config->colors[i]);
 		if (ft_atoi_rgb(config->colors[i]) < 0
 			|| ft_atoi_rgb(config->colors[i]) > 255)
 			is_valid = false;

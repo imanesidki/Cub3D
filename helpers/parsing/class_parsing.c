@@ -12,8 +12,6 @@
 
 #include "../../cub3d.h"
 
-
-
 bool	validate_attrs(char *line)
 {
 	return (!(ft_strlen(line) > 0 && line[0] != 'N'
@@ -159,7 +157,6 @@ void	fill_map(t_config *config)
 		i2++;
 		i++;
 	}
-	free_tab(config->map_clone);
 }
 
 void	check_surroundings(t_config *config)
