@@ -1,89 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   class_parsing.c                                    :+:      :+:    :+:   */
+/*   class_parsing_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/14 18:02:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 21:49:15 by isalama          ###   ########.fr       */
-/*                                            	                                */
+/*   Created: 2023/10/14 14:08:04 by isalama           #+#    #+#             */
+/*   Updated: 2023/10/14 15:06:50 by isalama          ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
-
-bool	validate_attrs(char *line)
-{
-	return (!(ft_strlen(line) > 0 && line[0] != 'N'
-			&& line[0] != 'W' && line[0] != 'S'
-			&& line[0] != 'E' && line[0] != 'C' && line[0] != 'F'));
-}
-
-void parse_map_attrs(t_config *config)
-{
-	int	i;
-
-	i = 0;
-	while (config->map_clone[i] && validate_attrs(config->map_clone[i]))
-	{
-		if (ft_strlen(config->map_clone[i]) > 3)
-		{
-			if (ft_strncmp(config->map_clone[i], "NO ", 3))
-			{
-				if (config->no_texture)
-					ft_exit(config, 1);
-				config->no_texture = trim_sp(ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3));
-				if (!config->no_texture)
-					ft_exit(config, 1);
-			}
-			else if (ft_strncmp(config->map_clone[i], "SO ", 3))
-			{
-				if (config->so_texture)
-					ft_exit(config, 1);
-				config->so_texture = trim_sp(ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3));
-				if (!config->so_texture)
-					ft_exit(config, 1);
-			}
-			else if (ft_strncmp(config->map_clone[i], "EA ", 3))
-			{
-				if (config->ea_texture)
-					ft_exit(config, 1);
-				config->ea_texture = trim_sp(ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3));
-				if (!config->ea_texture)
-					ft_exit(config, 1);
-			}
-			else if (ft_strncmp(config->map_clone[i], "WE ", 3))
-			{
-				if (config->we_texture)
-					ft_exit(config, 1);
-				config->we_texture = trim_sp(ft_substr(config->map_clone[i], 3, ft_strlen(config->map_clone[i]) - 3));
-				if (!config->we_texture)
-					ft_exit(config, 1);
-			}
-			else if (ft_strncmp(config->map_clone[i], "F ", 2))
-			{
-				if (!is_rgb_valid(trim_sp(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2)), config->f, config))
-					ft_exit(config, 1);
-			}
-			else if (ft_strncmp(config->map_clone[i], "C ", 2))
-			{
-				if (!is_rgb_valid(trim_sp(ft_substr(config->map_clone[i], 2, ft_strlen(config->map_clone[i]) - 2)), config->c, config))
-					ft_exit(config, 1);
-			}
-		}
-		i++;
-	}
-	config->map_start = i;
-	if (!config->no_texture || !config->so_texture || !config->ea_texture || !config->we_texture)
-		ft_exit(config, 1);
-	i = 0;
-	while (i < 3)
-	{
-		if (config->f[i] == -1 || config->c[i] == -1)
-			ft_exit(config, 1);
-		i++;
-	}
-}
 
 void	parse_map(t_config *config)
 {
@@ -165,6 +92,7 @@ void	check_surroundings(t_config *config)
 	int	j;
 
 	i = 0;
+	printf("map height: %d\nmap width: %d\n", config->map_height, config->map_width);
 	while (config->map[i])
 	{
 		j = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:22:06 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:05:26 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/14 17:48:40 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,41 +23,27 @@ void	pixel_put(t_config *config, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_tiles(t_config *config, int x, int y, int color)
+void	init_textures(t_config *config)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (i < TILE_SIZE)
+	while (i < 4)
 	{
-		j = 0;
-		while (j < TILE_SIZE)
-		{
-			pixel_put(config, x + i, y + j, color);
-			j++;
-		}
+		config->tex[i] = malloc(sizeof(t_textures));
+		if (!config->tex[i])
+			ft_exit(config, 7);
+		config->tex[i]->img = mlx_xpm_file_to_image(config->mlx,
+				config->textures[i], &config->tex[i]->width,
+				&config->tex[i]->height);
+		if (!config->tex[i]->img)
+			ft_exit(config, 7);
+		config->tex[i]->addr = mlx_get_data_addr(config->tex[i]->img,
+				&config->tex[i]->bits_per_pixel,
+				&config->tex[i]->line_length, &config->tex[i]->endian);
+		if (!config->tex[i]->addr)
+			ft_exit(config, 7);
 		i++;
-	}
-}
-
-void	draw_player(t_config *config, int size, int color)
-{
-	int	start_x;
-	int	start_y;
-
-	start_y = config->player.y - size;
-	while (start_y < config->player.y + size)
-	{
-		start_x = config->player.x - size;
-		while (start_x < config->player.x + size)
-		{
-			if (sqrt(pow(start_x - config->player.x, 2)
-					+ pow(start_y - config->player.y, 2)) <= size)
-				pixel_put(config, start_x, start_y, color);
-			start_x++;
-		}
-		start_y++;
 	}
 }
 
@@ -69,12 +55,11 @@ void	init_window(t_config *config)
 	config->map_data.addr = mlx_get_data_addr(config->map_data.img,
 			&config->map_data.bits_per_pixel, &config->map_data.line_length,
 			&config->map_data.endian);
-	draw_map(config);
+	init_textures(config);
 	locate_player(config);
-	draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
 	mlx_hook(config->win, 2, 0, handle_press, config);
 	mlx_hook(config->win, 3, 0, key_release, config);
-	mlx_loop_hook(config->mlx, draw_minimap, config);
+	mlx_loop_hook(config->mlx, draw_game, config);
 	mlx_put_image_to_window(config->mlx, config->win,
 		config->map_data.img, 0, 0);
 	mlx_loop(config->mlx);

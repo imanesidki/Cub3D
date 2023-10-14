@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 21:34:25 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 17:45:38 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ void	init_variables_rest(t_config *config)
 
 void	init_variables(t_config *config)
 {
+	int	i;
+
+	i = 0;
 	config->player.up = false;
 	config->player.down = false;
 	config->player.left = false;
@@ -41,6 +44,9 @@ void	init_variables(t_config *config)
 	config->map_start = 0;
 	config->player.angle = M_PI_2;
 	config->longest_map_line = 0;
+	config->map = NULL;
+	config->textures = NULL;
+	config->map_clone = NULL;
 }
 
 void	clear_resources(t_config *config)

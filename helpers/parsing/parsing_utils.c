@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:49:08 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/11 12:03:44 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 14:07:25 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ bool	is_rgb_string_valid(char *str, t_config *config)
 
 	i = 0;
 	comma_count = 0;
-
 	if (!str || ft_strlen(str) < 5)
 		return (free(str), false);
-
 	while (str[i])
 	{
 		if (str[i] == ',')
@@ -74,11 +72,9 @@ bool	is_rgb_string_valid(char *str, t_config *config)
 	}
 	if (comma_count != 2)
 		return (free(str), false);
-
 	config->colors = ft_split(str, ',');
 	if (!config->colors)
 		return (free(str), false);
-
 	return (true);
 }
 
@@ -102,9 +98,14 @@ bool	is_rgb_valid(char *str, int *color, t_config *config)
 	}
 	if (is_valid && (config->colors[i] || i != 3))
 		is_valid = false;
-
 	free_tab(config->colors);
 	free(str);
-
 	return (is_valid);
+}
+
+bool	validate_attrs(char *line)
+{
+	return (!(ft_strlen(line) > 0 && line[0] != 'N'
+			&& line[0] != 'W' && line[0] != 'S'
+			&& line[0] != 'E' && line[0] != 'C' && line[0] != 'F'));
 }

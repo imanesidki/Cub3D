@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:14:51 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/11 11:58:25 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 17:54:26 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,18 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
+void	free_textures_struct(t_config *config)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		free(config->tex[i]);
+		i++;
+	}
+}
+
 void	free_config_struct(t_config *config)
 {
 	if (config->ea_texture)
@@ -47,5 +59,7 @@ void	free_config_struct(t_config *config)
 		free(config->no_texture);
 	free_tab(config->map);
 	free_tab(config->map_clone);
+	free_tab(config->textures);
+	free_textures_struct(config);
 	free(config);
 }

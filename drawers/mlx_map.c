@@ -6,34 +6,11 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:37:28 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/11 11:14:23 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 17:55:36 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	draw_map(t_config *config)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (config->map[i])
-	{
-		j = 0;
-		while (config->map[i][j])
-		{
-			if (config->map[i][j] == '1')
-				draw_tiles(config, j * TILE_SIZE, i * TILE_SIZE,
-					to_hex(config->c[0], config->c[1], config->c[2]));
-			else if (config->map[i][j] == '0')
-				draw_tiles(config, j * TILE_SIZE, i * TILE_SIZE,
-					to_hex(config->f[0], config->f[1], config->f[2]));
-			j++;
-		}
-		i++;
-	}
-}
 
 void	set_to_zero(t_ray *ray)
 {
@@ -65,41 +42,19 @@ void	normalize_angle(double *angle)
 	*angle = *angle * M_PI / 180;
 }
 
-void	dda(t_config *config, double x1, double y1)
+int get_color(t_config *config, double off_x, double off_y, int texture)
 {
-	double	dx;
-	double	dy;
-	double	steps;
-	double	x;
-	double	y;
-	double	xinc;
-	double	yinc;
-	int i;
+	int color;
+	int x;
+	int y;
 
-	dx = x1 - config->player.x;
-	dy = y1 - config->player.y;
-	if (fabs(dx) >= fabs(dy))
-		steps = fabs(dx);
-	else
-		steps = fabs(dy);
-	x = config->player.x;
-	y = config->player.y;
-	if (steps != 0)
-	{
-		xinc = dx / (double)steps;
-		yinc = dy / (double)steps;
-	}
-	i = 0;
-	while (i <= steps)
-	{
-		pixel_put(config, x, y, to_hex(0, 0, 0));
-		x += xinc;
-		y += yinc;
-		i++;
-	}
+	x = roundf(off_x);
+	y = roundf(off_y);
+	color = *(unsigned int *)(config->tex[texture]->addr + (y * config->tex[texture]->line_length + x * (config->tex[texture]->bits_per_pixel / 8)));
+	return (color);
 }
 
-int	draw_minimap(t_config *config)
+int	draw_game(t_config *config)
 {
 	int		i;
 	double	y;
@@ -108,6 +63,9 @@ int	draw_minimap(t_config *config)
 	double	angle;
 	t_ray	ray;
 	double  finalDistance;
+	int		x_offset = 0;
+	int		y_offset = 0;
+	int texture = 0;
 
 	mlx_clear_window(config->mlx, config->win);
 	mlx_destroy_image(config->mlx, config->map_data.img);
@@ -115,12 +73,10 @@ int	draw_minimap(t_config *config)
 	config->map_data.addr = mlx_get_data_addr(config->map_data.img,
 			&config->map_data.bits_per_pixel, &config->map_data.line_length, &config->map_data.endian);
 	move_player(config);
-	
 	increment = (VIEW_RANGE * M_PI / 180) / WIDTH;
 	normalize_angle(&config->player.angle);
 	angle = config->player.angle - ((VIEW_RANGE * M_PI / 180) / 2);
 	normalize_angle(&angle);
-
 	finalDistance = 0;
 	i = 0;
 	while (i < WIDTH)
@@ -137,15 +93,26 @@ int	draw_minimap(t_config *config)
 			finalDistance = ray.h_dist;
 			y = ray.h_point_hit_y;
 			x = ray.h_point_hit_x;
+			if(ray.ray_angle > 0 && ray.ray_angle < M_PI)
+				texture = 1;
+			else
+				texture = 0;
+				x_offset = fmod(ray.h_point_hit_x, 32) * ((double)config->tex[texture]->width / 32);
 		}
-		else if (ray.hit_v)
+		else
 		{
 			finalDistance = ray.v_dist;
 			y = ray.v_point_hit_y;
 			x = ray.v_point_hit_x;
+			if(ray.ray_angle  > M_PI_2 && ray.ray_angle  < 3 * M_PI_2)
+				texture = 3;
+			else
+				texture = 2;
+				x_offset = fmod(ray.v_point_hit_y, 32) * ((double)config->tex[texture]->width / 32);
 		}
 		
 
+	
 		double distance_to_projection_plan = (WIDTH / 2) / tan((VIEW_RANGE * M_PI / 180) / 2);
 		finalDistance = finalDistance * cos(config->player.angle - angle);
 		double wall_strip_height = (TILE_SIZE / finalDistance) * distance_to_projection_plan;
@@ -158,7 +125,6 @@ int	draw_minimap(t_config *config)
 		if (wall_bottom_pixel > HEIGHT)
 			wall_bottom_pixel = HEIGHT;
 
-		// draw ceiling
 		int top = 0;
 		while (top < wall_top_pixel)
 		{
@@ -166,14 +132,14 @@ int	draw_minimap(t_config *config)
 			top++;
 		}
 		
-		// draw wall
 		while (wall_top_pixel < wall_bottom_pixel)
 		{
-			pixel_put(config, i, wall_top_pixel, to_hex(54, 75, 75));
+			y_offset = config->tex[texture]->height * (wall_top_pixel + (wall_strip_height / 2) - (HEIGHT / 2)) / wall_strip_height;
+			
+			pixel_put(config, i, wall_top_pixel, get_color(config, x_offset, y_offset, texture));
 			wall_top_pixel++;
 		}
 		
-		// draw floor
 		int bottom = wall_bottom_pixel;
 		while (bottom < HEIGHT)
 		{
@@ -185,9 +151,6 @@ int	draw_minimap(t_config *config)
 		angle += increment;
 		i++;
 	}
-	draw_map(config);
-	draw_player(config, PLAYER_SIZE, to_hex(255, 92, 92));
-	dda(config, config->player.x + 100 * cos(config->player.angle), config->player.y + 100 * sin(config->player.angle));
 	mlx_put_image_to_window(config->mlx, config->win, config->map_data.img, 0, 0);
 	return (0);
 }

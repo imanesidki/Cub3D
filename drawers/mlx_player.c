@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/11 11:19:12 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 17:29:18 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ void	move_player(t_config *config)
 		config->player.angle += ROTATION_SPEED * (M_PI / 180);
 }
 
+void	set_player_angle(t_config *config, char angle)
+{
+	if (angle == 'E')
+		config->player.angle = 0;
+	else if (angle == 'N')
+		config->player.angle = 270 * (M_PI / 180);
+	else if (angle == 'W')
+		config->player.angle = 180 * (M_PI / 180);
+	else if (angle == 'S')
+		config->player.angle = 90 * (M_PI / 180);
+}
+
 void	locate_player(t_config *config)
 {
 	int	i;
@@ -76,11 +88,12 @@ void	locate_player(t_config *config)
 			{
 				config->player.x = j * TILE_SIZE + (TILE_SIZE / 2);
 				config->player.y = i * TILE_SIZE + (TILE_SIZE / 2);
-				config->map[i][j] = '0';
+				set_player_angle(config, config->map[i][j]);
 				return ;
 			}
 			j++;
 		}
 		i++;
 	}
+	
 }

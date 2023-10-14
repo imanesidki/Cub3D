@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/10 22:52:06 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 14:34:12 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define TILE_SIZE 32
 # define HEIGHT 720
 # define WIDTH 1080
-# define ROTATION_SPEED 1
+# define ROTATION_SPEED 2
 # define PLAYER_SPEED 3
 # define PLAYER_SIZE 7
 
@@ -51,6 +51,18 @@ typedef struct s_map_data
 	int			line_length;
 	int			endian;
 }	t_map_data;
+
+// textures structure
+typedef struct s_textures
+{
+	void		*img;
+	char		*addr;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
+	int			width;
+	int			height;
+}	t_textures;
 
 typedef struct s_player
 {
@@ -70,11 +82,12 @@ typedef struct s_config
 {
 	t_map_data	map_data;
 	t_player	player;
-
+	t_textures	*tex[4];
 	char		*no_texture;
 	char		*so_texture;
 	char		*we_texture;
 	char		*ea_texture;
+	char		**textures;
 
 	int			f[3];
 	int			c[3];
@@ -142,11 +155,13 @@ void			ft_exit(t_config *config, int err);
 
 //      ---> parsers
 void			check_chars_map(char *line);
+void			parse_map_attrs(t_config *config);
 void			validate_map(char *str, t_config *config);
 
 //      ---> parsers --> utils
 bool			is_rgb_valid(char *str, int *color, t_config *config);
 void			read_file(char *path, t_config *config);
+bool			validate_attrs(char *line);
 
 //      ---> utils
 unsigned int	to_hex(int r, int g, int b);
@@ -161,14 +176,11 @@ void			horizontal_distance(t_ray *ray, t_config *config);
 bool			is_wall(double x, double y, t_config *config);
 bool			facing_down(double angle);
 bool			facing_left(double angle);
-void			dda(t_config *config, double X1, double Y1);
 
 // ---> drawers
 //      ---> mlx_window
 void			init_window(t_config *config);
 void			pixel_put(t_config *config, int x, int y, int color);
-void			draw_tiles(t_config *config, int x, int y, int color);
-void			draw_player(t_config *config, int size, int color);
 
 //      ---> mlx_player
 int				handle_press(int keycode, t_config *config);
@@ -183,7 +195,6 @@ void			player_move_up(t_config *config);
 void			player_move_down(t_config *config);
 
 //      ---> mlx_map
-void			draw_map(t_config *config);
-int				draw_minimap(t_config *config);
+int				draw_game(t_config *config);
 
 #endif
