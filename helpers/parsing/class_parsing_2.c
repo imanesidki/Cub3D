@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 17:54:50 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 19:07:37 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,11 +113,11 @@ void	parse_map_attrs(t_config *config)
 		if (ft_strlen(config->map_clone[i]) > 3)
 		{
 			if (validate_textures_1(config, i))
-				printf("check first OK\n");
+				printf("1. Checking map attributes... OK!\n");
 			else if (validate_textures_2(config, i))
-				printf("check second OK\n");
+				printf("2. Checking map attributes... OK!\n");
 			else if (validate_textures_3(config, i))
-				printf("check third OK\n");
+				printf("3. Checking map attributes... OK!\n");
 		}
 		i++;
 	}

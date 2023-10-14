@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:04 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 15:06:50 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 19:08:10 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	check_surroundings(t_config *config)
 	int	j;
 
 	i = 0;
-	printf("map height: %d\nmap width: %d\n", config->map_height, config->map_width);
+	printf("4. Map info:\n- Map height: %d\n- Map width: %d\n", config->map_height, config->map_width);
 	while (config->map[i])
 	{
 		j = 0;

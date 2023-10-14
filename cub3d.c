@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 17:45:38 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/14 19:06:51 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv)
 {
 	t_config	*config;
 
-	atexit(leaker);
+	// atexit(leaker);
 	config = malloc(sizeof(t_config));
 	if (argc != 2)
 		ft_exit(config, 0);
