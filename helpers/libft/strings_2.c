@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   strings_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:23:13 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:09:01 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/15 18:39:55 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 char	*ft_strdup(char *s1)
 {

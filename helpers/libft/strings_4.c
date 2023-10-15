@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   strings_4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:19:39 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:09:27 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/15 18:40:01 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 bool	ft_isdigit(char c)
 {

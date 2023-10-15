@@ -6,11 +6,11 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 19:17:47 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/11 11:43:15 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 18:40:04 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int	gnl_strlen(const char *str)
 {

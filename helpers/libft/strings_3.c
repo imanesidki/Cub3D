@@ -6,11 +6,11 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:16:40 by isalama           #+#    #+#             */
-/*   Updated: 2023/09/14 22:30:14 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 18:39:58 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 static	int	len_tab(char *str, char c)
 {

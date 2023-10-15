@@ -6,11 +6,19 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 17:46:26 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 18:45:41 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+unsigned int	to_hex(int r, int g, int b)
+{
+	unsigned int	hex;
+
+	hex = (r << 16) | (g << 8) | b;
+	return (hex);
+}
 
 char	*get_error(int err_code)
 {

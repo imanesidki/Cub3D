@@ -6,11 +6,11 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:22:06 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 17:48:40 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 19:00:19 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 void	pixel_put(t_config *config, int x, int y, int color)
 {
@@ -47,6 +47,12 @@ void	init_textures(t_config *config)
 	}
 }
 
+int	ft_exit_cross(t_config *config)
+{
+	ft_exit(config, 7);
+	return (69);
+}
+
 void	init_window(t_config *config)
 {
 	config->mlx = mlx_init();
@@ -59,6 +65,7 @@ void	init_window(t_config *config)
 	locate_player(config);
 	mlx_hook(config->win, 2, 0, handle_press, config);
 	mlx_hook(config->win, 3, 0, key_release, config);
+	mlx_hook(config->win, 17, 0, ft_exit_cross, config);
 	mlx_loop_hook(config->mlx, draw_game, config);
 	mlx_put_image_to_window(config->mlx, config->win,
 		config->map_data.img, 0, 0);

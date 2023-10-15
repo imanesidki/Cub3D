@@ -1,24 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   class_utils.c                                      :+:      :+:    :+:   */
+/*   utils_garbage_collectors.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:14:51 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 17:54:26 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 18:45:35 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-unsigned int	to_hex(int r, int g, int b)
-{
-	unsigned int	hex;
-
-	hex = (r << 16) | (g << 8) | b;
-	return (hex);
-}
 
 void	free_tab(char **tab)
 {

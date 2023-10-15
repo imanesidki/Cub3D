@@ -6,11 +6,11 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:49:08 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 14:07:25 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 18:43:15 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../cub3d.h"
 
 void	read_file_rest(t_config *config, char *path, int map_size)
 {

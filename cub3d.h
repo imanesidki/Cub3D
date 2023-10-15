@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 14:34:12 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 19:09:42 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define HEIGHT 720
 # define WIDTH 1080
 # define ROTATION_SPEED 2
-# define PLAYER_SPEED 3
+# define PLAYER_SPEED 5
 # define PLAYER_SIZE 7
 
 // ---> START STRUCTURE
@@ -148,15 +148,15 @@ char			*trim_sp(char *str);
 char			*get_next_line(int fd);
 int				gnl_strlen(const char *str);
 
+// ---> parsers
+void			check_chars_map(char *line);
+void			parse_map_attrs(t_config *config);
+void			validate_map(char *str, t_config *config);
+
 // ---> helpers
 //		---> strings
 bool			has_extension(char *filename, char *extension);
 void			ft_exit(t_config *config, int err);
-
-//      ---> parsers
-void			check_chars_map(char *line);
-void			parse_map_attrs(t_config *config);
-void			validate_map(char *str, t_config *config);
 
 //      ---> parsers --> utils
 bool			is_rgb_valid(char *str, int *color, t_config *config);
@@ -188,13 +188,19 @@ int				key_release(int keycode, t_config *config);
 void			move_player(t_config *config);
 void			locate_player(t_config *config);
 
-//             ---> player_directions
+// 		---> mlx_utils
+void			initialize_ray_vars(t_ray *ray);
+void			normalize_angle(double *angle);
+int				get_pixel_color(t_config *config, double off_x,
+					double off_y, int texture);
+
+//      ---> player_directions
 void			player_move_left(t_config *config);
 void			player_move_right(t_config *config);
 void			player_move_up(t_config *config);
 void			player_move_down(t_config *config);
 
-//      ---> mlx_map
+//       ---> mlx_map
 int				draw_game(t_config *config);
 
 #endif

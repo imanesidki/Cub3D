@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   strings_6.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 00:58:29 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/08 20:10:25 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/15 18:40:06 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 char	*trim_sp(char *str)
 {

@@ -6,11 +6,11 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 17:29:18 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 19:13:05 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 int	handle_press(int keycode, t_config *config)
 {
@@ -95,5 +95,4 @@ void	locate_player(t_config *config)
 		}
 		i++;
 	}
-	
 }

@@ -6,11 +6,11 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 19:07:37 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 18:43:11 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../cub3d.h"
 
 bool	validate_textures_1(t_config *config, int i)
 {

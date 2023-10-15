@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 19:06:51 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 19:01:15 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void	init_variables_rest(t_config *config)
 
 void	init_variables(t_config *config)
 {
-	int	i;
-
-	i = 0;
 	config->player.up = false;
 	config->player.down = false;
 	config->player.left = false;
@@ -54,16 +51,10 @@ void	clear_resources(t_config *config)
 	free_config_struct(config);
 }
 
-void	leaker(void)
-{
-	system("leaks cub3d");
-}
-
 int	main(int argc, char **argv)
 {
 	t_config	*config;
 
-	// atexit(leaker);
 	config = malloc(sizeof(t_config));
 	if (argc != 2)
 		ft_exit(config, 0);
