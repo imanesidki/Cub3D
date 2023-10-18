@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/18 15:46:25 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/18 16:03:42 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_drawing
 	double	wall_bottom_pixel;
 	double	final_dist;
 	double	wall_strip_height;
+	double	dist_to_project;
 	double	increment;
 	double	angle;
 }	t_drawing;

@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:14:51 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/18 15:46:40 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/18 16:05:38 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_textures_struct(t_config *config)
 		free(config->tex[i]);
 		i++;
 	}
-} 
+}
 
 void	clear_resources(t_config *config)
 {
