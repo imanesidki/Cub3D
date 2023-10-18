@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:04 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 22:16:55 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/18 23:41:20 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	parse_map(t_config *config)
 		i++;
 	}
 	if (players_size != 1)
-		ft_exit(config, 0);
+		ft_exit(config, 7);
 	config->map_end = i;
 }
 
