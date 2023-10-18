@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 19:01:15 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/16 20:27:07 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,6 @@ void	init_variables(t_config *config)
 	config->map = NULL;
 	config->textures = NULL;
 	config->map_clone = NULL;
-}
-
-void	clear_resources(t_config *config)
-{
-	free_config_struct(config);
 }
 
 int	main(int argc, char **argv)

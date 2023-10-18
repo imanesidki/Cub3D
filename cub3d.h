@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 19:09:42 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/16 20:27:20 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ bool			validate_attrs(char *line);
 //      ---> utils
 unsigned int	to_hex(int r, int g, int b);
 void			free_tab(char **tab);
-void			free_config_struct(t_config *config);
+void			clear_resources(t_config *config);
 void			print_map(t_config config);
 
 // ---> raycasting

@@ -6,13 +6,13 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:36:55 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/14 14:05:01 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/16 21:13:44 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cub3d.h"
 
-bool	this_is_a_wall(double x, double y, t_config *config)
+bool	not_a_wall(double x, double y, t_config *config)
 {
 	if (x < 0 || ((int)x / TILE_SIZE) >= config->map_width
 		|| (y) < 0 || ((int)y / TILE_SIZE) >= config->map_height)
@@ -36,7 +36,7 @@ void	player_move_left(t_config *config)
 				+ (M_PI / 2)) * PLAYER_SPEED;
 		new_y = config->player.y - sin(config->player.angle
 				+ (M_PI / 2)) * PLAYER_SPEED;
-		if (this_is_a_wall(new_x, new_y, config))
+		if (not_a_wall(new_x, new_y, config))
 		{
 			config->player.x = new_x;
 			config->player.y = new_y;
@@ -55,7 +55,7 @@ void	player_move_right(t_config *config)
 				+ (M_PI / 2)) * PLAYER_SPEED;
 		new_y = config->player.y + sin(config->player.angle
 				+ (M_PI / 2)) * PLAYER_SPEED;
-		if (this_is_a_wall(new_x, new_y, config))
+		if (not_a_wall(new_x, new_y, config))
 		{
 			config->player.x = new_x;
 			config->player.y = new_y;
@@ -72,7 +72,7 @@ void	player_move_up(t_config *config)
 	{
 		new_x = config->player.x + cos(config->player.angle) * PLAYER_SPEED;
 		new_y = config->player.y + sin(config->player.angle) * PLAYER_SPEED;
-		if (this_is_a_wall(new_x, new_y, config))
+		if (not_a_wall(new_x, new_y, config))
 		{
 			config->player.x = new_x;
 			config->player.y = new_y;
@@ -89,7 +89,7 @@ void	player_move_down(t_config *config)
 	{
 		new_x = config->player.x - cos(config->player.angle) * PLAYER_SPEED;
 		new_y = config->player.y - sin(config->player.angle) * PLAYER_SPEED;
-		if (this_is_a_wall(new_x, new_y, config))
+		if (not_a_wall(new_x, new_y, config))
 		{
 			config->player.x = new_x;
 			config->player.y = new_y;
