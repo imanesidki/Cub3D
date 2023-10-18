@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   class_parsing_2.c                                  :+:      :+:    :+:   */
+/*   parse_attributes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 18:43:11 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 23:10:03 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 bool	validate_textures_1(t_config *config, int i)
 {
+	printf("Checking north and south...\n");
 	if (ft_strncmp(config->map_clone[i], "NO ", 3))
 	{
 		if (config->no_texture)
@@ -39,6 +40,7 @@ bool	validate_textures_1(t_config *config, int i)
 
 bool	validate_textures_2(t_config *config, int i)
 {
+	printf("Checking east and west...\n");
 	if (ft_strncmp(config->map_clone[i], "EA ", 3))
 	{
 		if (config->ea_texture)
@@ -64,8 +66,11 @@ bool	validate_textures_2(t_config *config, int i)
 
 bool	validate_textures_3(t_config *config, int i)
 {
+	printf("Checking floor and ceiling...\n");
 	if (ft_strncmp(config->map_clone[i], "F ", 2))
 	{
+		if (config->f[0] != -1)
+			ft_exit(config, 1);
 		if (!is_rgb_valid(trim_sp(ft_substr(config->map_clone[i], 2, \
 			ft_strlen(config->map_clone[i]) - 2)), config->f, config))
 			ft_exit(config, 1);
@@ -73,6 +78,8 @@ bool	validate_textures_3(t_config *config, int i)
 	}
 	else if (ft_strncmp(config->map_clone[i], "C ", 2))
 	{
+		if (config->c[0] != -1)
+			ft_exit(config, 1);
 		if (!is_rgb_valid(trim_sp(ft_substr(config->map_clone[i], 2, \
 			ft_strlen(config->map_clone[i]) - 2)), config->c, config))
 			ft_exit(config, 1);
@@ -88,7 +95,7 @@ void	set_textures_data(t_config *config)
 	i = 0;
 	if (!config->no_texture || !config->so_texture
 		|| !config->ea_texture || !config->we_texture)
-		ft_exit(config, 1);
+		ft_exit(config, 3);
 	config->textures = malloc(sizeof(char *) * 5);
 	config->textures[0] = ft_strdup(config->no_texture);
 	config->textures[1] = ft_strdup(config->so_texture);
@@ -98,7 +105,7 @@ void	set_textures_data(t_config *config)
 	while (i < 3)
 	{
 		if (config->f[i] == -1 || config->c[i] == -1)
-			ft_exit(config, 1);
+			ft_exit(config, 3);
 		i++;
 	}
 }
@@ -113,11 +120,11 @@ void	parse_map_attrs(t_config *config)
 		if (ft_strlen(config->map_clone[i]) > 3)
 		{
 			if (validate_textures_1(config, i))
-				printf("1. Checking map attributes... OK!\n");
+				printf("1. Checking map north and south... OK!\n");
 			else if (validate_textures_2(config, i))
-				printf("2. Checking map attributes... OK!\n");
+				printf("2. Checking map west and east... OK!\n");
 			else if (validate_textures_3(config, i))
-				printf("3. Checking map attributes... OK!\n");
+				printf("3. Checking map floot and ceiling... OK!\n");
 		}
 		i++;
 	}

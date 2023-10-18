@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:04 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 18:56:16 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 22:16:55 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ void	parse_map(t_config *config)
 		j = 0;
 		while (config->map_clone[i][j])
 		{
-			if (config->map_clone[i][j] != 'N' && config->map_clone[i][j] != 'W' && config->map_clone[i][j] != 'E' &&
-				config->map_clone[i][j] != 'S' && config->map_clone[i][j] != ' ' && config->map_clone[i][j] != '1' && config->map_clone[i][j] != '0')
-				ft_exit(config, 0);
-			if (config->map_clone[i][j] == 'N' || config->map_clone[i][j] == 'W' || config->map_clone[i][j] == 'E' || config->map_clone[i][j] == 'S')
-				players_size++;
+			check_chars_inmap(config, i, j, &players_size);
 			j++;
 		}
 		if (j > config->longest_map_line)
@@ -43,11 +39,31 @@ void	parse_map(t_config *config)
 	config->map_end = i;
 }
 
+void	fill_map_space(t_config *config, int *j)
+{
+	int	i;
+	int	k;
+
+	i = config->map_start;
+	k = 0;
+	while (config->map_clone[i])
+	{
+		(*j) = 0;
+		while (config->map_clone[i][(*j)])
+		{
+			if (!is_space(config->map_clone[i][(*j)]))
+				config->map[k][(*j)] = config->map_clone[i][(*j)];
+			(*j)++;
+		}
+		k++;
+		i++;
+	}
+}
+
 void	fill_map(t_config *config)
 {
-	int	j;
 	int	i;
-	int	i2;
+	int	j;
 
 	i = 0;
 	config->map_height = config->map_end - config->map_start;
@@ -70,20 +86,7 @@ void	fill_map(t_config *config)
 		config->map[i][j] = '\0';
 		i++;
 	}
-	i = config->map_start;
-	i2 = 0;
-	while (config->map_clone[i])
-	{
-		j = 0;
-		while (config->map_clone[i][j])
-		{
-			if (!is_space(config->map_clone[i][j]))
-				config->map[i2][j] = config->map_clone[i][j];
-			j++;
-		}
-		i2++;
-		i++;
-	}
+	fill_map_space(config, &j);
 }
 
 void	check_surroundings(t_config *config)
@@ -92,26 +95,17 @@ void	check_surroundings(t_config *config)
 	int	j;
 
 	i = 0;
-	printf("4. Map info:\n- Map height: %d\n- Map width: %d\n", config->map_height, config->map_width);
+	printf("4. Map info:\n- Map height: %d\n- Map width: %d\n", 
+		config->map_height, config->map_width);
 	while (config->map[i])
 	{
 		j = 0;
 		while (config->map[i][j])
 		{
-			if (config->map[i][j] == '0' || config->map[i][j] == 'N' || config->map[i][j] == 'S'
+			if (config->map[i][j] == '0' || config->map[i][j] == 'N' ||
+				config->map[i][j] == 'S'
 				|| config->map[i][j] == 'E' || config->map[i][j] == 'W')
-			{
-				if ((i - 1 < 0 || i + 1 >= config->map_height) || j - 1 < 0 || j + 1 >= config->map_width)
-				{
-					printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
-					ft_exit(config, 99);
-				}
-				if (config->map[i + 1][j] == 'x' || config->map[i - 1][j] == 'x' || config->map[i][j + 1] == 'x' || config->map[i][j - 1] == 'x')
-				{
-					printf("Error\nMap is not valid, invalid surroundings, check map[%d][%d]\n", i, j);
-					ft_exit(config, 99);
-				}
-			}
+				invalid_surroundings_error(config, i, j);
 			j++;
 		}
 		i++;

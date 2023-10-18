@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   class_helper.c                                     :+:      :+:    :+:   */
+/*   utils_basics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 18:45:41 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/15 22:17:38 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,26 @@ unsigned int	to_hex(int r, int g, int b)
 
 	hex = (r << 16) | (g << 8) | b;
 	return (hex);
+}
+
+void	invalid_surroundings_error(t_config *config, int i, int j)
+{
+	if ((i - 1 < 0 || i + 1 >= config->map_height)
+		|| j - 1 < 0 || j + 1 >= config->map_width)
+	{
+		printf("1 Error\nMap is not valid, invalid surroundings");
+		printf(", check map[%d][%d]\n", i, j);
+		ft_exit(config, 99);
+	}
+	if (config->map[i + 1][j] == 'x'
+		|| config->map[i - 1][j] == 'x'
+		|| config->map[i][j + 1] == 'x'
+		|| config->map[i][j - 1] == 'x')
+	{
+		printf("2 Error\nMap is not valid, invalid surroundings");
+		printf(", check map[%d][%d]\n", i, j);
+		ft_exit(config, 99);
+	}
 }
 
 char	*get_error(int err_code)
@@ -45,4 +65,19 @@ void	ft_exit(t_config *config, int err)
 	if (get_error(err))
 		printf("%s", get_error(err));
 	exit(1);
+}
+
+void	check_chars_inmap(t_config *config, int i, int j, int *players_size)
+{
+	if (config->map_clone[i][j] != 'N' && config->map_clone[i][j] != 'W'
+		&& config->map_clone[i][j] != 'E'
+		&& config->map_clone[i][j] != 'S'
+		&& config->map_clone[i][j] != ' '
+		&& config->map_clone[i][j] != '1'
+		&& config->map_clone[i][j] != '0')
+		ft_exit(config, 0);
+	if (config->map_clone[i][j] == 'N' || config->map_clone[i][j] == 'W'
+		|| config->map_clone[i][j] == 'E'
+		|| config->map_clone[i][j] == 'S')
+		(*players_size)++;
 }

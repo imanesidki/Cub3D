@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 19:09:42 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/17 23:51:01 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define HEIGHT 720
 # define WIDTH 1080
 # define ROTATION_SPEED 2
-# define PLAYER_SPEED 5
+# define PLAYER_SPEED 3
 # define PLAYER_SIZE 7
 
 // ---> START STRUCTURE
@@ -52,7 +52,6 @@ typedef struct s_map_data
 	int			endian;
 }	t_map_data;
 
-// textures structure
 typedef struct s_textures
 {
 	void		*img;
@@ -73,22 +72,34 @@ typedef struct s_player
 	bool		dir_left;
 	bool		dir_right;
 	double		angle;
-
 	double		x;
 	double		y;
 }	t_player;
+
+typedef struct s_drawing
+{
+	int		x_offset;
+	int		y_offset;
+	int		texture;
+	double	wall_top_pixel;
+	double	wall_bottom_pixel;
+	double	final_dist;
+	double	wall_strip_height;
+	double	increment;
+	double	angle;
+}	t_drawing;
 
 typedef struct s_config
 {
 	t_map_data	map_data;
 	t_player	player;
 	t_textures	*tex[4];
+	t_drawing	drawing;
 	char		*no_texture;
 	char		*so_texture;
 	char		*we_texture;
 	char		*ea_texture;
 	char		**textures;
-
 	int			f[3];
 	int			c[3];
 	char		**colors;
@@ -149,7 +160,8 @@ char			*get_next_line(int fd);
 int				gnl_strlen(const char *str);
 
 // ---> parsers
-void			check_chars_map(char *line);
+void			check_chars_inmap(t_config *config,
+					int i, int j, int *players_size);
 void			parse_map_attrs(t_config *config);
 void			validate_map(char *str, t_config *config);
 
@@ -167,10 +179,9 @@ bool			validate_attrs(char *line);
 unsigned int	to_hex(int r, int g, int b);
 void			free_tab(char **tab);
 void			free_config_struct(t_config *config);
-void			print_map(t_config config);
+void			invalid_surroundings_error(t_config *config, int i, int j);
 
 // ---> raycasting
-void			set_to_zero(t_ray *ray);
 void			vertical_distance(t_ray *ray, t_config *config);
 void			horizontal_distance(t_ray *ray, t_config *config);
 bool			is_wall(double x, double y, t_config *config);

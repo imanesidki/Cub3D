@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_garbage_collectors.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:14:51 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 18:45:35 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/17 23:49:47 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,14 @@ void	free_textures_struct(t_config *config)
 	int	i;
 
 	i = 0;
+	if (!config)
+		return ;
 	while (i < 4)
 	{
 		free(config->tex[i]);
 		i++;
 	}
-}
+} 
 
 void	free_config_struct(t_config *config)
 {
