@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_basics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 22:17:38 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/18 15:46:34 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ft_exit(t_config *config, int err)
 {
 	if (err == 7)
 		exit(1);
-	free_config_struct(config);
+	clear_resources(config);
 	if (get_error(err))
 		printf("%s", get_error(err));
 	exit(1);

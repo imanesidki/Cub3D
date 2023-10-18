@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_garbage_collectors.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:14:51 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/17 23:49:47 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/18 15:46:40 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_textures_struct(t_config *config)
 	}
 } 
 
-void	free_config_struct(t_config *config)
+void	clear_resources(t_config *config)
 {
 	if (config->ea_texture)
 		free(config->ea_texture);
