@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:49:08 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 18:43:15 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/18 17:48:14 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	read_file(char *path, t_config *config)
 	map_size = 0;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
+	{
+		printf("Error: failed to open map file\n");
 		exit(1);
+	}
 	line = get_next_line(fd);
 	while (line)
 	{

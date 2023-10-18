@@ -6,7 +6,7 @@
 /*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 23:10:03 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/18 17:44:11 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	parse_map_attrs(t_config *config)
 			else if (validate_textures_2(config, i))
 				printf("2. Checking map west and east... OK!\n");
 			else if (validate_textures_3(config, i))
-				printf("3. Checking map floot and ceiling... OK!\n");
+				printf("3. Checking map floor and ceiling... OK!\n");
 		}
 		i++;
 	}
