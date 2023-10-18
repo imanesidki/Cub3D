@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:04 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 22:16:55 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/18 21:14:21 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	check_surroundings(t_config *config)
 	int	j;
 
 	i = 0;
-	printf("4. Map info:\n- Map height: %d\n- Map width: %d\n", 
-		config->map_height, config->map_width);
 	while (config->map[i])
 	{
 		j = 0;
