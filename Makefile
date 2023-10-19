@@ -6,7 +6,7 @@
 #    By: isalama <isalama@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 18:09:46 by isalama           #+#    #+#              #
-#    Updated: 2023/10/18 15:54:01 by isalama          ###   ########.fr        #
+#    Updated: 2023/10/18 21:15:02 by isalama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ RAYCAST =	raycasting/raycasting_horizontal.c \
 		
 SRC = $(HELPERS) $(DRAWERS) $(LIBFT) $(RAYCAST) $(PARSERS) cub3d.c
 OBJ = $(SRC:.c=.o)
-FLAGS = -Wall -Wextra -Werror -Ofast #-g -fsanitize=address
+FLAGS = -Wall -Wextra -Werror
 COMPILER = cc
 
 all: $(NAME)
