@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_basics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/18 15:46:34 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/19 21:36:45 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	invalid_surroundings_error(t_config *config, int i, int j)
 	if ((i - 1 < 0 || i + 1 >= config->map_height)
 		|| j - 1 < 0 || j + 1 >= config->map_width)
 	{
-		printf("1 Error\nMap is not valid, invalid surroundings");
+		printf("Error\nMap is not valid, invalid surroundings");
 		printf(", check map[%d][%d]\n", i, j);
 		ft_exit(config, 99);
 	}
@@ -34,7 +34,7 @@ void	invalid_surroundings_error(t_config *config, int i, int j)
 		|| config->map[i][j + 1] == 'x'
 		|| config->map[i][j - 1] == 'x')
 	{
-		printf("2 Error\nMap is not valid, invalid surroundings");
+		printf("Error\nMap is not valid, invalid surroundings");
 		printf(", check map[%d][%d]\n", i, j);
 		ft_exit(config, 99);
 	}
@@ -53,7 +53,7 @@ char	*get_error(int err_code)
 	if (err_code == 4)
 		return ("Error\nInvalid extension\n");
 	if (err_code == 5)
-		return ("Malloc failure");
+		return ("Error\nMalloc failure");
 	return (NULL);
 }
 
