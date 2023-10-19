@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_attributes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/18 21:17:07 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/19 22:19:00 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	parse_map_attrs(t_config *config)
 			if (!validate_textures_1(config, i)
 				&& !validate_textures_2(config, i)
 				&& !validate_textures_3(config, i))
-				printf("Error baby!\n");
+				printf("Error\nInvalid attributes\n");
 		}
 		i++;
 	}

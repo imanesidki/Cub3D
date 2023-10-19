@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:49:08 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/18 21:19:49 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/19 22:21:16 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	read_file_rest(t_config *config, char *path, int map_size)
 	i = 0;
 	config->map_clone = malloc((map_size + 1) * sizeof(char *));
 	if (!config->map_clone)
-		exit(1);
+		ft_exit(config, 5);
 	config->map_clone[map_size] = NULL;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -43,10 +43,7 @@ void	read_file(char *path, t_config *config)
 	map_size = 0;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-	{
-		printf("Error:\nFailed to open map file.\n");
-		exit(1);
-	}
+		ft_exit(config, 6);
 	line = get_next_line(fd);
 	while (line)
 	{

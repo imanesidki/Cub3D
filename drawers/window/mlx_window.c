@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:22:06 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 19:00:19 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/19 22:25:52 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,24 @@ void	init_textures(t_config *config)
 	{
 		config->tex[i] = malloc(sizeof(t_textures));
 		if (!config->tex[i])
-			ft_exit(config, 7);
+			ft_exit(config, 3);
 		config->tex[i]->img = mlx_xpm_file_to_image(config->mlx,
 				config->textures[i], &config->tex[i]->width,
 				&config->tex[i]->height);
 		if (!config->tex[i]->img)
-			ft_exit(config, 7);
+			ft_exit(config, 3);
 		config->tex[i]->addr = mlx_get_data_addr(config->tex[i]->img,
 				&config->tex[i]->bits_per_pixel,
 				&config->tex[i]->line_length, &config->tex[i]->endian);
 		if (!config->tex[i]->addr)
-			ft_exit(config, 7);
+			ft_exit(config, 3);
 		i++;
 	}
 }
 
 int	ft_exit_cross(t_config *config)
 {
-	ft_exit(config, 7);
+	ft_exit(config, 99);
 	return (69);
 }
 
