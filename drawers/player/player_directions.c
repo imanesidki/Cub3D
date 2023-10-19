@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_directions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:36:55 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/16 21:13:44 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/19 22:12:25 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 bool	not_a_wall(double x, double y, t_config *config)
 {
 	if (x < 0 || ((int)x / TILE_SIZE) >= config->map_width
-		|| (y) < 0 || ((int)y / TILE_SIZE) >= config->map_height)
+		|| y < 0 || ((int)y / TILE_SIZE) >= config->map_height)
 		return (false);
 	if ((config->map[(int)(y / TILE_SIZE)]
 		[(int)(x / TILE_SIZE)] != '1'
