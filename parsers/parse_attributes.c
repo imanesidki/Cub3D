@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_attributes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 16:28:02 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/21 18:50:13 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	set_textures_data(t_config *config)
 	while (i < 3)
 	{
 		if (config->f[i] == -1 || config->c[i] == -1)
-			ft_exit(config, 3);
+			ft_exit(config, 8);
 		i++;
 	}
 	if (!config->no_texture || !config->so_texture
@@ -134,7 +134,7 @@ void	init_map_attrs_validator(t_config *config)
 			if (!is_noso_textures_valid(config, i)
 				&& !is_eawe_textures_valid(config, i)
 				&& !is_map_colors_valid(config, i))
-				printf("Error\nInvalid attributes\n");
+				break ;
 		}
 		i++;
 	}

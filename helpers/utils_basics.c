@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_basics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
+/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 16:31:49 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/21 18:50:09 by isidki           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ char	*get_error(int err_code)
 		return ("Error\nFailed to open map file\n");
 	if (err_code == 7)
 		return ("Error\nInvalid player\n");
+	if (err_code == 8)
+		return ("Error\nInvalid colors\n");
 	return (NULL);
 }
 
