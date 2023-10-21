@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_basics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/19 22:27:43 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/21 16:31:49 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,17 @@ void	ft_exit(t_config *config, int err)
 	exit(1);
 }
 
-void	check_chars_inmap(t_config *config, int i, int j, int *players_size)
+void	check_valid_map_chars(t_config *config, int i, int j, int *players_size)
 {
-	if (config->map_clone[i][j] != 'N' && config->map_clone[i][j] != 'W'
-		&& config->map_clone[i][j] != 'E'
-		&& config->map_clone[i][j] != 'S'
-		&& config->map_clone[i][j] != ' '
-		&& config->map_clone[i][j] != '1'
-		&& config->map_clone[i][j] != '0')
+	if (config->map_tmp[i][j] != 'N' && config->map_tmp[i][j] != 'W'
+		&& config->map_tmp[i][j] != 'E'
+		&& config->map_tmp[i][j] != 'S'
+		&& config->map_tmp[i][j] != ' '
+		&& config->map_tmp[i][j] != '1'
+		&& config->map_tmp[i][j] != '0')
 		ft_exit(config, 0);
-	if (config->map_clone[i][j] == 'N' || config->map_clone[i][j] == 'W'
-		|| config->map_clone[i][j] == 'E'
-		|| config->map_clone[i][j] == 'S')
+	if (config->map_tmp[i][j] == 'N' || config->map_tmp[i][j] == 'W'
+		|| config->map_tmp[i][j] == 'E'
+		|| config->map_tmp[i][j] == 'S')
 		(*players_size)++;
 }

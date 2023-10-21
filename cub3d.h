@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/18 16:03:42 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/21 16:31:49 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ typedef struct s_config
 	int			c[3];
 	char		**colors;
 	char		**map;
-	char		**map_clone;
+	char		**map_tmp;
 	int			map_width;
 	int			map_height;
 	void		*mlx;
@@ -161,10 +161,10 @@ char			*get_next_line(int fd);
 int				gnl_strlen(const char *str);
 
 // ---> parsers
-void			check_chars_inmap(t_config *config,
+void			check_valid_map_chars(t_config *config,
 					int i, int j, int *players_size);
-void			parse_map_attrs(t_config *config);
-void			validate_map(char *str, t_config *config);
+void			init_map_attrs_validator(t_config *config);
+void			init_map_validator(char *str, t_config *config);
 
 // ---> helpers
 //		---> strings
@@ -173,8 +173,8 @@ void			ft_exit(t_config *config, int err);
 
 //      ---> parsers --> utils
 bool			is_rgb_valid(char *str, int *color, t_config *config);
-void			read_file(char *path, t_config *config);
-bool			validate_attrs(char *line);
+void			init_map_file_reader(char *path, t_config *config);
+bool			allowed_attribute(char *line);
 
 //      ---> utils
 unsigned int	to_hex(int r, int g, int b);

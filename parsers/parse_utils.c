@@ -3,38 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:49:08 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/19 22:21:16 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/21 16:38:09 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	read_file_rest(t_config *config, char *path, int map_size)
+/*
+	This is the second part of init_map_file_reader() function.
+	Now we can allocate the memory then read the file to save it
+	in the map_tmp variable so we can play with it later instead
+	of using get_next_line() every time we need to read the map.
+*/
+void	read_map_file(t_config *config, char *path, int map_size)
 {
 	int		i;
 	int		fd;
 
 	i = 0;
-	config->map_clone = malloc((map_size + 1) * sizeof(char *));
-	if (!config->map_clone)
+	config->map_tmp = malloc((map_size + 1) * sizeof(char *));
+	if (!config->map_tmp)
 		ft_exit(config, 5);
-	config->map_clone[map_size] = NULL;
+	config->map_tmp[map_size] = NULL;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		ft_exit(config, 0);
 	while (map_size)
 	{
-		config->map_clone[i] = get_next_line(fd);
+		config->map_tmp[i] = get_next_line(fd);
 		map_size--;
 		i++;
 	}
 	close(fd);
 }
 
-void	read_file(char *path, t_config *config)
+/*
+	This function is splitted into 2 parts:
+	The following first part is responsible for caluclating
+	the map height (size) so we can allocate the memory for it
+	in the second part read_map_file().
+*/
+void	init_map_file_reader(char *path, t_config *config)
 {
 	int		map_size;
 	int		fd;
@@ -52,7 +64,7 @@ void	read_file(char *path, t_config *config)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	read_file_rest(config, path, map_size);
+	read_map_file(config, path, map_size);
 }
 
 bool	is_rgb_string_valid(char *str, t_config *config)
@@ -103,9 +115,12 @@ bool	is_rgb_valid(char *str, int *color, t_config *config)
 	return (is_valid);
 }
 
-bool	validate_attrs(char *line)
+/*
+	Allow only the following characters, and make sure we allow new lines as well
+	to support multi-line attributes.
+*/
+bool	allowed_attribute(char *line)
 {
-	return (!(ft_strlen(line) > 0 && line[0] != 'N'
-			&& line[0] != 'W' && line[0] != 'S'
-			&& line[0] != 'E' && line[0] != 'C' && line[0] != 'F'));
+	return (ft_strlen(line) <= 0 || line[0] == 'N' || line[0] == 'W' \
+	|| line[0] == 'S' || line[0] == 'E' || line[0] == 'C' || line[0] == 'F');
 }

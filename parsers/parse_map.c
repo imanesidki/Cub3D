@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/14 14:08:04 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/19 21:38:28 by isidki           ###   ########.fr       */
+/*   Created: 2023/10/21 16:36:21 by isalama           #+#    #+#             */
+/*   Updated: 2023/10/21 16:39:21 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	parse_map(t_config *config)
+/*
+	Here, we're checking for 3 things:
+	1. If there's an empty line inside the map, exit.
+	2. If the map contains characters other than the allowed ones, exit.
+	3. If the player is assigned more than once, exit.
+	
+	We also save both the longest map line, and the map end index
+	for allocation purposes.
+*/
+void	init_map_parser(t_config *config)
 {
 	int	i;
 	int	players_size;
@@ -20,14 +29,14 @@ void	parse_map(t_config *config)
 
 	players_size = 0;
 	i = config->map_start;
-	while (config->map_clone[i])
+	while (config->map_tmp[i])
 	{
-		if (config->map_clone[i][0] == '\0')
+		if (config->map_tmp[i][0] == '\0')
 			ft_exit(config, 0);
 		j = 0;
-		while (config->map_clone[i][j])
+		while (config->map_tmp[i][j])
 		{
-			check_chars_inmap(config, i, j, &players_size);
+			check_valid_map_chars(config, i, j, &players_size);
 			j++;
 		}
 		if (j > config->longest_map_line)
@@ -39,20 +48,20 @@ void	parse_map(t_config *config)
 	config->map_end = i;
 }
 
-void	fill_map_space(t_config *config, int *j)
+void	fill_map_spaces(t_config *config, int *j)
 {
 	int	i;
 	int	k;
 
 	i = config->map_start;
 	k = 0;
-	while (config->map_clone[i])
+	while (config->map_tmp[i])
 	{
 		(*j) = 0;
-		while (config->map_clone[i][(*j)])
+		while (config->map_tmp[i][(*j)])
 		{
-			if (!is_space(config->map_clone[i][(*j)]))
-				config->map[k][(*j)] = config->map_clone[i][(*j)];
+			if (!is_space(config->map_tmp[i][(*j)]))
+				config->map[k][(*j)] = config->map_tmp[i][(*j)];
 			(*j)++;
 		}
 		k++;
@@ -60,7 +69,7 @@ void	fill_map_space(t_config *config, int *j)
 	}
 }
 
-void	fill_map(t_config *config)
+void	init_map_filler(t_config *config)
 {
 	int	i;
 	int	j;
@@ -86,7 +95,7 @@ void	fill_map(t_config *config)
 		config->map[i][j] = '\0';
 		i++;
 	}
-	fill_map_space(config, &j);
+	fill_map_spaces(config, &j);
 }
 
 void	check_surroundings(t_config *config)
@@ -110,13 +119,13 @@ void	check_surroundings(t_config *config)
 	}
 }
 
-void	validate_map(char *path, t_config *config)
+void	init_map_validator(char *path, t_config *config)
 {
 	if (!has_extension(path, ".cub"))
 		ft_exit(config, 4);
-	read_file(path, config);
-	parse_map_attrs(config);
-	parse_map(config);
-	fill_map(config);
+	init_map_file_reader(path, config);
+	init_map_attrs_validator(config);
+	init_map_parser(config);
+	init_map_filler(config);
 	check_surroundings(config);
 }

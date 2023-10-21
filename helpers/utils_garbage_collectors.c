@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:14:51 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/18 16:05:38 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/20 21:28:29 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	clear_resources(t_config *config)
 	if (config->no_texture)
 		free(config->no_texture);
 	free_tab(config->map);
-	free_tab(config->map_clone);
+	free_tab(config->map_tmp);
 	free_tab(config->textures);
 	free_textures_struct(config);
 	free(config);

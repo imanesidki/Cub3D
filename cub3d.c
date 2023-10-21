@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/18 21:20:19 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/21 15:33:44 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_variables(t_config *config)
 	config->longest_map_line = 0;
 	config->map = NULL;
 	config->textures = NULL;
-	config->map_clone = NULL;
+	config->map_tmp = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -57,7 +57,7 @@ int	main(int argc, char **argv)
 		ft_exit(config, 5);
 	init_variables(config);
 	init_variables_rest(config);
-	validate_map(argv[1], config);
+	init_map_validator(argv[1], config);
 	init_window(config);
 	clear_resources(config);
 }
