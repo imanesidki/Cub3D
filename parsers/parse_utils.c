@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 21:49:08 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 16:38:09 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/21 22:52:30 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,6 @@ bool	is_rgb_valid(char *str, int *color, t_config *config)
 bool	allowed_attribute(char *line)
 {
 	return (ft_strlen(line) <= 0 || line[0] == 'N' || line[0] == 'W' \
-	|| line[0] == 'S' || line[0] == 'E' || line[0] == 'C' || line[0] == 'F');
+	|| line[0] == 'S' || line[0] == ' ' || line[0] == 'E' || line[0] == 'C' \
+	|| line[0] == '\t' || line[0] == 'F');
 }

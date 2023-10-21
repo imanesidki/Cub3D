@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_attributes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 18:50:13 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/21 22:50:46 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,19 @@ bool	is_map_colors_valid(t_config *config, int i)
 	if (ft_strncmp(config->map_tmp[i], "F ", 2))
 	{
 		if (config->f[0] != -1)
-			ft_exit(config, 1);
+			ft_exit(config, 8);
 		if (!is_rgb_valid(trim_sp(ft_substr(config->map_tmp[i], 2, \
 			ft_strlen(config->map_tmp[i]) - 2)), config->f, config))
-			ft_exit(config, 1);
+			ft_exit(config, 8);
 		return (true);
 	}
 	else if (ft_strncmp(config->map_tmp[i], "C ", 2))
 	{
 		if (config->c[0] != -1)
-			ft_exit(config, 1);
+			ft_exit(config, 8);
 		if (!is_rgb_valid(trim_sp(ft_substr(config->map_tmp[i], 2, \
 			ft_strlen(config->map_tmp[i]) - 2)), config->c, config))
-			ft_exit(config, 1);
+			ft_exit(config, 8);
 		return (true);
 	}
 	return (false);
@@ -103,7 +103,7 @@ void	set_textures_data(t_config *config)
 	while (i < 3)
 	{
 		if (config->f[i] == -1 || config->c[i] == -1)
-			ft_exit(config, 8);
+			ft_exit(config, 3);
 		i++;
 	}
 	if (!config->no_texture || !config->so_texture
@@ -129,6 +129,7 @@ void	init_map_attrs_validator(t_config *config)
 	i = 0;
 	while (config->map_tmp[i] && allowed_attribute(config->map_tmp[i]))
 	{
+		config->map_tmp[i] = trim_sp(config->map_tmp[i]);
 		if (ft_strlen(config->map_tmp[i]) > 3)
 		{
 			if (!is_noso_textures_valid(config, i)

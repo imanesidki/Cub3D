@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_basics.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 18:50:09 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/21 22:31:41 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	check_valid_map_chars(t_config *config, int i, int j, int *players_size)
 		&& config->map_tmp[i][j] != 'E'
 		&& config->map_tmp[i][j] != 'S'
 		&& config->map_tmp[i][j] != ' '
+		&& config->map_tmp[i][j] != '\t'
 		&& config->map_tmp[i][j] != '1'
 		&& config->map_tmp[i][j] != '0')
 		ft_exit(config, 0);
