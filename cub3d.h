@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 16:31:49 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/22 22:40:37 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ typedef struct s_config
 	int			longest_map_line;
 	int			map_start;
 	int			map_end;
+	int			found_attrs;
 }	t_config;
 
 typedef struct s_ray
@@ -155,6 +156,8 @@ bool			is_space(char c);
 char			*ft_strtrim(char *s1, char *set);
 int				ft_atoi_rgb(char *str);
 char			*trim_sp(char *str);
+char			*trim_sp_map(char *str);
+char			*ft_strstr(char *haystack, char *needle);
 
 //		---> get_next_line
 char			*get_next_line(int fd);
@@ -165,6 +168,10 @@ void			check_valid_map_chars(t_config *config,
 					int i, int j, int *players_size);
 void			init_map_attrs_validator(t_config *config);
 void			init_map_validator(char *str, t_config *config);
+bool			is_attributes_invalid(t_config *config, int *i);
+bool			is_map_colors_valid(t_config *config, int i);
+bool			is_eawe_textures_valid(t_config *config, int i);
+bool			is_noso_textures_valid(t_config *config, int i);
 
 // ---> helpers
 //		---> strings

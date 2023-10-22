@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 22:50:46 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/22 22:33:56 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ bool	is_noso_textures_valid(t_config *config, int i)
 			ft_exit(config, 1);
 		config->no_texture = trim_sp(ft_substr(config->map_tmp[i], 3,
 					ft_strlen(config->map_tmp[i]) - 3));
+		config->found_attrs++;
 		if (!config->no_texture)
 			ft_exit(config, 1);
 		return (true);
@@ -35,6 +36,7 @@ bool	is_noso_textures_valid(t_config *config, int i)
 			ft_exit(config, 1);
 		config->so_texture = trim_sp(ft_substr(config->map_tmp[i], 3,
 					ft_strlen(config->map_tmp[i]) - 3));
+		config->found_attrs++;
 		if (!config->so_texture)
 			ft_exit(config, 1);
 		return (true);
@@ -50,6 +52,7 @@ bool	is_eawe_textures_valid(t_config *config, int i)
 			ft_exit(config, 1);
 		config->ea_texture = trim_sp(ft_substr(config->map_tmp[i],
 					3, ft_strlen(config->map_tmp[i]) - 3));
+		config->found_attrs++;
 		if (!config->ea_texture)
 			ft_exit(config, 1);
 		return (true);
@@ -60,6 +63,7 @@ bool	is_eawe_textures_valid(t_config *config, int i)
 			ft_exit(config, 1);
 		config->we_texture = trim_sp(ft_substr(config->map_tmp[i],
 					3, ft_strlen(config->map_tmp[i]) - 3));
+		config->found_attrs++;
 		if (!config->we_texture)
 			ft_exit(config, 1);
 		return (true);
@@ -76,6 +80,7 @@ bool	is_map_colors_valid(t_config *config, int i)
 		if (!is_rgb_valid(trim_sp(ft_substr(config->map_tmp[i], 2, \
 			ft_strlen(config->map_tmp[i]) - 2)), config->f, config))
 			ft_exit(config, 8);
+		config->found_attrs++;
 		return (true);
 	}
 	else if (ft_strncmp(config->map_tmp[i], "C ", 2))
@@ -85,6 +90,7 @@ bool	is_map_colors_valid(t_config *config, int i)
 		if (!is_rgb_valid(trim_sp(ft_substr(config->map_tmp[i], 2, \
 			ft_strlen(config->map_tmp[i]) - 2)), config->c, config))
 			ft_exit(config, 8);
+		config->found_attrs++;
 		return (true);
 	}
 	return (false);
@@ -124,19 +130,27 @@ void	set_textures_data(t_config *config)
 */
 void	init_map_attrs_validator(t_config *config)
 {
-	int	i;
+	int		i;
+	int		j;
 
 	i = 0;
 	while (config->map_tmp[i] && allowed_attribute(config->map_tmp[i]))
 	{
-		config->map_tmp[i] = trim_sp(config->map_tmp[i]);
-		if (ft_strlen(config->map_tmp[i]) > 3)
+		if (config->found_attrs < 5)
+			config->map_tmp[i] = trim_sp(config->map_tmp[i]);
+		else
 		{
-			if (!is_noso_textures_valid(config, i)
-				&& !is_eawe_textures_valid(config, i)
-				&& !is_map_colors_valid(config, i))
-				break ;
+			j = 0;
+			while (is_space(config->map_tmp[i][j]))
+				j++;
+			if (config->map_tmp[i][j] == '\0')
+			{
+				i++;
+				continue ;
+			}
 		}
+		if (is_attributes_invalid(config, &i))
+			break ;
 		i++;
 	}
 	config->map_start = i;

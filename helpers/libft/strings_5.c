@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 19:17:47 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 18:40:04 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/22 21:59:35 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ char	*ft_strtrim(char *s1, char *set)
 	if (!set)
 		return ((char *) s1);
 	if (s1[0] == '\0')
-		return (ft_strdup(""));
+		return (free(s1), ft_strdup(""));
 	start = calculate_start(s1, set);
 	end = calculate_end(s1, set);
 	if (start > end)
-		return (ft_strdup(""));
+		return (free(s1), ft_strdup(""));
 	while (size_indexer < ft_strlen(s1))
 	{
 		if (size_indexer >= start && size_indexer <= end)

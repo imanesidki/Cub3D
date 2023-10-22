@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_window.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: isidki <isidki@student.1337.ma>            +#+  +:+       +#+        */
+/*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 16:22:06 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/19 22:25:52 by isidki           ###   ########.fr       */
+/*   Updated: 2023/10/22 18:25:08 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_exit_cross(t_config *config)
 void	init_window(t_config *config)
 {
 	config->mlx = mlx_init();
-	config->win = mlx_new_window(config->mlx, WIDTH, HEIGHT, "cub3d");
+	config->win = mlx_new_window(config->mlx, WIDTH, HEIGHT, "cub3D");
 	config->map_data.img = mlx_new_image(config->mlx, WIDTH, HEIGHT);
 	config->map_data.addr = mlx_get_data_addr(config->map_data.img,
 			&config->map_data.bits_per_pixel, &config->map_data.line_length,

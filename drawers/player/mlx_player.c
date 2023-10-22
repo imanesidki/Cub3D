@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 20:35:57 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 22:13:37 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/22 17:29:47 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,7 @@ void	locate_player(t_config *config)
 		j = 0;
 		while (config->map[i][j])
 		{
-			if (config->map[i][j] == 'N' || config->map[i][j] == 'S'
-				|| config->map[i][j] == 'E' || config->map[i][j] == 'W')
+			if (ft_strchr("NEWS", config->map[i][j]))
 			{
 				config->player.x = j * TILE_SIZE + (TILE_SIZE / 2);
 				config->player.y = i * TILE_SIZE + (TILE_SIZE / 2);

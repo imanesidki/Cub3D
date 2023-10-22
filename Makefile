@@ -6,7 +6,7 @@
 #    By: isalama <isalama@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 18:09:46 by isalama           #+#    #+#              #
-#    Updated: 2023/10/18 21:15:02 by isalama          ###   ########.fr        #
+#    Updated: 2023/10/22 22:37:19 by isalama          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = cub3D
 			
 PARSERS =   parsers/parse_map.c \
 	  	  	parsers/parse_attributes.c \
-	  	  	parsers/parse_utils.c
+	  	  	parsers/parse_utils_1.c \
+	  	  	parsers/parse_utils_2.c 
 		  
 DRAWERS =	drawers/window/mlx_window.c \
 			drawers/window/mlx_map.c \

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*   parse_utils_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 21:49:08 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 22:52:30 by isalama          ###   ########.fr       */
+/*   Created: 2023/10/22 22:37:28 by isalama           #+#    #+#             */
+/*   Updated: 2023/10/22 22:38:00 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,15 +113,4 @@ bool	is_rgb_valid(char *str, int *color, t_config *config)
 	free_tab(config->colors);
 	free(str);
 	return (is_valid);
-}
-
-/*
-	Allow only the following characters, and make sure we allow new lines as well
-	to support multi-line attributes.
-*/
-bool	allowed_attribute(char *line)
-{
-	return (ft_strlen(line) <= 0 || line[0] == 'N' || line[0] == 'W' \
-	|| line[0] == 'S' || line[0] == ' ' || line[0] == 'E' || line[0] == 'C' \
-	|| line[0] == '\t' || line[0] == 'F');
 }
