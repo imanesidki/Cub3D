@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 19:17:47 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/23 20:01:40 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 20:47:26 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ char	*ft_strtrim(char *s1, char *set)
 	int		end;
 
 	start = 0;
+	if (!s1 || !set)
+		return (free(s1), ft_strdup(""));
 	while (s1[start] && find_char_in_set(s1[start], set))
 		start++;
 	end = ft_strlen(s1);
@@ -51,7 +53,7 @@ char	*ft_strtrim(char *s1, char *set)
 		end--;
 	str = (char *) malloc(sizeof(*s1) * (end - start + 1));
 	if (!str)
-		return (NULL);
+		return (free(s1), ft_strdup(""));
 	i = 0;
 	while (start < end)
 		str[i++] = s1[start++];
