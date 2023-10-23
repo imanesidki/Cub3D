@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 19:14:51 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/20 21:28:29 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 18:37:32 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	free_textures_struct(t_config *config)
 
 void	clear_resources(t_config *config)
 {
+	if (!config)
+		return ;
 	if (config->ea_texture)
 		free(config->ea_texture);
 	if (config->so_texture)

@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 22:31:41 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 18:41:23 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,14 @@ char	*get_error(int err_code)
 
 void	ft_exit(t_config *config, int err)
 {
-	if (err == 3 || err == 7)
+	if (err == 3 || err == 7 || err == 5) 
+		printf("%s", get_error(err));
+	else
 	{
-		printf("%s", get_error(err));
-		exit(1);
+		clear_resources(config);
+		if (get_error(err))
+			printf("%s", get_error(err));
 	}
-	clear_resources(config);
-	if (get_error(err))
-		printf("%s", get_error(err));
 	exit(1);
 }
 
