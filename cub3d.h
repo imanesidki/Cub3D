@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/23 18:52:02 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 22:24:03 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void			ft_exit(t_config *config, int err);
 //      ---> parsers --> utils
 bool			is_rgb_valid(char *str, int *color, t_config *config);
 void			init_map_file_reader(char *path, t_config *config);
-bool			allowed_attribute(char *line);
+bool			allowed_attribute(char *line, t_config *config);
 
 //      ---> utils
 unsigned int	to_hex(int r, int g, int b);
