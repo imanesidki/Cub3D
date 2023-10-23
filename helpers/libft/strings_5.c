@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 19:17:47 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/23 19:12:23 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 20:01:40 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	gnl_strlen(const char *str)
 {
-	int	l;
+	int	i;
 
-	l = 0;
-	while (str[l])
-		l++;
-	return (l);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 bool	find_char_in_set(char c, char *set)
@@ -56,5 +56,5 @@ char	*ft_strtrim(char *s1, char *set)
 	while (start < end)
 		str[i++] = s1[start++];
 	str[i] = '\0';
-	return (str);
+	return (free(s1), str);
 }
