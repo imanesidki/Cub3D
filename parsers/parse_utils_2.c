@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 22:37:38 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/22 22:38:05 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 22:18:27 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ bool	is_attributes_invalid(t_config *config, int *i)
 */
 bool	allowed_attribute(char *line)
 {
+	while (is_space(*line))
+		(line)++;
 	return (ft_strlen(line) <= 0 || line[0] == 'N' || line[0] == 'W' \
-	|| line[0] == 'S' || line[0] == ' ' || line[0] == 'E' || line[0] == 'C' \
-	|| line[0] == '\t' || line[0] == 'F');
+	|| line[0] == 'S' || line[0] == 'E' || line[0] == 'C' \
+	|| line[0] == 'F');
 }

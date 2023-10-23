@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/22 22:33:56 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 22:14:09 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	set_textures_data(t_config *config)
 	while (i < 3)
 	{
 		if (config->f[i] == -1 || config->c[i] == -1)
-			ft_exit(config, 3);
+			ft_exit(config, 8);
 		i++;
 	}
 	if (!config->no_texture || !config->so_texture
@@ -136,7 +136,7 @@ void	init_map_attrs_validator(t_config *config)
 	i = 0;
 	while (config->map_tmp[i] && allowed_attribute(config->map_tmp[i]))
 	{
-		if (config->found_attrs < 5)
+		if (config->found_attrs < 6)
 			config->map_tmp[i] = trim_sp(config->map_tmp[i]);
 		else
 		{
