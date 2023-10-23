@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:22:36 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/23 18:41:23 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 22:17:21 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	check_valid_map_chars(t_config *config, int i, int j, int *players_size)
 		&& config->map_tmp[i][j] != 'E'
 		&& config->map_tmp[i][j] != 'S'
 		&& config->map_tmp[i][j] != ' '
-		&& config->map_tmp[i][j] != '\t'
 		&& config->map_tmp[i][j] != '1'
 		&& config->map_tmp[i][j] != '0')
 		ft_exit(config, 0);
