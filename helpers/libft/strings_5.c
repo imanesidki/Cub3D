@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 19:17:47 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/22 21:59:35 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 19:12:23 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,72 +22,39 @@ int	gnl_strlen(const char *str)
 	return (l);
 }
 
-static int	calculate_start(char *s1, char *set)
+bool	find_char_in_set(char c, char *set)
 {
 	int	i;
 
 	i = 0;
-	while (ft_strchr(set, s1[i]) != NULL)
-		i++;
-	return (i);
-}
-
-static int	calculate_end(char *s1, char *set)
-{
-	int	i;
-
-	i = ft_strlen(s1);
-	while (ft_strchr(set, s1[i]) != NULL)
-		i--;
-	return (i);
-}
-
-static char	*get_trimmed_str(int start, int size, char *original_str)
-{
-	int		i;
-	int		allocation_index;
-	char	*allocation;
-
-	i = 0;
-	allocation_index = 0;
-	allocation = malloc(size + 1);
-	if (!allocation)
-		return (NULL);
-	while (size > 0)
+	while (set[i])
 	{
-		allocation[allocation_index] = (char) original_str[start];
-		start++;
-		allocation_index++;
-		size--;
+		if (set[i] == c)
+			return (true);
+		i++;
 	}
-	allocation[allocation_index] = '\0';
-	return (free(original_str), allocation);
+	return (false);
 }
 
 char	*ft_strtrim(char *s1, char *set)
 {
-	int	start;
-	int	end;
-	int	true_len;
-	int	size_indexer;
+	char	*str;
+	int		i;
+	int		start;
+	int		end;
 
-	true_len = 0;
-	size_indexer = 0;
-	if (!s1)
+	start = 0;
+	while (s1[start] && find_char_in_set(s1[start], set))
+		start++;
+	end = ft_strlen(s1);
+	while (end > start && find_char_in_set(s1[end - 1], set))
+		end--;
+	str = (char *) malloc(sizeof(*s1) * (end - start + 1));
+	if (!str)
 		return (NULL);
-	if (!set)
-		return ((char *) s1);
-	if (s1[0] == '\0')
-		return (free(s1), ft_strdup(""));
-	start = calculate_start(s1, set);
-	end = calculate_end(s1, set);
-	if (start > end)
-		return (free(s1), ft_strdup(""));
-	while (size_indexer < ft_strlen(s1))
-	{
-		if (size_indexer >= start && size_indexer <= end)
-			true_len++;
-		size_indexer++;
-	}
-	return (get_trimmed_str(start, true_len, (char *) s1));
+	i = 0;
+	while (start < end)
+		str[i++] = s1[start++];
+	str[i] = '\0';
+	return (str);
 }
