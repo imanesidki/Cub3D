@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:45 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 15:33:44 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 18:28:00 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_variables(t_config *config)
 	config->no_texture = NULL;
 	config->colors = NULL;
 	config->map_start = 0;
+	config->found_attrs = 0;
 	config->player.angle = M_PI_2;
 	config->longest_map_line = 0;
 	config->map = NULL;
@@ -50,9 +51,9 @@ int	main(int argc, char **argv)
 {
 	t_config	*config;
 
-	config = malloc(sizeof(t_config));
 	if (argc != 2)
-		ft_exit(config, 0);
+		return (printf("Error\nMap path was not specified\n"), 1);
+	config = malloc(sizeof(t_config));
 	if (!config)
 		ft_exit(config, 5);
 	init_variables(config);
