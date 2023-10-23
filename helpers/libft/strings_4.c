@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:19:39 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/15 18:40:01 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 21:34:07 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ static int	process_result(char *str, int sign, int position)
 
 bool	is_space(char c)
 {
-	if (c)
-		return (c == 32 || (c >= 9 && c <= 13));
-	return (false);
+	return (c == 32 || (c >= 9 && c <= 13));
 }
 
 static int	has_sign(char str)
