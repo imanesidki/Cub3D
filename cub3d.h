@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/22 22:40:37 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/23 18:52:02 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 # define TILE_SIZE 32
 # define HEIGHT 720
 # define WIDTH 1080
-# define ROTATION_SPEED 2
-# define PLAYER_SPEED 3
+# define ROTATION_SPEED 6
+# define PLAYER_SPEED 6
 # define PLAYER_SIZE 7
 
 // ---> START STRUCTURE
