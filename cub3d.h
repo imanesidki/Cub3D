@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 17:19:50 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/23 22:24:03 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/24 15:36:21 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@
 # define TILE_SIZE 32
 # define HEIGHT 720
 # define WIDTH 1080
-# define ROTATION_SPEED 6
-# define PLAYER_SPEED 6
-# define PLAYER_SIZE 7
+# define ROTATION_SPEED 4
+# define PLAYER_SPEED 4
 
 // ---> START STRUCTURE
 typedef struct s_map_data
