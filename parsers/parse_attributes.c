@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 14:08:11 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/23 22:36:14 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/25 21:13:27 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ void	set_textures_data(t_config *config)
 		|| !config->ea_texture || !config->we_texture)
 		ft_exit(config, 3);
 	config->textures = malloc(sizeof(char *) * 5);
+	if (!config->textures)
+		ft_exit(config, 5);
 	config->textures[0] = ft_strdup(config->no_texture);
 	config->textures[1] = ft_strdup(config->so_texture);
 	config->textures[2] = ft_strdup(config->ea_texture);

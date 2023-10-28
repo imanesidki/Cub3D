@@ -6,7 +6,7 @@
 /*   By: isalama <isalama@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/21 16:36:21 by isalama           #+#    #+#             */
-/*   Updated: 2023/10/21 16:39:21 by isalama          ###   ########.fr       */
+/*   Updated: 2023/10/25 16:18:42 by isalama          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,12 @@ void	init_map_filler(t_config *config)
 		config->map[i][j] = '\0';
 		i++;
 	}
+	i = 0;
+	while(config->map[i])
+	{
+		printf("%s\n", config->map[i]);
+		i++;
+	}
 	fill_map_spaces(config, &j);
 }
 
@@ -110,8 +116,8 @@ void	check_surroundings(t_config *config)
 		while (config->map[i][j])
 		{
 			if (config->map[i][j] == '0' || config->map[i][j] == 'N' ||
-				config->map[i][j] == 'S'
-				|| config->map[i][j] == 'E' || config->map[i][j] == 'W')
+				config->map[i][j] == 'S' || config->map[i][j] == 'E' ||
+				config->map[i][j] == 'W')
 				invalid_surroundings_error(config, i, j);
 			j++;
 		}
