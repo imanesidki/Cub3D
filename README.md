@@ -1,5 +1,5 @@
 # Cub3D
-Fake 3D game inspired by Wolfenstein3D, the game is not complete due to lack of time. This project is part of 1337 (42 Network) common core cursus.
+Fake 3D game inspired by Wolfenstein3D using raycasting. This project is part of 1337 (42 Network) common core cursus.
 
 ## Building the game
 You simply need a C compiler available on your machine to compile the source code.
